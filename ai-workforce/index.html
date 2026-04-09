@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Workforce Solutions — Microsoft Copilot Platform</title>
+<meta name="description" content="Copilot Chat, M365 Copilot e Copilot Studio: a plataforma completa de IA para produtividade enterprise. Guia interativo por Wilson Hsie — Microsoft Brasil.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 23 23'%3E%3Crect x='1' y='1' width='10' height='10' fill='%23F25022'/%3E%3Crect x='12' y='1' width='10' height='10' fill='%237FBA00'/%3E%3Crect x='1' y='12' width='10' height='10' fill='%2300A4EF'/%3E%3Crect x='12' y='12' width='10' height='10' fill='%23FFB900'/%3E%3C/svg%3E" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#0078d4;--dark-blue:#003d6b;--light-blue:#deecf9;--cyan:#00bcf2;
+  --purple:#5c2d91;--green:#107c10;--yellow:#ffb900;--red:#d13438;--orange:#ff8c00;
+  --gray-50:#fafbfc;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;
+  --gray-600:#4b5563;--gray-800:#1f2937;--gray-900:#111827;
+  --chat-color:#0078d4;--m365-color:#5c2d91;--studio-color:#107c10;
+}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--gray-50);color:var(--gray-900);-webkit-font-smoothing:antialiased;line-height:1.6}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes blob1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-50px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.9)}}
+@keyframes blob2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,30px) scale(.9)}66%{transform:translate(20px,-20px) scale(1.1)}}
+
+.animate-in{animation:fadeIn .6s ease-out both}
+.animate-slide{animation:slideUp .7s ease-out both}
+.delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(255,255,255,.88);border-bottom:1px solid rgba(0,0,0,.06);transition:all .3s}
+.nav.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.nav-inner{max-width:1340px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{font-weight:800;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:8px}
+.nav-brand svg{width:20px;height:20px}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all .2s;border:none;background:none;font-family:inherit}
+.nav-link:hover,.nav-link.active{background:var(--light-blue);color:var(--blue)}
+.lang-btn{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:2px solid var(--gray-200);background:#fff;font-family:inherit;transition:all .2s}
+.lang-btn.active{border-color:var(--blue);background:var(--light-blue);color:var(--blue)}
+
+.hero{background:linear-gradient(135deg,#1a1a3e 0%,#2d1b69 30%,#4f46e5 60%,#7c3aed 100%);position:relative;overflow:hidden;padding:120px 0 80px;color:#fff}
+.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:800px;height:800px;background:radial-gradient(circle,rgba(139,92,246,.2),transparent 70%);animation:blob1 20s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);animation:blob2 18s ease-in-out infinite}
+.hero-inner{max-width:1340px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);padding:8px 20px;border-radius:100px;font-size:12px;font-weight:600;margin-bottom:24px;border:1px solid rgba(255,255,255,.15)}
+.hero-title{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:16px;max-width:900px}
+.hero-sub{font-size:18px;opacity:.85;max-width:700px;line-height:1.7;margin-bottom:40px}
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:800px}
+.hero-metric{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.hero-metric-value{font-size:32px;font-weight:900;margin-bottom:4px}
+.hero-metric-label{font-size:12px;opacity:.7;font-weight:600}
+
+.section{padding:80px 0}.section-inner{max-width:1340px;margin:0 auto;padding:0 24px}
+.section-title{font-size:32px;font-weight:900;margin-bottom:8px}.section-sub{font-size:15px;color:var(--gray-600);margin-bottom:32px;line-height:1.7;max-width:700px}
+.section-alt{background:#fff}
+
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:16px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.card:hover{box-shadow:0 20px 60px rgba(0,0,0,.08);transform:translateY(-4px)}
+.solution-card{padding:36px;position:relative;overflow:hidden}
+.solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.solution-card.chat::before{background:var(--chat-color)}
+.solution-card.m365::before{background:var(--m365-color)}
+.solution-card.studio::before{background:var(--studio-color)}
+.solution-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
+.solution-icon.chat{background:#e7f3ff;color:var(--chat-color)}
+.solution-icon.m365{background:#f3e8ff;color:var(--m365-color)}
+.solution-icon.studio{background:#e7f5e7;color:var(--studio-color)}
+.solution-name{font-size:22px;font-weight:800;margin-bottom:4px}
+.solution-tagline{font-size:13px;color:var(--gray-400);font-weight:600;margin-bottom:16px}
+.solution-desc{font-size:14px;color:var(--gray-600);margin-bottom:20px;line-height:1.7}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap}
+.pill-blue{background:#e7f3ff;color:var(--chat-color)}.pill-purple{background:#f3e8ff;color:var(--m365-color)}.pill-green{background:#e7f5e7;color:var(--studio-color)}.pill-yellow{background:#fff8e1;color:#b8860b}.pill-gray{background:var(--gray-100);color:var(--gray-600)}
+
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.feature-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray-800)}
+.feature-check{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.feature-check.chat{background:#e7f3ff;color:var(--chat-color)}.feature-check.m365{background:#f3e8ff;color:var(--m365-color)}.feature-check.studio{background:#e7f5e7;color:var(--studio-color)}
+
+.journey{display:flex;align-items:center;gap:0;justify-content:center;flex-wrap:wrap}
+.journey-step{background:#fff;border:2px solid var(--gray-200);border-radius:14px;padding:24px 32px;text-align:center;min-width:240px;transition:all .3s;cursor:pointer}
+.journey-step:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.journey-step.active-chat{border-color:var(--chat-color);box-shadow:0 8px 30px rgba(0,120,212,.15)}
+.journey-step.active-m365{border-color:var(--m365-color);box-shadow:0 8px 30px rgba(92,45,145,.15)}
+.journey-step.active-studio{border-color:var(--studio-color);box-shadow:0 8px 30px rgba(16,124,16,.15)}
+.journey-arrow{font-size:28px;color:var(--gray-400);padding:0 8px;font-weight:900}
+.journey-step-icon{font-size:36px;margin-bottom:8px}
+.journey-step-title{font-size:16px;font-weight:800;margin-bottom:4px}
+.journey-step-sub{font-size:12px;color:var(--gray-400);font-weight:500}
+
+.tabs{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap}
+.tab{padding:10px 20px;border:2px solid var(--gray-200);background:#fff;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s}
+.tab.active{border-color:var(--blue);background:var(--light-blue);color:var(--blue)}.tab:hover{border-color:var(--blue)}
+
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.metric-card{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:24px;text-align:center;transition:all .3s}
+.metric-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.06);transform:translateY(-2px)}
+.metric-value{font-size:36px;font-weight:900;line-height:1}.metric-label{font-size:12px;color:var(--gray-600);margin-top:8px;font-weight:600}.metric-source{font-size:10px;color:var(--gray-400);margin-top:4px}
+
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ba-card{border-radius:14px;padding:28px}.ba-before{background:linear-gradient(135deg,#fef2f2,#fff);border:1px solid #fecaca}.ba-after{background:linear-gradient(135deg,#f0fdf4,#fff);border:1px solid #bbf7d0}
+.ba-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}.ba-before .ba-label{color:var(--red)}.ba-after .ba-label{color:var(--green)}
+.ba-items{display:flex;flex-direction:column;gap:12px}
+.ba-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.7)}
+.ba-item-label{font-weight:600}.ba-item-value{font-weight:800;font-size:15px}
+
+.lic-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--gray-200)}
+.lic-table th{background:var(--gray-900);color:#fff;padding:14px 20px;font-size:12px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.5px}
+.lic-table td{padding:14px 20px;font-size:13px;border-bottom:1px solid var(--gray-100)}.lic-table tr:last-child td{border-bottom:none}.lic-table tr:hover td{background:var(--gray-50)}
+
+.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.uc-card{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:24px;transition:all .3s}
+.uc-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.06);transform:translateY(-2px)}
+.uc-icon{font-size:32px;margin-bottom:12px}.uc-title{font-size:15px;font-weight:800;margin-bottom:8px}.uc-desc{font-size:13px;color:var(--gray-600);line-height:1.6}
+
+.footer{background:var(--gray-900);color:#fff;padding:48px 0;text-align:center}
+.footer-inner{max-width:1340px;margin:0 auto;padding:0 24px}
+.footer-name{font-size:18px;font-weight:800;margin-bottom:4px}.footer-role{font-size:13px;opacity:.6;margin-bottom:16px}
+.footer-disclaimer{font-size:11px;opacity:.4;max-width:600px;margin:0 auto;line-height:1.6}
+
+.detail-panel{background:#fff;border:1px solid var(--gray-200);border-radius:16px;padding:36px;margin-top:32px;animation:fadeIn .4s ease-out}
+.solutions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+
+@media(max-width:1024px){.hero-metrics,.metrics-grid{grid-template-columns:repeat(2,1fr)}.uc-grid{grid-template-columns:1fr 1fr}.ba-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.hero-title{font-size:28px!important}.hero-metrics,.metrics-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.uc-grid{grid-template-columns:1fr}.journey{flex-direction:column}.journey-arrow{transform:rotate(90deg)}.solutions-grid{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+<div class="nav-inner">
+  <div class="nav-brand"><svg viewBox="0 0 23 23"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>AI Workforce Solutions</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="scrollTo('hero')">Home</button>
+    <button class="nav-link" onclick="scrollTo('solutions')">Soluções</button>
+    <button class="nav-link" onclick="scrollTo('journey')">Jornada</button>
+    <button class="nav-link" onclick="scrollTo('usecases')">Use Cases</button>
+    <button class="nav-link" onclick="scrollTo('metrics')">Métricas</button>
+    <button class="nav-link" onclick="scrollTo('ba')">Antes/Depois</button>
+    <button class="nav-link" onclick="scrollTo('licensing')">Licenciamento</button>
+    <button class="nav-link" onclick="scrollTo('compete')">Competitivo</button>
+  </div>
+  <div style="display:flex;gap:4px">
+    <button class="lang-btn active" onclick="setLang('pt')" id="btn-pt">PT</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</div>
+</nav>
+
+<section class="hero" id="hero">
+<div class="hero-inner">
+  <div class="hero-badge animate-in">🤖 AI Workforce — Copilot Platform Deep Dive</div>
+  <h1 class="hero-title animate-in delay-1" id="t-heroTitle">A Plataforma Completa de IA para Produtividade Enterprise</h1>
+  <p class="hero-sub animate-in delay-2" id="t-heroSub">Do Copilot Chat gratuito ao M365 Copilot integrado e Copilot Studio para agentes customizados — três camadas que transformam como sua organização trabalha.</p>
+  <div class="hero-metrics animate-in delay-3">
+    <div class="hero-metric"><div class="hero-metric-value">3</div><div class="hero-metric-label">Soluções Copilot</div></div>
+    <div class="hero-metric"><div class="hero-metric-value">77%</div><div class="hero-metric-label">Não querem perder o Copilot</div></div>
+    <div class="hero-metric"><div class="hero-metric-value">7h</div><div class="hero-metric-label">Economia semanal / usuário</div></div>
+    <div class="hero-metric"><div class="hero-metric-value">3.7x</div><div class="hero-metric-label">ROI médio em 3 anos</div></div>
+  </div>
+</div>
+</section>
+
+<section class="section section-alt" id="solutions">
+<div class="section-inner">
+  <h2 class="section-title animate-slide" id="t-solTitle">Três Soluções, Uma Plataforma</h2>
+  <p class="section-sub animate-slide delay-1" id="t-solSub">Cada solução atende um nível de maturidade e necessidade. Juntas, formam a plataforma de IA mais completa do mercado.</p>
+  <div class="solutions-grid">
+    <div class="card solution-card chat animate-slide delay-1">
+      <div class="solution-icon chat">💬</div>
+      <div style="display:flex;gap:6px;margin-bottom:12px"><span class="pill pill-blue">Gratuito</span><span class="pill pill-gray">Web + Mobile</span></div>
+      <div class="solution-name">Copilot Chat</div>
+      <div class="solution-tagline">O ponto de entrada — IA para todos</div>
+      <div class="solution-desc">Assistente de IA gratuito no Microsoft 365. Chat com GPT-4, geração de conteúdo, resumos e respostas rápidas. Incluso em todos os planos M365/O365.</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-check chat">✓</span>Chat com GPT-4 no Teams, Outlook e Web</li>
+        <li class="feature-item"><span class="feature-check chat">✓</span>Geração de texto, resumos e brainstorming</li>
+        <li class="feature-item"><span class="feature-check chat">✓</span>Busca na web com citações</li>
+        <li class="feature-item"><span class="feature-check chat">✓</span>Criação de imagens com DALL-E</li>
+        <li class="feature-item"><span class="feature-check chat">✓</span>Proteção de dados corporativos (DLP)</li>
+      </ul>
+    </div>
+    <div class="card solution-card m365 animate-slide delay-2">
+      <div class="solution-icon m365">🚀</div>
+      <div style="display:flex;gap:6px;margin-bottom:12px"><span class="pill pill-purple">Premium</span><span class="pill pill-yellow">$30/user/mês</span></div>
+      <div class="solution-name">Microsoft 365 Copilot</div>
+      <div class="solution-tagline">IA integrada nos apps que você já usa</div>
+      <div class="solution-desc">O Copilot completo em Word, Excel, PowerPoint, Outlook, Teams e mais. Acessa dados da organização via Microsoft Graph para respostas contextuais.</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-check m365">✓</span>Copilot em Word, Excel, PPT, Outlook, Teams</li>
+        <li class="feature-item"><span class="feature-check m365">✓</span>Acesso a dados organizacionais (Graph)</li>
+        <li class="feature-item"><span class="feature-check m365">✓</span>Resumo de reuniões e transcrição</li>
+        <li class="feature-item"><span class="feature-check m365">✓</span>Análise de dados em Excel com linguagem natural</li>
+        <li class="feature-item"><span class="feature-check m365">✓</span>Apresentações a partir de documentos</li>
+        <li class="feature-item"><span class="feature-check m365">✓</span>Copilot Pages para colaboração</li>
+      </ul>
+    </div>
+    <div class="card solution-card studio animate-slide delay-3">
+      <div class="solution-icon studio">🏗️</div>
+      <div style="display:flex;gap:6px;margin-bottom:12px"><span class="pill pill-green">Plataforma</span><span class="pill pill-gray">Pay-as-you-go</span></div>
+      <div class="solution-name">Copilot Studio</div>
+      <div class="solution-tagline">Construa agentes de IA customizados</div>
+      <div class="solution-desc">Plataforma low-code para agentes de IA personalizados. Conecte a bases de conhecimento, sistemas internos e APIs. Publique no Teams, sites ou apps.</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-check studio">✓</span>Criação visual de agentes (low-code)</li>
+        <li class="feature-item"><span class="feature-check studio">✓</span>Conectores a SAP, ServiceNow, Salesforce</li>
+        <li class="feature-item"><span class="feature-check studio">✓</span>Knowledge bases com SharePoint e Dataverse</li>
+        <li class="feature-item"><span class="feature-check studio">✓</span>Publicação multicanal (Teams, Web, WhatsApp)</li>
+        <li class="feature-item"><span class="feature-check studio">✓</span>Análises e métricas de uso</li>
+        <li class="feature-item"><span class="feature-check studio">✓</span>Governança e compliance integrados</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section" id="journey">
+<div class="section-inner">
+  <h2 class="section-title">Jornada de Adoção — Do Chat aos Agentes</h2>
+  <p class="section-sub">Uma jornada progressiva: comece com o gratuito, prove valor, expanda para toda a organização, e automatize com agentes.</p>
+  <div class="journey" style="margin-bottom:48px">
+    <div class="journey-step active-chat" id="j-chat" onclick="selectJourney('chat')"><div class="journey-step-icon">💬</div><div class="journey-step-title">Copilot Chat</div><div class="journey-step-sub">Experimentar • Gratuito</div></div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step" id="j-m365" onclick="selectJourney('m365')"><div class="journey-step-icon">🚀</div><div class="journey-step-title">M365 Copilot</div><div class="journey-step-sub">Escalar • Premium</div></div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step" id="j-studio" onclick="selectJourney('studio')"><div class="journey-step-icon">🏗️</div><div class="journey-step-title">Copilot Studio</div><div class="journey-step-sub">Automatizar • Agentes</div></div>
+  </div>
+  <div id="journey-detail" class="detail-panel"><div id="journey-content"></div></div>
+</div>
+</section>
+
+<section class="section section-alt" id="usecases">
+<div class="section-inner">
+  <h2 class="section-title">Use Cases por Área de Negócio</h2>
+  <p class="section-sub">Cenários reais de produtividade para cada perfil profissional na organização.</p>
+  <div class="tabs" id="uc-tabs">
+    <button class="tab active" onclick="setUcTab('all',this)">Todos</button>
+    <button class="tab" onclick="setUcTab('exec',this)">Executivos</button>
+    <button class="tab" onclick="setUcTab('sales',this)">Vendas</button>
+    <button class="tab" onclick="setUcTab('hr',this)">RH</button>
+    <button class="tab" onclick="setUcTab('finance',this)">Finanças</button>
+    <button class="tab" onclick="setUcTab('marketing',this)">Marketing</button>
+    <button class="tab" onclick="setUcTab('legal',this)">Jurídico</button>
+    <button class="tab" onclick="setUcTab('ops',this)">Operações</button>
+  </div>
+  <div class="uc-grid" id="uc-grid"></div>
+</div>
+</section>
+
+<section class="section" id="metrics">
+<div class="section-inner">
+  <h2 class="section-title">Impacto Mensurável — Dados de Pesquisa</h2>
+  <p class="section-sub">Métricas verificadas de produtividade com fontes oficiais Microsoft e parceiros de pesquisa.</p>
+  <div class="metrics-grid" style="margin-bottom:20px">
+    <div class="metric-card"><div class="metric-value" style="color:var(--blue)">70%</div><div class="metric-label">Usuários mais produtivos</div><div class="metric-source">Microsoft Work Trend Index 2024</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--purple)">85%</div><div class="metric-label">Melhor qualidade no 1° draft</div><div class="metric-source">Microsoft Work Trend Index 2024</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--green)">4x</div><div class="metric-label">Mais rápido ao buscar info</div><div class="metric-source">Forrester TEI Study 2024</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--orange)">30%</div><div class="metric-label">Redução em tempo de reuniões</div><div class="metric-source">Microsoft Internal Data 2024</div></div>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-value" style="color:var(--red)">77%</div><div class="metric-label">Não abririam mão do Copilot</div><div class="metric-source">Work Trend Index 2024</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--blue)">29%</div><div class="metric-label">Mais rápido em buscas no email</div><div class="metric-source">Forrester TEI 2024</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--green)">$14.7M</div><div class="metric-label">Benefício em 3 anos (10k users)</div><div class="metric-source">Forrester TEI Study 2024</div></div>
+    <div class="metric-card"><div class="metric-value" style="color:var(--purple)">346%</div><div class="metric-label">ROI em 3 anos</div><div class="metric-source">Forrester TEI Study 2024</div></div>
+  </div>
+</div>
+</section>
+
+<section class="section section-alt" id="ba">
+<div class="section-inner">
+  <h2 class="section-title">Antes vs. Depois — Cenários Reais</h2>
+  <p class="section-sub">Comparação quantitativa de tarefas comuns com e sem M365 Copilot.</p>
+  <div class="ba-grid">
+    <div class="ba-card ba-before">
+      <div class="ba-label">❌ SEM COPILOT</div>
+      <div class="ba-items">
+        <div class="ba-item"><span class="ba-item-label">Preparar reunião</span><span class="ba-item-value" style="color:var(--red)">45 min</span></div>
+        <div class="ba-item"><span class="ba-item-label">Escrever proposta comercial</span><span class="ba-item-value" style="color:var(--red)">3 horas</span></div>
+        <div class="ba-item"><span class="ba-item-label">Resumir thread de email</span><span class="ba-item-value" style="color:var(--red)">20 min</span></div>
+        <div class="ba-item"><span class="ba-item-label">Criar apresentação</span><span class="ba-item-value" style="color:var(--red)">2 horas</span></div>
+        <div class="ba-item"><span class="ba-item-label">Analisar dados em planilha</span><span class="ba-item-value" style="color:var(--red)">1 hora</span></div>
+        <div class="ba-item"><span class="ba-item-label">Catch-up pós-férias</span><span class="ba-item-value" style="color:var(--red)">4 horas</span></div>
+        <div class="ba-item" style="background:rgba(209,52,56,.1)"><span class="ba-item-label" style="font-weight:800">Total</span><span class="ba-item-value" style="color:var(--red);font-size:18px">11h 5min</span></div>
+      </div>
+    </div>
+    <div class="ba-card ba-after">
+      <div class="ba-label">✅ COM M365 COPILOT</div>
+      <div class="ba-items">
+        <div class="ba-item"><span class="ba-item-label">Preparar reunião</span><span class="ba-item-value" style="color:var(--green)">10 min</span></div>
+        <div class="ba-item"><span class="ba-item-label">Escrever proposta comercial</span><span class="ba-item-value" style="color:var(--green)">45 min</span></div>
+        <div class="ba-item"><span class="ba-item-label">Resumir thread de email</span><span class="ba-item-value" style="color:var(--green)">30 seg</span></div>
+        <div class="ba-item"><span class="ba-item-label">Criar apresentação</span><span class="ba-item-value" style="color:var(--green)">20 min</span></div>
+        <div class="ba-item"><span class="ba-item-label">Analisar dados em planilha</span><span class="ba-item-value" style="color:var(--green)">5 min</span></div>
+        <div class="ba-item"><span class="ba-item-label">Catch-up pós-férias</span><span class="ba-item-value" style="color:var(--green)">30 min</span></div>
+        <div class="ba-item" style="background:rgba(16,124,16,.1)"><span class="ba-item-label" style="font-weight:800">Total</span><span class="ba-item-value" style="color:var(--green);font-size:18px">1h 50min</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <div style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#f0fdf4,#e7f5e7);padding:16px 32px;border-radius:12px;border:1px solid #bbf7d0">
+      <span style="font-size:32px">⚡</span>
+      <div style="text-align:left"><div style="font-size:24px;font-weight:900;color:var(--green)">83% de redução de tempo</div><div style="font-size:13px;color:var(--gray-600)">De 11h para menos de 2h nas mesmas tarefas</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section" id="licensing">
+<div class="section-inner">
+  <h2 class="section-title">Licenciamento & SKUs</h2>
+  <p class="section-sub">Pré-requisitos e modelos de licenciamento para cada solução Copilot.</p>
+  <table class="lic-table">
+    <thead><tr><th>Solução</th><th>Pré-requisito</th><th>Preço</th><th>Modelo</th><th>Inclui</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--chat-color)">💬 Copilot Chat</strong></td><td>Qualquer plano M365 / O365</td><td style="color:var(--green);font-weight:800">Gratuito</td><td>Incluso</td><td>Chat IA, web search, geração de conteúdo básico</td></tr>
+      <tr><td><strong style="color:var(--m365-color)">🚀 M365 Copilot</strong></td><td>M365 E3/E5, Business Std/Premium</td><td style="font-weight:800">$30/user/mês</td><td>Per-user add-on</td><td>Copilot em todos os apps M365 + Graph grounding</td></tr>
+      <tr><td><strong style="color:var(--studio-color)">🏗️ Copilot Studio</strong></td><td>M365 Copilot (para agents no M365)</td><td style="font-weight:800">$200/tenant/mês</td><td>Capacity-based</td><td>25K mensagens/mês + agentes customizados</td></tr>
+      <tr><td><strong style="color:var(--orange)">⭐ Microsoft 365 E5</strong></td><td>—</td><td style="font-weight:800">$57/user/mês</td><td>Suite completa</td><td>Security + Compliance + Analytics + Telefonia</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:24px;padding:20px;background:var(--light-blue);border-radius:12px;border:1px solid rgba(0,120,212,.15)">
+    <div style="font-weight:800;font-size:14px;color:var(--blue);margin-bottom:8px">💡 Estratégia de Suítes: O → M</div>
+    <div style="font-size:13px;color:var(--gray-600);line-height:1.7">A migração de suítes Office (O) para Microsoft 365 (M) desbloqueia Security, Compliance e Copilot. Clientes com OE3 devem migrar para ME3/ME5 para obter o máximo valor da plataforma. O E5 wall-to-wall oferece a melhor condição comercial e habilita todos os workloads.</div>
+  </div>
+</div>
+</section>
+
+<section class="section section-alt" id="compete">
+<div class="section-inner">
+  <h2 class="section-title">Análise Competitiva</h2>
+  <p class="section-sub">Como o Microsoft Copilot se compara às alternativas de mercado.</p>
+  <table class="lic-table">
+    <thead><tr><th>Capacidade</th><th style="background:var(--blue)">Microsoft Copilot</th><th>Google Gemini</th><th>ChatGPT Enterprise</th></tr></thead>
+    <tbody>
+      <tr><td><strong>IA integrada nos apps</strong></td><td style="color:var(--green);font-weight:800">✅ Nativo em Word, Excel, PPT, Outlook, Teams</td><td>⚠️ Parcial em Docs, Sheets, Slides</td><td>❌ App separado</td></tr>
+      <tr><td><strong>Dados organizacionais</strong></td><td style="color:var(--green);font-weight:800">✅ Microsoft Graph</td><td>⚠️ Google Workspace data</td><td>❌ Apenas dados uploaded</td></tr>
+      <tr><td><strong>Agentes customizados</strong></td><td style="color:var(--green);font-weight:800">✅ Copilot Studio (low-code)</td><td>⚠️ Vertex AI Agent Builder</td><td>⚠️ Custom GPTs (limitado)</td></tr>
+      <tr><td><strong>Segurança & Compliance</strong></td><td style="color:var(--green);font-weight:800">✅ DLP, Purview, eDiscovery</td><td>⚠️ Básico</td><td>⚠️ SOC2 + SSO</td></tr>
+      <tr><td><strong>Resumo de reuniões</strong></td><td style="color:var(--green);font-weight:800">✅ Teams nativo</td><td>⚠️ Google Meet (básico)</td><td>❌ Não disponível</td></tr>
+      <tr><td><strong>Stack de segurança</strong></td><td style="color:var(--green);font-weight:800">✅ Defender, Intune, Entra ID</td><td>❌ Stack separada</td><td>❌ N/A</td></tr>
+      <tr><td><strong>Automação</strong></td><td style="color:var(--green);font-weight:800">✅ Power Platform + Studio</td><td>⚠️ AppSheet</td><td>❌ N/A</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-name">Wilson Hsie</div>
+  <div class="footer-role">Digital Solution Area Specialist — AI Workforce | Microsoft Brasil</div>
+  <div class="footer-disclaimer" style="margin-top:24px">
+    Dados: Microsoft Work Trend Index 2024, Forrester TEI Study 2024, documentação oficial Microsoft.<br>
+    Conteúdo informativo — não constitui oferta comercial. Preços sujeitos a alteração.<br><br>
+    <span style="opacity:.6">Gerado com ❤️ e GitHub Copilot CLI</span>
+  </div>
+</div>
+</footer>
+
+<script>
+const useCases=[
+  {icon:'📧',title:'Email Inteligente',desc:'Resumir threads longos, redigir respostas e priorizar inbox automaticamente.',product:'m365',cat:'exec'},
+  {icon:'📊',title:'Análise de Dados',desc:'Perguntar em linguagem natural sobre planilhas: "qual produto teve maior crescimento no Q3?"',product:'m365',cat:'finance'},
+  {icon:'📝',title:'Geração de Documentos',desc:'Criar propostas, contratos e relatórios a partir de instruções em linguagem natural.',product:'m365',cat:'sales'},
+  {icon:'🎯',title:'Preparação de Reuniões',desc:'Copilot resume emails, documentos e chats anteriores para você chegar preparado.',product:'m365',cat:'exec'},
+  {icon:'🎬',title:'Apresentações Instantâneas',desc:'Criar decks no PowerPoint a partir de um documento Word ou prompt de texto.',product:'m365',cat:'marketing'},
+  {icon:'📋',title:'Atas Automáticas',desc:'Resumo de reuniões no Teams com action items, decisões e owners atribuídos.',product:'m365',cat:'exec'},
+  {icon:'🤖',title:'Agente de RH',desc:'Bot para responder dúvidas de colaboradores sobre políticas, benefícios e férias.',product:'studio',cat:'hr'},
+  {icon:'💼',title:'Agente de Vendas',desc:'Agente que consulta CRM, gera propostas e responde dúvidas sobre produtos.',product:'studio',cat:'sales'},
+  {icon:'⚖️',title:'Revisão de Contratos',desc:'Copilot analisa contratos, identifica cláusulas de risco e sugere alterações.',product:'m365',cat:'legal'},
+  {icon:'📈',title:'Forecast Financeiro',desc:'Análise preditiva em Excel com linguagem natural: "projete receita para os próximos 6 meses".',product:'m365',cat:'finance'},
+  {icon:'🔍',title:'Pesquisa com IA',desc:'Chat com GPT-4 para pesquisa, brainstorming e ideação — gratuito para toda a organização.',product:'chat',cat:'exec'},
+  {icon:'🏭',title:'Agente de Operações',desc:'Bot que monitora KPIs, alerta sobre anomalias e sugere ações corretivas.',product:'studio',cat:'ops'},
+  {icon:'📢',title:'Conteúdo de Marketing',desc:'Criar campanhas, social posts, newsletters e copy com tom de voz personalizado.',product:'m365',cat:'marketing'},
+  {icon:'👥',title:'Onboarding Inteligente',desc:'Agente que guia novos colaboradores pelo processo de integração 24/7.',product:'studio',cat:'hr'},
+  {icon:'🔧',title:'Suporte Interno',desc:'Agente de help desk que resolve tickets de TI consultando base de conhecimento.',product:'studio',cat:'ops'},
+];
+let curTab='all';
+function renderUC(){
+  const g=document.getElementById('uc-grid');
+  const f=curTab==='all'?useCases:useCases.filter(u=>u.cat===curTab);
+  g.innerHTML=f.map(u=>`<div class="uc-card"><div class="uc-icon">${u.icon}</div><div class="uc-title">${u.title}</div><div class="uc-desc">${u.desc}</div><div style="margin-top:12px"><span class="pill ${u.product==='chat'?'pill-blue':u.product==='m365'?'pill-purple':'pill-green'}">${u.product==='chat'?'💬 Copilot Chat':u.product==='m365'?'🚀 M365 Copilot':'🏗️ Copilot Studio'}</span></div></div>`).join('');
+}
+function setUcTab(t,el){curTab=t;document.querySelectorAll('#uc-tabs .tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderUC()}
+
+const jData={
+  chat:{title:'💬 Fase 1: Copilot Chat — Experimentar',items:[{l:'Objetivo',v:'Criar familiaridade com IA no ambiente de trabalho'},{l:'Ação',v:'Ativar Copilot Chat para toda a organização (gratuito)'},{l:'Duração',v:'1-2 meses'},{l:'KPIs',v:'# de usuários ativos, # de prompts/semana'},{l:'Resultado',v:'Engajamento orgânico e identificação de champions'}],tip:'💡 Use o Copilot Chat como "land" gratuito. Uma vez que os usuários experimentam IA, 77% não querem mais trabalhar sem.'},
+  m365:{title:'🚀 Fase 2: M365 Copilot — Escalar',items:[{l:'Objetivo',v:'Integrar IA nos workflows diários de toda a organização'},{l:'Ação',v:'Licenciar M365 Copilot para knowledge workers (começar com champions)'},{l:'Duração',v:'3-6 meses de ramp'},{l:'KPIs',v:'MAU%, horas economizadas/semana, NPS do Copilot'},{l:'Resultado',v:'7h/semana de economia por usuário, ROI 3.7x em 3 anos'}],tip:'💡 Comece com 5-10% dos usuários (champions), meça resultados, e use os dados para justificar a expansão wall-to-wall.'},
+  studio:{title:'🏗️ Fase 3: Copilot Studio — Automatizar',items:[{l:'Objetivo',v:'Criar agentes de IA customizados para processos de negócio'},{l:'Ação',v:'Identificar top 3 processos repetitivos e construir agentes'},{l:'Duração',v:'2-4 semanas por agente'},{l:'KPIs',v:'# tickets resolvidos por agente, CSAT, custo/interação'},{l:'Resultado',v:'Automação de 40-60% das interações repetitivas'}],tip:'💡 Melhores candidatos para agentes: FAQ de RH, suporte de TI, consulta de pedidos, onboarding de funcionários.'}
+};
+function selectJourney(s){
+  document.querySelectorAll('.journey-step').forEach(x=>x.className='journey-step');
+  document.getElementById('j-'+s).classList.add('active-'+s);
+  const d=jData[s];
+  document.getElementById('journey-content').innerHTML=`<h3 style="font-size:20px;font-weight:800;margin-bottom:20px">${d.title}</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">${d.items.map(i=>`<div style="padding:14px 18px;background:var(--gray-50);border-radius:10px;border:1px solid var(--gray-200)"><div style="font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;margin-bottom:4px">${i.l}</div><div style="font-size:14px;font-weight:600;color:var(--gray-800)">${i.v}</div></div>`).join('')}</div><div style="padding:16px;background:#fff8e1;border-radius:10px;border:1px solid #fde68a;font-size:13px;color:#92400e">${d.tip}</div>`;
+}
+
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
+
+function setLang(l){
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+l).classList.add('active');
+}
+
+renderUC();selectJourney('chat');
+</script>
+</body>
+</html>
