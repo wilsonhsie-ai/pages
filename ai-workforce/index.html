@@ -1,410 +1,1563 @@
 <!DOCTYPE html>
-<html lang="pt-BR" id="html-root">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Workforce Solutions — Microsoft Copilot Platform</title>
-<meta name="description" content="Copilot Chat, M365 Copilot e Copilot Studio: a plataforma completa de IA para produtividade enterprise. Guia interativo por Wilson Hsie — Microsoft Brasil.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 23 23'%3E%3Crect x='1' y='1' width='10' height='10' fill='%23F25022'/%3E%3Crect x='12' y='1' width='10' height='10' fill='%237FBA00'/%3E%3Crect x='1' y='12' width='10' height='10' fill='%2300A4EF'/%3E%3Crect x='12' y='12' width='10' height='10' fill='%23FFB900'/%3E%3C/svg%3E" type="image/svg+xml">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<title>AI Workforce — Copilot para cada Perfil Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --blue:#0078d4;--dark-blue:#003d6b;--light-blue:#deecf9;--cyan:#00bcf2;
-  --purple:#5c2d91;--green:#107c10;--yellow:#ffb900;--red:#d13438;--orange:#ff8c00;
-  --gray-50:#fafbfc;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;
-  --gray-600:#4b5563;--gray-800:#1f2937;--gray-900:#111827;
-  --chat-color:#0078d4;--m365-color:#5c2d91;--studio-color:#107c10;
-}
-body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--gray-50);color:var(--gray-900);-webkit-font-smoothing:antialiased;line-height:1.6}
+:root{--blue:#0078D4;--purple:#5C2D91;--green:#107C10;--orange:#FF8C00;--red:#D13438;--teal:#008272;--dark:#1a1a2e}
+body{font-family:'Inter',system-ui,sans-serif;background:#fafbfc;color:var(--dark);-webkit-font-smoothing:antialiased}
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,120,212,.15)}50%{box-shadow:0 0 40px rgba(0,120,212,.3)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 @keyframes blob1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-50px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.9)}}
 @keyframes blob2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,30px) scale(.9)}66%{transform:translate(20px,-20px) scale(1.1)}}
-
 .animate-in{animation:fadeIn .6s ease-out both}
-.animate-slide{animation:slideUp .7s ease-out both}
-.delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}
 
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(255,255,255,.88);border-bottom:1px solid rgba(0,0,0,.06);transition:all .3s}
-.nav.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08)}
-.nav-inner{max-width:1340px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
-.nav-brand{font-weight:800;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:8px}
-.nav-brand svg{width:20px;height:20px}
-.nav-links{display:flex;gap:4px}
-.nav-link{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all .2s;border:none;background:none;font-family:inherit}
-.nav-link:hover,.nav-link.active{background:var(--light-blue);color:var(--blue)}
-.lang-btn{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:2px solid var(--gray-200);background:#fff;font-family:inherit;transition:all .2s}
-.lang-btn.active{border-color:var(--blue);background:var(--light-blue);color:var(--blue)}
+.nav-bar{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(255,255,255,.9);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;gap:16px}
+.nav-logo{font-weight:900;font-size:16px;color:var(--blue)}
+.nav-links{display:flex;gap:16px;margin-left:auto;font-size:13px;font-weight:600}
+.nav-links a{color:#6b7280;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
 
-.hero{background:linear-gradient(135deg,#1a1a3e 0%,#2d1b69 30%,#4f46e5 60%,#7c3aed 100%);position:relative;overflow:hidden;padding:120px 0 80px;color:#fff}
-.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:800px;height:800px;background:radial-gradient(circle,rgba(139,92,246,.2),transparent 70%);animation:blob1 20s ease-in-out infinite}
-.hero::after{content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);animation:blob2 18s ease-in-out infinite}
-.hero-inner{max-width:1340px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);padding:8px 20px;border-radius:100px;font-size:12px;font-weight:600;margin-bottom:24px;border:1px solid rgba(255,255,255,.15)}
-.hero-title{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:16px;max-width:900px}
-.hero-sub{font-size:18px;opacity:.85;max-width:700px;line-height:1.7;margin-bottom:40px}
-.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:800px}
-.hero-metric{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:12px;padding:20px;text-align:center;border:1px solid rgba(255,255,255,.1)}
-.hero-metric-value{font-size:32px;font-weight:900;margin-bottom:4px}
-.hero-metric-label{font-size:12px;opacity:.7;font-weight:600}
+.hero-bg{background:linear-gradient(135deg,#001a3a 0%,#0078D4 40%,#40a9ff 100%);position:relative;overflow:hidden;padding:120px 24px 80px;text-align:center;color:#fff}
+.hero-bg::before{content:'';position:absolute;top:-50%;right:-30%;width:800px;height:800px;background:radial-gradient(circle,rgba(92,45,145,.15),transparent 70%);animation:blob1 20s ease-in-out infinite}
+.hero-bg::after{content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,120,212,.12),transparent 70%);animation:blob2 18s ease-in-out infinite}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:8px 20px;font-size:13px;font-weight:600;margin-bottom:24px;position:relative}
+.hero-title{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:16px;position:relative}
+.hero-sub{font-size:18px;opacity:.9;max-width:700px;margin:0 auto 36px;line-height:1.6;position:relative}
+.hero-metrics{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;position:relative}
+.hero-metric{text-align:center}
+.hero-metric-val{font-size:36px;font-weight:900}
+.hero-metric-lbl{font-size:12px;opacity:.8;margin-top:4px}
 
-.section{padding:80px 0}.section-inner{max-width:1340px;margin:0 auto;padding:0 24px}
-.section-title{font-size:32px;font-weight:900;margin-bottom:8px}.section-sub{font-size:15px;color:var(--gray-600);margin-bottom:32px;line-height:1.7;max-width:700px}
-.section-alt{background:#fff}
+.max-w{max-width:1340px;margin:0 auto;padding:0 24px}
 
-.card{background:#fff;border:1px solid var(--gray-200);border-radius:16px;transition:all .3s cubic-bezier(.4,0,.2,1)}
-.card:hover{box-shadow:0 20px 60px rgba(0,0,0,.08);transform:translateY(-4px)}
-.solution-card{padding:36px;position:relative;overflow:hidden}
-.solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
-.solution-card.chat::before{background:var(--chat-color)}
-.solution-card.m365::before{background:var(--m365-color)}
-.solution-card.studio::before{background:var(--studio-color)}
-.solution-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
-.solution-icon.chat{background:#e7f3ff;color:var(--chat-color)}
-.solution-icon.m365{background:#f3e8ff;color:var(--m365-color)}
-.solution-icon.studio{background:#e7f5e7;color:var(--studio-color)}
-.solution-name{font-size:22px;font-weight:800;margin-bottom:4px}
-.solution-tagline{font-size:13px;color:var(--gray-400);font-weight:600;margin-bottom:16px}
-.solution-desc{font-size:14px;color:var(--gray-600);margin-bottom:20px;line-height:1.7}
+.section-header{text-align:center;margin:60px 0 36px}
+.section-title{font-size:28px;font-weight:900;color:var(--dark)}
+.section-sub{font-size:15px;color:#6b7280;margin-top:8px;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.7}
 
-.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap}
-.pill-blue{background:#e7f3ff;color:var(--chat-color)}.pill-purple{background:#f3e8ff;color:var(--m365-color)}.pill-green{background:#e7f5e7;color:var(--studio-color)}.pill-yellow{background:#fff8e1;color:#b8860b}.pill-gray{background:var(--gray-100);color:var(--gray-600)}
+/* Profile Grid */
+.profiles-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin:0 auto;max-width:1200px;padding:0 24px}
+.profile-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);animation:fadeIn .5s ease-out both}
+.profile-card:hover{box-shadow:0 20px 60px rgba(0,0,0,.08);transform:translateY(-6px);border-color:var(--blue)}
+.profile-emoji{font-size:40px;margin-bottom:12px}
+.profile-name{font-size:13px;font-weight:700;color:var(--dark);line-height:1.4}
 
-.feature-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-.feature-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray-800)}
-.feature-check{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
-.feature-check.chat{background:#e7f3ff;color:var(--chat-color)}.feature-check.m365{background:#f3e8ff;color:var(--m365-color)}.feature-check.studio{background:#e7f5e7;color:var(--studio-color)}
+/* Profile Detail */
+.profile-detail{display:none;max-width:960px;margin:100px auto 60px;padding:0 24px;animation:slideUp .5s ease-out}
+.profile-detail.active{display:block}
+.back-btn{background:none;border:2px solid #e5e7eb;border-radius:10px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:24px;font-family:inherit;transition:all .2s;color:var(--dark)}
+.back-btn:hover{border-color:var(--blue);color:var(--blue)}
+.detail-header{border-radius:16px;padding:32px;display:flex;align-items:center;gap:20px;color:#fff;margin-bottom:24px}
+.detail-emoji{font-size:56px}
+.detail-title{font-size:28px;font-weight:900}
+.detail-title-en{font-size:14px;opacity:.8;margin-top:4px}
+.detail-desc{font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:32px}
 
-.journey{display:flex;align-items:center;gap:0;justify-content:center;flex-wrap:wrap}
-.journey-step{background:#fff;border:2px solid var(--gray-200);border-radius:14px;padding:24px 32px;text-align:center;min-width:240px;transition:all .3s;cursor:pointer}
-.journey-step:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
-.journey-step.active-chat{border-color:var(--chat-color);box-shadow:0 8px 30px rgba(0,120,212,.15)}
-.journey-step.active-m365{border-color:var(--m365-color);box-shadow:0 8px 30px rgba(92,45,145,.15)}
-.journey-step.active-studio{border-color:var(--studio-color);box-shadow:0 8px 30px rgba(16,124,16,.15)}
-.journey-arrow{font-size:28px;color:var(--gray-400);padding:0 8px;font-weight:900}
-.journey-step-icon{font-size:36px;margin-bottom:8px}
-.journey-step-title{font-size:16px;font-weight:800;margin-bottom:4px}
-.journey-step-sub{font-size:12px;color:var(--gray-400);font-weight:500}
+.section-block{margin-bottom:36px}
+.section-block h3{font-size:18px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pain-block{background:#FFF4E5;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:20px 24px}
+.pain-block p{color:#92400e;font-size:14px;line-height:1.7}
+.context-block{background:#E8F4FD;border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:20px 24px}
+.context-block p{color:#1e3a5f;font-size:14px;line-height:1.7}
 
-.tabs{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap}
-.tab{padding:10px 20px;border:2px solid var(--gray-200);background:#fff;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all .2s}
-.tab.active{border-color:var(--blue);background:var(--light-blue);color:var(--blue)}.tab:hover{border-color:var(--blue)}
+.pill-badge{display:inline-flex;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;margin-bottom:12px}
+.chat-badge{background:#E7F5E7;color:#107C10}
+.m365-badge{background:#E8F4FD;color:#0078D4}
+.studio-badge{background:#F3EDF7;color:#5C2D91}
 
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.metric-card{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:24px;text-align:center;transition:all .3s}
-.metric-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.06);transform:translateY(-2px)}
-.metric-value{font-size:36px;font-weight:900;line-height:1}.metric-label{font-size:12px;color:var(--gray-600);margin-top:8px;font-weight:600}.metric-source{font-size:10px;color:var(--gray-400);margin-top:4px}
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.uc-item{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;transition:all .25s}
+.uc-item:hover{box-shadow:0 8px 24px rgba(0,0,0,.06);border-color:var(--blue)}
+.uc-name{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--dark)}
+.uc-desc{font-size:12px;color:#6b7280;line-height:1.6}
 
-.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.ba-card{border-radius:14px;padding:28px}.ba-before{background:linear-gradient(135deg,#fef2f2,#fff);border:1px solid #fecaca}.ba-after{background:linear-gradient(135deg,#f0fdf4,#fff);border:1px solid #bbf7d0}
-.ba-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}.ba-before .ba-label{color:var(--red)}.ba-after .ba-label{color:var(--green)}
-.ba-items{display:flex;flex-direction:column;gap:12px}
-.ba-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.7)}
-.ba-item-label{font-weight:600}.ba-item-value{font-weight:800;font-size:15px}
+.ba-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;font-size:13px}
+.ba-table thead{background:#f9fafb}
+.ba-table th{padding:12px 16px;text-align:left;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#6b7280;border-bottom:2px solid #e5e7eb}
+.ba-table td{padding:12px 16px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
+.ba-func{font-weight:600;color:var(--dark)}
+.ba-before{color:#D13438}
+.ba-after{color:#107C10;font-weight:600}
+.ba-src{color:#9ca3af;font-size:11px}
+.pct-bar{width:80px;height:8px;background:#f3f4f6;border-radius:4px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+.pct-fill{height:100%;background:linear-gradient(90deg,#107C10,#4CAF50);border-radius:4px;transition:width 1s ease}
+.pct-num{font-weight:800;color:#107C10;font-size:13px}
 
-.lic-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--gray-200)}
-.lic-table th{background:var(--gray-900);color:#fff;padding:14px 20px;font-size:12px;font-weight:700;text-align:left;text-transform:uppercase;letter-spacing:.5px}
-.lic-table td{padding:14px 20px;font-size:13px;border-bottom:1px solid var(--gray-100)}.lic-table tr:last-child td{border-bottom:none}.lic-table tr:hover td{background:var(--gray-50)}
+/* Journey Section */
+.journey-section{background:#f8f9fb;padding:60px 24px;margin:48px 0}
+.journey-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.journey-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:32px 24px;text-align:center;transition:all .3s}
+.journey-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.06);transform:translateY(-3px)}
+.journey-num{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#fff;margin-bottom:16px}
+.journey-title{font-size:18px;font-weight:800;margin-bottom:8px}
+.journey-desc{font-size:13px;color:#6b7280;line-height:1.6}
+.journey-tag{display:inline-flex;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700;margin-top:12px}
 
-.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.uc-card{background:#fff;border:1px solid var(--gray-200);border-radius:12px;padding:24px;transition:all .3s}
-.uc-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.06);transform:translateY(-2px)}
-.uc-icon{font-size:32px;margin-bottom:12px}.uc-title{font-size:15px;font-weight:800;margin-bottom:8px}.uc-desc{font-size:13px;color:var(--gray-600);line-height:1.6}
+/* Licensing */
+.lic-section{margin:48px 0;padding:48px 24px;background:#f8f9fb;border-radius:20px}
+.lic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.lic-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:24px;text-align:center}
+.lic-card h4{font-size:16px;font-weight:800;margin-bottom:8px}
+.lic-card p{font-size:12px;color:#6b7280;line-height:1.6}
+.lic-card .lic-tag{display:inline-flex;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;margin-top:12px}
 
-.footer{background:var(--gray-900);color:#fff;padding:48px 0;text-align:center}
-.footer-inner{max-width:1340px;margin:0 auto;padding:0 24px}
-.footer-name{font-size:18px;font-weight:800;margin-bottom:4px}.footer-role{font-size:13px;opacity:.6;margin-bottom:16px}
-.footer-disclaimer{font-size:11px;opacity:.4;max-width:600px;margin:0 auto;line-height:1.6}
+.footer{background:var(--dark);color:#fff;padding:48px 24px;text-align:center;margin-top:60px}
+.footer p{opacity:.6;font-size:12px;line-height:1.8}
+.footer a{color:#40a9ff;text-decoration:none}
 
-.detail-panel{background:#fff;border:1px solid var(--gray-200);border-radius:16px;padding:36px;margin-top:32px;animation:fadeIn .4s ease-out}
-.solutions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-
-@media(max-width:1024px){.hero-metrics,.metrics-grid{grid-template-columns:repeat(2,1fr)}.uc-grid{grid-template-columns:1fr 1fr}.ba-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.hero-title{font-size:28px!important}.hero-metrics,.metrics-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.uc-grid{grid-template-columns:1fr}.journey{flex-direction:column}.journey-arrow{transform:rotate(90deg)}.solutions-grid{grid-template-columns:1fr!important}}
+@media(max-width:1024px){.profiles-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:768px){
+  .profiles-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:28px!important}
+  .hero-metrics{gap:16px}
+  .uc-grid{grid-template-columns:1fr}
+  .ba-table{font-size:11px}
+  .ba-table th,.ba-table td{padding:8px}
+  .journey-grid{grid-template-columns:1fr}
+  .lic-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
 </style>
 </head>
 <body>
 
-<nav class="nav" id="nav">
-<div class="nav-inner">
-  <div class="nav-brand"><svg viewBox="0 0 23 23"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>AI Workforce Solutions</div>
+<nav class="nav-bar">
+  <div class="nav-logo">☁️ AI Workforce Solutions</div>
   <div class="nav-links">
-    <button class="nav-link active" onclick="scrollTo('hero')">Home</button>
-    <button class="nav-link" onclick="scrollTo('solutions')">Soluções</button>
-    <button class="nav-link" onclick="scrollTo('journey')">Jornada</button>
-    <button class="nav-link" onclick="scrollTo('usecases')">Use Cases</button>
-    <button class="nav-link" onclick="scrollTo('metrics')">Métricas</button>
-    <button class="nav-link" onclick="scrollTo('ba')">Antes/Depois</button>
-    <button class="nav-link" onclick="scrollTo('licensing')">Licenciamento</button>
-    <button class="nav-link" onclick="scrollTo('compete')">Competitivo</button>
+    <a href="#profiles">20 Perfis</a>
+    <a href="#journey">Jornada</a>
+    <a href="#licensing">Licenciamento</a>
   </div>
-  <div style="display:flex;gap:4px">
-    <button class="lang-btn active" onclick="setLang('pt')" id="btn-pt">PT</button>
-    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
-  </div>
-</div>
 </nav>
 
-<section class="hero" id="hero">
-<div class="hero-inner">
-  <div class="hero-badge animate-in">🤖 AI Workforce — Copilot Platform Deep Dive</div>
-  <h1 class="hero-title animate-in delay-1" id="t-heroTitle">A Plataforma Completa de IA para Produtividade Enterprise</h1>
-  <p class="hero-sub animate-in delay-2" id="t-heroSub">Do Copilot Chat gratuito ao M365 Copilot integrado e Copilot Studio para agentes customizados — três camadas que transformam como sua organização trabalha.</p>
-  <div class="hero-metrics animate-in delay-3">
-    <div class="hero-metric"><div class="hero-metric-value">3</div><div class="hero-metric-label">Soluções Copilot</div></div>
-    <div class="hero-metric"><div class="hero-metric-value">77%</div><div class="hero-metric-label">Não querem perder o Copilot</div></div>
-    <div class="hero-metric"><div class="hero-metric-value">7h</div><div class="hero-metric-label">Economia semanal / usuário</div></div>
-    <div class="hero-metric"><div class="hero-metric-value">3.7x</div><div class="hero-metric-label">ROI médio em 3 anos</div></div>
+<section class="hero-bg">
+  <div class="hero-badge">Deep Dive — 20 Perfis Enterprise × Copilot Chat, M365 Copilot & Copilot Studio</div>
+  <h1 class="hero-title">Copilot para cada<br>Perfil Enterprise</h1>
+  <p class="hero-sub">Como cada um dos 20 perfis profissionais em organizações enterprise pode transformar sua produtividade com Copilot Chat, Microsoft 365 Copilot e Copilot Studio.</p>
+  <div class="hero-metrics">
+    <div class="hero-metric"><div class="hero-metric-val">20</div><div class="hero-metric-lbl">Perfis Enterprise</div></div>
+    <div class="hero-metric"><div class="hero-metric-val">70%</div><div class="hero-metric-lbl">Usuários reportam<br>mais produtividade</div></div>
+    <div class="hero-metric"><div class="hero-metric-val">10h</div><div class="hero-metric-lbl">Economizadas<br>por mês/usuário</div></div>
+    <div class="hero-metric"><div class="hero-metric-val">3</div><div class="hero-metric-lbl">Soluções<br>Copilot</div></div>
   </div>
-</div>
 </section>
 
-<section class="section section-alt" id="solutions">
-<div class="section-inner">
-  <h2 class="section-title animate-slide" id="t-solTitle">Três Soluções, Uma Plataforma</h2>
-  <p class="section-sub animate-slide delay-1" id="t-solSub">Cada solução atende um nível de maturidade e necessidade. Juntas, formam a plataforma de IA mais completa do mercado.</p>
-  <div class="solutions-grid">
-    <div class="card solution-card chat animate-slide delay-1">
-      <div class="solution-icon chat">💬</div>
-      <div style="display:flex;gap:6px;margin-bottom:12px"><span class="pill pill-blue">Gratuito</span><span class="pill pill-gray">Web + Mobile</span></div>
-      <div class="solution-name">Copilot Chat</div>
-      <div class="solution-tagline">O ponto de entrada — IA para todos</div>
-      <div class="solution-desc">Assistente de IA gratuito no Microsoft 365. Chat com GPT-4, geração de conteúdo, resumos e respostas rápidas. Incluso em todos os planos M365/O365.</div>
-      <ul class="feature-list">
-        <li class="feature-item"><span class="feature-check chat">✓</span>Chat com GPT-4 no Teams, Outlook e Web</li>
-        <li class="feature-item"><span class="feature-check chat">✓</span>Geração de texto, resumos e brainstorming</li>
-        <li class="feature-item"><span class="feature-check chat">✓</span>Busca na web com citações</li>
-        <li class="feature-item"><span class="feature-check chat">✓</span>Criação de imagens com DALL-E</li>
-        <li class="feature-item"><span class="feature-check chat">✓</span>Proteção de dados corporativos (DLP)</li>
-      </ul>
+<div id="profiles-overview">
+  <div class="section-header" id="profiles">
+    <div class="section-title">20 Perfis Profissionais — Deep Dive Completo</div>
+    <div class="section-sub">Clique em qualquer perfil para ver: dor principal, use cases de Copilot Chat, M365 Copilot e Copilot Studio, métricas antes/depois com fontes, e contexto enterprise Brasil.</div>
+  </div>
+  <div class="profiles-grid">
+    
+    <div class="profile-card" onclick="showProfile('ceo')" style="animation-delay:0s" data-id="ceo">
+      <div class="profile-emoji">👔</div>
+      <div class="profile-name">CEO / Presidente</div>
     </div>
-    <div class="card solution-card m365 animate-slide delay-2">
-      <div class="solution-icon m365">🚀</div>
-      <div style="display:flex;gap:6px;margin-bottom:12px"><span class="pill pill-purple">Premium</span><span class="pill pill-yellow">$30/user/mês</span></div>
-      <div class="solution-name">Microsoft 365 Copilot</div>
-      <div class="solution-tagline">IA integrada nos apps que você já usa</div>
-      <div class="solution-desc">O Copilot completo em Word, Excel, PowerPoint, Outlook, Teams e mais. Acessa dados da organização via Microsoft Graph para respostas contextuais.</div>
-      <ul class="feature-list">
-        <li class="feature-item"><span class="feature-check m365">✓</span>Copilot em Word, Excel, PPT, Outlook, Teams</li>
-        <li class="feature-item"><span class="feature-check m365">✓</span>Acesso a dados organizacionais (Graph)</li>
-        <li class="feature-item"><span class="feature-check m365">✓</span>Resumo de reuniões e transcrição</li>
-        <li class="feature-item"><span class="feature-check m365">✓</span>Análise de dados em Excel com linguagem natural</li>
-        <li class="feature-item"><span class="feature-check m365">✓</span>Apresentações a partir de documentos</li>
-        <li class="feature-item"><span class="feature-check m365">✓</span>Copilot Pages para colaboração</li>
-      </ul>
+    <div class="profile-card" onclick="showProfile('cfo')" style="animation-delay:0.05s" data-id="cfo">
+      <div class="profile-emoji">💰</div>
+      <div class="profile-name">CFO / Diretor Financeiro</div>
     </div>
-    <div class="card solution-card studio animate-slide delay-3">
-      <div class="solution-icon studio">🏗️</div>
-      <div style="display:flex;gap:6px;margin-bottom:12px"><span class="pill pill-green">Plataforma</span><span class="pill pill-gray">Pay-as-you-go</span></div>
-      <div class="solution-name">Copilot Studio</div>
-      <div class="solution-tagline">Construa agentes de IA customizados</div>
-      <div class="solution-desc">Plataforma low-code para agentes de IA personalizados. Conecte a bases de conhecimento, sistemas internos e APIs. Publique no Teams, sites ou apps.</div>
-      <ul class="feature-list">
-        <li class="feature-item"><span class="feature-check studio">✓</span>Criação visual de agentes (low-code)</li>
-        <li class="feature-item"><span class="feature-check studio">✓</span>Conectores a SAP, ServiceNow, Salesforce</li>
-        <li class="feature-item"><span class="feature-check studio">✓</span>Knowledge bases com SharePoint e Dataverse</li>
-        <li class="feature-item"><span class="feature-check studio">✓</span>Publicação multicanal (Teams, Web, WhatsApp)</li>
-        <li class="feature-item"><span class="feature-check studio">✓</span>Análises e métricas de uso</li>
-        <li class="feature-item"><span class="feature-check studio">✓</span>Governança e compliance integrados</li>
-      </ul>
+    <div class="profile-card" onclick="showProfile('chro')" style="animation-delay:0.1s" data-id="chro">
+      <div class="profile-emoji">👥</div>
+      <div class="profile-name">CHRO / Diretor de RH</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('cio')" style="animation-delay:0.15000000000000002s" data-id="cio">
+      <div class="profile-emoji">🖥️</div>
+      <div class="profile-name">CIO / CTO</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('cmo')" style="animation-delay:0.2s" data-id="cmo">
+      <div class="profile-emoji">📣</div>
+      <div class="profile-name">CMO / Diretor de Marketing</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('coo')" style="animation-delay:0.25s" data-id="coo">
+      <div class="profile-emoji">⚙️</div>
+      <div class="profile-name">COO / Diretor de Operações</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('clo')" style="animation-delay:0.30000000000000004s" data-id="clo">
+      <div class="profile-emoji">⚖️</div>
+      <div class="profile-name">CLO / Diretor Jurídico</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('vp-vendas')" style="animation-delay:0.35000000000000003s" data-id="vp-vendas">
+      <div class="profile-emoji">🎯</div>
+      <div class="profile-name">VP de Vendas</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('dir-operacoes')" style="animation-delay:0.4s" data-id="dir-operacoes">
+      <div class="profile-emoji">🏭</div>
+      <div class="profile-name">Diretor de Operações</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('ger-rh')" style="animation-delay:0.45s" data-id="ger-rh">
+      <div class="profile-emoji">🤝</div>
+      <div class="profile-name">Gerente de RH</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('ger-financeiro')" style="animation-delay:0.5s" data-id="ger-financeiro">
+      <div class="profile-emoji">📊</div>
+      <div class="profile-name">Gerente Financeiro</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('ger-marketing')" style="animation-delay:0.55s" data-id="ger-marketing">
+      <div class="profile-emoji">📱</div>
+      <div class="profile-name">Gerente de Marketing</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('ger-ti')" style="animation-delay:0.6000000000000001s" data-id="ger-ti">
+      <div class="profile-emoji">🔧</div>
+      <div class="profile-name">Gerente de TI</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('analista-financeiro')" style="animation-delay:0.65s" data-id="analista-financeiro">
+      <div class="profile-emoji">📈</div>
+      <div class="profile-name">Analista Financeiro</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('analista-rh')" style="animation-delay:0.7000000000000001s" data-id="analista-rh">
+      <div class="profile-emoji">📋</div>
+      <div class="profile-name">Analista de RH</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('analista-marketing')" style="animation-delay:0.75s" data-id="analista-marketing">
+      <div class="profile-emoji">✏️</div>
+      <div class="profile-name">Analista de Marketing</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('vendedor')" style="animation-delay:0.8s" data-id="vendedor">
+      <div class="profile-emoji">💼</div>
+      <div class="profile-name">Vendedor / Account Executive</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('atendimento')" style="animation-delay:0.8500000000000001s" data-id="atendimento">
+      <div class="profile-emoji">🎧</div>
+      <div class="profile-name">Atendimento ao Cliente</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('advogado')" style="animation-delay:0.9s" data-id="advogado">
+      <div class="profile-emoji">📜</div>
+      <div class="profile-name">Advogado Corporativo</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('engenheiro')" style="animation-delay:0.9500000000000001s" data-id="engenheiro">
+      <div class="profile-emoji">🏗️</div>
+      <div class="profile-name">Engenheiro / Operações</div>
     </div>
   </div>
 </div>
-</section>
 
-<section class="section" id="journey">
-<div class="section-inner">
-  <h2 class="section-title">Jornada de Adoção — Do Chat aos Agentes</h2>
-  <p class="section-sub">Uma jornada progressiva: comece com o gratuito, prove valor, expanda para toda a organização, e automatize com agentes.</p>
-  <div class="journey" style="margin-bottom:48px">
-    <div class="journey-step active-chat" id="j-chat" onclick="selectJourney('chat')"><div class="journey-step-icon">💬</div><div class="journey-step-title">Copilot Chat</div><div class="journey-step-sub">Experimentar • Gratuito</div></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step" id="j-m365" onclick="selectJourney('m365')"><div class="journey-step-icon">🚀</div><div class="journey-step-title">M365 Copilot</div><div class="journey-step-sub">Escalar • Premium</div></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step" id="j-studio" onclick="selectJourney('studio')"><div class="journey-step-icon">🏗️</div><div class="journey-step-title">Copilot Studio</div><div class="journey-step-sub">Automatizar • Agentes</div></div>
-  </div>
-  <div id="journey-detail" class="detail-panel"><div id="journey-content"></div></div>
-</div>
-</section>
+<!-- Profile Details (hidden by default) -->
 
-<section class="section section-alt" id="usecases">
-<div class="section-inner">
-  <h2 class="section-title">Use Cases por Área de Negócio</h2>
-  <p class="section-sub">Cenários reais de produtividade para cada perfil profissional na organização.</p>
-  <div class="tabs" id="uc-tabs">
-    <button class="tab active" onclick="setUcTab('all',this)">Todos</button>
-    <button class="tab" onclick="setUcTab('exec',this)">Executivos</button>
-    <button class="tab" onclick="setUcTab('sales',this)">Vendas</button>
-    <button class="tab" onclick="setUcTab('hr',this)">RH</button>
-    <button class="tab" onclick="setUcTab('finance',this)">Finanças</button>
-    <button class="tab" onclick="setUcTab('marketing',this)">Marketing</button>
-    <button class="tab" onclick="setUcTab('legal',this)">Jurídico</button>
-    <button class="tab" onclick="setUcTab('ops',this)">Operações</button>
-  </div>
-  <div class="uc-grid" id="uc-grid"></div>
-</div>
-</section>
-
-<section class="section" id="metrics">
-<div class="section-inner">
-  <h2 class="section-title">Impacto Mensurável — Dados de Pesquisa</h2>
-  <p class="section-sub">Métricas verificadas de produtividade com fontes oficiais Microsoft e parceiros de pesquisa.</p>
-  <div class="metrics-grid" style="margin-bottom:20px">
-    <div class="metric-card"><div class="metric-value" style="color:var(--blue)">70%</div><div class="metric-label">Usuários mais produtivos</div><div class="metric-source">Microsoft Work Trend Index 2024</div></div>
-    <div class="metric-card"><div class="metric-value" style="color:var(--purple)">85%</div><div class="metric-label">Melhor qualidade no 1° draft</div><div class="metric-source">Microsoft Work Trend Index 2024</div></div>
-    <div class="metric-card"><div class="metric-value" style="color:var(--green)">4x</div><div class="metric-label">Mais rápido ao buscar info</div><div class="metric-source">Forrester TEI Study 2024</div></div>
-    <div class="metric-card"><div class="metric-value" style="color:var(--orange)">30%</div><div class="metric-label">Redução em tempo de reuniões</div><div class="metric-source">Microsoft Internal Data 2024</div></div>
-  </div>
-  <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-value" style="color:var(--red)">77%</div><div class="metric-label">Não abririam mão do Copilot</div><div class="metric-source">Work Trend Index 2024</div></div>
-    <div class="metric-card"><div class="metric-value" style="color:var(--blue)">29%</div><div class="metric-label">Mais rápido em buscas no email</div><div class="metric-source">Forrester TEI 2024</div></div>
-    <div class="metric-card"><div class="metric-value" style="color:var(--green)">$14.7M</div><div class="metric-label">Benefício em 3 anos (10k users)</div><div class="metric-source">Forrester TEI Study 2024</div></div>
-    <div class="metric-card"><div class="metric-value" style="color:var(--purple)">346%</div><div class="metric-label">ROI em 3 anos</div><div class="metric-source">Forrester TEI Study 2024</div></div>
-  </div>
-</div>
-</section>
-
-<section class="section section-alt" id="ba">
-<div class="section-inner">
-  <h2 class="section-title">Antes vs. Depois — Cenários Reais</h2>
-  <p class="section-sub">Comparação quantitativa de tarefas comuns com e sem M365 Copilot.</p>
-  <div class="ba-grid">
-    <div class="ba-card ba-before">
-      <div class="ba-label">❌ SEM COPILOT</div>
-      <div class="ba-items">
-        <div class="ba-item"><span class="ba-item-label">Preparar reunião</span><span class="ba-item-value" style="color:var(--red)">45 min</span></div>
-        <div class="ba-item"><span class="ba-item-label">Escrever proposta comercial</span><span class="ba-item-value" style="color:var(--red)">3 horas</span></div>
-        <div class="ba-item"><span class="ba-item-label">Resumir thread de email</span><span class="ba-item-value" style="color:var(--red)">20 min</span></div>
-        <div class="ba-item"><span class="ba-item-label">Criar apresentação</span><span class="ba-item-value" style="color:var(--red)">2 horas</span></div>
-        <div class="ba-item"><span class="ba-item-label">Analisar dados em planilha</span><span class="ba-item-value" style="color:var(--red)">1 hora</span></div>
-        <div class="ba-item"><span class="ba-item-label">Catch-up pós-férias</span><span class="ba-item-value" style="color:var(--red)">4 horas</span></div>
-        <div class="ba-item" style="background:rgba(209,52,56,.1)"><span class="ba-item-label" style="font-weight:800">Total</span><span class="ba-item-value" style="color:var(--red);font-size:18px">11h 5min</span></div>
+  <div class="profile-detail" id="detail-ceo">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#0078D4">
+      <span class="detail-emoji">👔</span>
+      <div>
+        <h2 class="detail-title">CEO / Presidente</h2>
+        <p class="detail-title-en">CEO / President</p>
       </div>
     </div>
-    <div class="ba-card ba-after">
-      <div class="ba-label">✅ COM M365 COPILOT</div>
-      <div class="ba-items">
-        <div class="ba-item"><span class="ba-item-label">Preparar reunião</span><span class="ba-item-value" style="color:var(--green)">10 min</span></div>
-        <div class="ba-item"><span class="ba-item-label">Escrever proposta comercial</span><span class="ba-item-value" style="color:var(--green)">45 min</span></div>
-        <div class="ba-item"><span class="ba-item-label">Resumir thread de email</span><span class="ba-item-value" style="color:var(--green)">30 seg</span></div>
-        <div class="ba-item"><span class="ba-item-label">Criar apresentação</span><span class="ba-item-value" style="color:var(--green)">20 min</span></div>
-        <div class="ba-item"><span class="ba-item-label">Analisar dados em planilha</span><span class="ba-item-value" style="color:var(--green)">5 min</span></div>
-        <div class="ba-item"><span class="ba-item-label">Catch-up pós-férias</span><span class="ba-item-value" style="color:var(--green)">30 min</span></div>
-        <div class="ba-item" style="background:rgba(16,124,16,.1)"><span class="ba-item-label" style="font-weight:800">Total</span><span class="ba-item-value" style="color:var(--green);font-size:18px">1h 50min</span></div>
+    <p class="detail-desc">Visão estratégica, tomada de decisão executiva, comunicação com board e stakeholders. Precisa de insights rápidos sobre performance, mercado e riscos.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Informações fragmentadas em dezenas de relatórios, e-mails e reuniões. Decisões baseadas em dados desatualizados ou incompletos. Tempo excessivo preparando board decks e revisando documentos longos.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Resumo executivo de documentos</div><div class="uc-desc">Cola ou referencia documentos longos e pede um resumo executivo de 1 página com pontos-chave e recomendações.</div></div><div class="uc-item"><div class="uc-name">Brainstorm estratégico</div><div class="uc-desc">Usa o chat para explorar cenários de mercado, tendências e posicionamento competitivo em conversa natural.</div></div><div class="uc-item"><div class="uc-name">Preparação de talking points</div><div class="uc-desc">Gera talking points para reuniões com investidores, conselho ou imprensa a partir de contexto fornecido.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Resumo de e-mails e reuniões no Outlook/Teams</div><div class="uc-desc">Copilot resume threads de e-mail com centenas de mensagens e gera recap de reuniões com decisões e action items.</div></div><div class="uc-item"><div class="uc-name">Board deck no PowerPoint</div><div class="uc-desc">Gera apresentações executivas a partir de dados do Word/Excel, com narrativa estratégica e visualizações.</div></div><div class="uc-item"><div class="uc-name">Análise de dados no Excel</div><div class="uc-desc">Analisa planilhas de P&L, forecast e KPIs com linguagem natural — cria gráficos e identifica tendências.</div></div><div class="uc-item"><div class="uc-name">Busca em arquivos corporativos</div><div class="uc-desc">Pesquisa semântica em SharePoint, OneDrive e Teams para encontrar informações relevantes rapidamente.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Executive Briefing</div><div class="uc-desc">Agente que consolida diariamente KPIs de vendas, financeiro e operações de múltiplas fontes em um briefing matinal.</div></div><div class="uc-item"><div class="uc-name">Agent de Monitoramento de Riscos</div><div class="uc-desc">Agente que alerta sobre variações significativas em métricas de negócio, compliance ou reputação.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Preparar board deck</td>
+      <td class="ba-before">8-12h de compilação manual</td>
+      <td class="ba-after">1-2h com Copilot gerando draft</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Resumir thread de 50+ emails</td>
+      <td class="ba-before">45 min leitura manual</td>
+      <td class="ba-after">30 seg via Copilot no Outlook</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:97%"></div></div><span class="pct-num">-97%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Briefing diário de KPIs</td>
+      <td class="ba-before">Não disponível (dependia de reports semanais)</td>
+      <td class="ba-after">Automático via Agent Copilot Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:100%"></div></div><span class="pct-num">-100%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Em empresas brasileiras de grande porte, o CEO/Presidente frequentemente gerencia portfólios diversificados com unidades de negócio em múltiplos estados. A capacidade de consolidar informações dispersas em insights acionáveis é transformadora para a velocidade de decisão.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-cfo">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#107C10">
+      <span class="detail-emoji">💰</span>
+      <div>
+        <h2 class="detail-title">CFO / Diretor Financeiro</h2>
+        <p class="detail-title-en">CFO / Finance Director</p>
       </div>
     </div>
-  </div>
-  <div style="text-align:center;margin-top:24px">
-    <div style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#f0fdf4,#e7f5e7);padding:16px 32px;border-radius:12px;border:1px solid #bbf7d0">
-      <span style="font-size:32px">⚡</span>
-      <div style="text-align:left"><div style="font-size:24px;font-weight:900;color:var(--green)">83% de redução de tempo</div><div style="font-size:13px;color:var(--gray-600)">De 11h para menos de 2h nas mesmas tarefas</div></div>
+    <p class="detail-desc">Gestão financeira, planejamento orçamentário, análise de investimentos, compliance fiscal e reporting para investidores e reguladores.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Consolidação manual de dados financeiros de múltiplos ERPs e planilhas. Ciclos de fechamento longos. Análise de variações orçamentárias demorada. Reports para reguladores e auditores consomem semanas.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise rápida de cenários financeiros</div><div class="uc-desc">Descreve cenários de investimento ou custo e pede projeções comparativas com premissas diferentes.</div></div><div class="uc-item"><div class="uc-name">Explicação de normas contábeis</div><div class="uc-desc">Consulta sobre IFRS, CPC, normas fiscais brasileiras em linguagem acessível para tomada de decisão.</div></div><div class="uc-item"><div class="uc-name">Geração de narrativas financeiras</div><div class="uc-desc">Transforma dados financeiros em narrativa explicativa para relatórios de investidores.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de planilhas financeiras no Excel</div><div class="uc-desc">Analisa P&L, fluxo de caixa, DRE com linguagem natural. Identifica outliers, tendências e cria dashboards.</div></div><div class="uc-item"><div class="uc-name">Geração de reports no Word</div><div class="uc-desc">Cria relatórios financeiros formatados (MD&A, notas explicativas) a partir de dados do Excel.</div></div><div class="uc-item"><div class="uc-name">Resumo de reuniões de budget review</div><div class="uc-desc">Recap automático de reuniões de budget com decisões sobre alocações e cortes.</div></div><div class="uc-item"><div class="uc-name">E-mails para auditoria e compliance</div><div class="uc-desc">Redige respostas estruturadas para auditores e reguladores a partir de contexto de e-mails anteriores.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Fechamento Contábil</div><div class="uc-desc">Automatiza checklist de fechamento mensal, verifica conciliações pendentes e alerta sobre prazos.</div></div><div class="uc-item"><div class="uc-name">Agent de Aprovação de Despesas</div><div class="uc-desc">Fluxo automatizado de aprovação com regras de alçada, alertas de orçamento e análise de conformidade.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Fechamento mensal</td>
+      <td class="ba-before">10-15 dias úteis</td>
+      <td class="ba-after">5-7 dias com automações Copilot</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:50%"></div></div><span class="pct-num">-50%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Análise de variações orçamentárias</td>
+      <td class="ba-before">4-6h por unidade de negócio</td>
+      <td class="ba-after">30 min com Copilot no Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:88%"></div></div><span class="pct-num">-88%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Report regulatório</td>
+      <td class="ba-before">2-3 semanas de compilação</td>
+      <td class="ba-after">3-5 dias com draft automático</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div><span class="pct-num">-70%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>No Brasil, CFOs lidam com complexidade tributária única (ICMS, PIS, COFINS, ISS) e frequentes mudanças regulatórias. Copilot pode auxiliar na interpretação de novas normas e na adaptação rápida de processos contábeis.</p>
     </div>
   </div>
-</div>
-</section>
-
-<section class="section" id="licensing">
-<div class="section-inner">
-  <h2 class="section-title">Licenciamento & SKUs</h2>
-  <p class="section-sub">Pré-requisitos e modelos de licenciamento para cada solução Copilot.</p>
-  <table class="lic-table">
-    <thead><tr><th>Solução</th><th>Pré-requisito</th><th>Preço</th><th>Modelo</th><th>Inclui</th></tr></thead>
-    <tbody>
-      <tr><td><strong style="color:var(--chat-color)">💬 Copilot Chat</strong></td><td>Qualquer plano M365 / O365</td><td style="color:var(--green);font-weight:800">Gratuito</td><td>Incluso</td><td>Chat IA, web search, geração de conteúdo básico</td></tr>
-      <tr><td><strong style="color:var(--m365-color)">🚀 M365 Copilot</strong></td><td>M365 E3/E5, Business Std/Premium</td><td style="font-weight:800">$30/user/mês</td><td>Per-user add-on</td><td>Copilot em todos os apps M365 + Graph grounding</td></tr>
-      <tr><td><strong style="color:var(--studio-color)">🏗️ Copilot Studio</strong></td><td>M365 Copilot (para agents no M365)</td><td style="font-weight:800">$200/tenant/mês</td><td>Capacity-based</td><td>25K mensagens/mês + agentes customizados</td></tr>
-      <tr><td><strong style="color:var(--orange)">⭐ Microsoft 365 E5</strong></td><td>—</td><td style="font-weight:800">$57/user/mês</td><td>Suite completa</td><td>Security + Compliance + Analytics + Telefonia</td></tr>
-    </tbody>
-  </table>
-  <div style="margin-top:24px;padding:20px;background:var(--light-blue);border-radius:12px;border:1px solid rgba(0,120,212,.15)">
-    <div style="font-weight:800;font-size:14px;color:var(--blue);margin-bottom:8px">💡 Estratégia de Suítes: O → M</div>
-    <div style="font-size:13px;color:var(--gray-600);line-height:1.7">A migração de suítes Office (O) para Microsoft 365 (M) desbloqueia Security, Compliance e Copilot. Clientes com OE3 devem migrar para ME3/ME5 para obter o máximo valor da plataforma. O E5 wall-to-wall oferece a melhor condição comercial e habilita todos os workloads.</div>
+  <div class="profile-detail" id="detail-chro">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#5C2D91">
+      <span class="detail-emoji">👥</span>
+      <div>
+        <h2 class="detail-title">CHRO / Diretor de RH</h2>
+        <p class="detail-title-en">CHRO / HR Director</p>
+      </div>
+    </div>
+    <p class="detail-desc">Gestão de pessoas, cultura organizacional, recrutamento, desenvolvimento, remuneração e compliance trabalhista.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Processos de recrutamento lentos com triagem manual de CVs. Pesquisas de clima com análise demorada. Políticas de RH desatualizadas e difíceis de consultar. Onboarding manual e inconsistente.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Triagem de currículos</div><div class="uc-desc">Analisa lotes de CVs contra requisitos da vaga e gera ranking com justificativas.</div></div><div class="uc-item"><div class="uc-name">Redação de políticas de RH</div><div class="uc-desc">Gera rascunhos de políticas (home office, benefícios, código de conduta) com base em melhores práticas.</div></div><div class="uc-item"><div class="uc-name">Perguntas sobre legislação trabalhista</div><div class="uc-desc">Consulta rápida sobre CLT, convenções coletivas e jurisprudência trabalhista brasileira.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de pesquisa de clima no Excel</div><div class="uc-desc">Processa resultados de pesquisas de engajamento e identifica padrões, departamentos críticos e insights.</div></div><div class="uc-item"><div class="uc-name">Geração de comunicados internos</div><div class="uc-desc">Cria comunicados de RH no Outlook/Word com tom adequado para diferentes públicos.</div></div><div class="uc-item"><div class="uc-name">Onboarding automatizado</div><div class="uc-desc">Prepara pacotes de onboarding personalizados com documentos, agendas e materiais do SharePoint.</div></div><div class="uc-item"><div class="uc-name">Recap de reuniões de People Review</div><div class="uc-desc">Captura decisões sobre promoções, sucessão e desenvolvimento discutidas em reuniões do Teams.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de FAQ de RH</div><div class="uc-desc">Chatbot que responde perguntas frequentes dos colaboradores sobre benefícios, férias, políticas, usando base de conhecimento interna.</div></div><div class="uc-item"><div class="uc-name">Agent de Onboarding</div><div class="uc-desc">Guia novos colaboradores pelo processo de integração com checklists, documentos e acompanhamento.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Triagem de 200 CVs</td>
+      <td class="ba-before">8h de leitura manual</td>
+      <td class="ba-after">15 min com Copilot Chat</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:97%"></div></div><span class="pct-num">-97%</span></td>
+      <td class="ba-src">LinkedIn Talent Solutions 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Análise de pesquisa de clima</td>
+      <td class="ba-before">2 semanas para processar e interpretar</td>
+      <td class="ba-after">2h com Copilot no Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Resposta a dúvidas de RH</td>
+      <td class="ba-before">24-48h via e-mail</td>
+      <td class="ba-after">Instantâneo via Agent Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:99%"></div></div><span class="pct-num">-99%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Empresas brasileiras com milhares de colaboradores em múltiplos estados enfrentam complexidade de CLT, convenções coletivas regionais e e-Social. Um Agent de FAQ de RH pode reduzir drasticamente o volume de tickets para o departamento.</p>
+    </div>
   </div>
-</div>
+  <div class="profile-detail" id="detail-cio">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#0078D4">
+      <span class="detail-emoji">🖥️</span>
+      <div>
+        <h2 class="detail-title">CIO / CTO</h2>
+        <p class="detail-title-en">CIO / CTO</p>
+      </div>
+    </div>
+    <p class="detail-desc">Estratégia de tecnologia, transformação digital, governança de TI, segurança da informação e gestão de fornecedores.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Shadow IT crescente. Dificuldade em justificar ROI de investimentos em tecnologia. Relatórios de status de projetos fragmentados. Gestão de fornecedores e contratos de TI manual.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Pesquisa de tendências tecnológicas</div><div class="uc-desc">Consulta sobre novas tecnologias, comparações entre soluções e análise de viabilidade.</div></div><div class="uc-item"><div class="uc-name">Elaboração de business case de TI</div><div class="uc-desc">Gera estrutura de business case para projetos de transformação digital com ROI estimado.</div></div><div class="uc-item"><div class="uc-name">Resumo de RFPs e propostas de fornecedores</div><div class="uc-desc">Analisa documentos de propostas técnicas e gera comparativos estruturados.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Consolidação de status de projetos</div><div class="uc-desc">Agrega updates de projetos de Teams, Planner e SharePoint em dashboard executivo.</div></div><div class="uc-item"><div class="uc-name">Análise de contratos de TI no Word</div><div class="uc-desc">Revisa contratos de fornecedores, identifica cláusulas de risco e sugere alterações.</div></div><div class="uc-item"><div class="uc-name">Board deck de Transformação Digital</div><div class="uc-desc">Gera apresentações de progresso de transformação digital com métricas e roadmap.</div></div><div class="uc-item"><div class="uc-name">Gestão de conhecimento técnico</div><div class="uc-desc">Pesquisa em documentação técnica, runbooks e wikis corporativas via SharePoint.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de IT Service Desk</div><div class="uc-desc">Chatbot de nível 1 que resolve tickets comuns (reset senha, VPN, acesso) consultando KB interna.</div></div><div class="uc-item"><div class="uc-name">Agent de Governança de TI</div><div class="uc-desc">Monitora compliance de projetos com padrões arquiteturais e de segurança definidos.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Consolidar status de 20+ projetos</td>
+      <td class="ba-before">1 dia inteiro compilando</td>
+      <td class="ba-after">30 min com Copilot + SharePoint</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Análise de proposta de fornecedor</td>
+      <td class="ba-before">3-4h de leitura detalhada</td>
+      <td class="ba-after">30 min com Copilot no Word</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:85%"></div></div><span class="pct-num">-85%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Resolução de tickets L1</td>
+      <td class="ba-before">15 min por ticket (humano)</td>
+      <td class="ba-after">2 min via Agent Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:87%"></div></div><span class="pct-num">-87%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>CIOs brasileiros equilibram modernização de legado (muitas empresas ainda com sistemas on-premises) com adoção de cloud e IA. Copilot Studio permite criar agentes que conectam sistemas legados via APIs, acelerando a transformação sem substituir tudo de uma vez.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-cmo">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#FF8C00">
+      <span class="detail-emoji">📣</span>
+      <div>
+        <h2 class="detail-title">CMO / Diretor de Marketing</h2>
+        <p class="detail-title-en">CMO / Marketing Director</p>
+      </div>
+    </div>
+    <p class="detail-desc">Estratégia de marca, geração de demanda, marketing digital, comunicação corporativa e gestão de campanhas.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Criação de conteúdo lenta e cara. Análise de ROI de campanhas fragmentada entre plataformas. Personalização de mensagens em escala impossível manualmente. Briefings criativos inconsistentes.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Geração de copy e conteúdo</div><div class="uc-desc">Cria textos para campanhas, posts de redes sociais, blogs e newsletters em múltiplos tons e formatos.</div></div><div class="uc-item"><div class="uc-name">Brainstorm de campanhas</div><div class="uc-desc">Explora ideias criativas para campanhas com base em briefing, público-alvo e objetivos.</div></div><div class="uc-item"><div class="uc-name">Análise de concorrência</div><div class="uc-desc">Pesquisa posicionamento de concorrentes e sugere diferenciação de mensagem.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Decks de campanha no PowerPoint</div><div class="uc-desc">Gera apresentações de plano de campanha com timelines, KPIs e alocação de budget.</div></div><div class="uc-item"><div class="uc-name">Análise de métricas de campanha no Excel</div><div class="uc-desc">Analisa dados de performance de campanhas, calcula CAC, LTV, ROAS e gera insights.</div></div><div class="uc-item"><div class="uc-name">Comunicados de imprensa no Word</div><div class="uc-desc">Redige press releases, artigos de thought leadership e whitepapers formatados.</div></div><div class="uc-item"><div class="uc-name">Coordenação de equipe criativa no Teams</div><div class="uc-desc">Resume discussões criativas em canais do Teams e extrai decisões sobre direção de campanha.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Social Listening</div><div class="uc-desc">Monitora menções à marca em canais digitais e alerta sobre crises ou oportunidades de engajamento.</div></div><div class="uc-item"><div class="uc-name">Agent de Geração de Conteúdo</div><div class="uc-desc">Gera variações de peças criativas (email, social, banner) a partir de um briefing central aprovado.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Criar 10 variações de copy</td>
+      <td class="ba-before">4-6h de equipe criativa</td>
+      <td class="ba-after">30 min com Copilot Chat</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Relatório mensal de marketing</td>
+      <td class="ba-before">2 dias compilando dados</td>
+      <td class="ba-after">2h com Copilot no Excel + PowerPoint</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:85%"></div></div><span class="pct-num">-85%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Responder a crise de imagem</td>
+      <td class="ba-before">4-6h para preparar comunicado</td>
+      <td class="ba-after">30 min com draft do Copilot</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:88%"></div></div><span class="pct-num">-88%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Marketing no Brasil opera em mercado altamente competitivo com consumidores ativos em múltiplas redes sociais. A capacidade de gerar conteúdo personalizado em escala — respeitando nuances regionais do português brasileiro — é um diferencial decisivo.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-coo">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#008272">
+      <span class="detail-emoji">⚙️</span>
+      <div>
+        <h2 class="detail-title">COO / Diretor de Operações</h2>
+        <p class="detail-title-en">COO / Operations Director</p>
+      </div>
+    </div>
+    <p class="detail-desc">Eficiência operacional, supply chain, logística, gestão de processos e melhoria contínua.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Processos manuais e planilhas dominam a operação. Falta de visibilidade em tempo real da cadeia de suprimentos. Relatórios operacionais demorados. Dificuldade em identificar gargalos.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de processos operacionais</div><div class="uc-desc">Descreve um processo e pede identificação de gargalos, redundâncias e oportunidades de automação.</div></div><div class="uc-item"><div class="uc-name">Benchmarking operacional</div><div class="uc-desc">Compara métricas operacionais com benchmarks do setor e sugere melhorias.</div></div><div class="uc-item"><div class="uc-name">Documentação de SOPs</div><div class="uc-desc">Gera Standard Operating Procedures estruturados a partir de descrições de processos.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Dashboard operacional no Excel</div><div class="uc-desc">Transforma dados operacionais em dashboards com KPIs de produtividade, SLA e eficiência.</div></div><div class="uc-item"><div class="uc-name">Relatórios de performance operacional</div><div class="uc-desc">Gera relatórios mensais de operações no Word com análise de tendências e recomendações.</div></div><div class="uc-item"><div class="uc-name">Coordenação de supply chain no Teams</div><div class="uc-desc">Resume discussões de supply chain em canais do Teams, extrai ações e prazos.</div></div><div class="uc-item"><div class="uc-name">Revisão de contratos de fornecedores</div><div class="uc-desc">Analisa contratos de serviço e logística, identifica termos desfavoráveis e sugere renegociação.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Monitoramento de SLA</div><div class="uc-desc">Monitora KPIs operacionais em tempo real e alerta quando métricas saem dos thresholds definidos.</div></div><div class="uc-item"><div class="uc-name">Agent de Gestão de Incidentes</div><div class="uc-desc">Automatiza workflow de incidentes operacionais — registro, classificação, escalação e acompanhamento.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Relatório operacional mensal</td>
+      <td class="ba-before">3 dias de compilação</td>
+      <td class="ba-after">4h com Copilot no Excel/Word</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:83%"></div></div><span class="pct-num">-83%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Documentar novo SOP</td>
+      <td class="ba-before">2 dias para redigir e revisar</td>
+      <td class="ba-after">2h com Copilot gerando draft</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Identificar gargalos em processo</td>
+      <td class="ba-before">Semanas de análise manual</td>
+      <td class="ba-after">1h de conversa com Copilot + dados</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">McKinsey Digital 2025</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Operações no Brasil enfrentam desafios logísticos únicos: dimensão continental, infraestrutura heterogênea, complexidade tributária interestadual. Copilot pode ajudar a processar e correlacionar dados operacionais dispersos para encontrar otimizações.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-clo">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#D13438">
+      <span class="detail-emoji">⚖️</span>
+      <div>
+        <h2 class="detail-title">CLO / Diretor Jurídico</h2>
+        <p class="detail-title-en">CLO / General Counsel</p>
+      </div>
+    </div>
+    <p class="detail-desc">Gestão jurídica corporativa, compliance, contratos, contencioso e proteção de dados (LGPD).</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Volume massivo de contratos para revisar. Pesquisa jurisprudencial demorada. Acompanhamento de mudanças regulatórias manual. Gestão de compliance trabalhoso.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Pesquisa jurídica</div><div class="uc-desc">Consulta sobre legislação, jurisprudência e doutrinas com citação de fontes para embasar pareceres.</div></div><div class="uc-item"><div class="uc-name">Análise preliminar de contratos</div><div class="uc-desc">Revisa cláusulas contratuais, identifica riscos e sugere alterações em linguagem jurídica.</div></div><div class="uc-item"><div class="uc-name">Redação de pareceres jurídicos</div><div class="uc-desc">Gera rascunhos de pareceres com fundamentação legal a partir de briefing do caso.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Revisão de contratos no Word</div><div class="uc-desc">Analisa contratos extensos, compara com templates padrão e destaca desvios e cláusulas de risco.</div></div><div class="uc-item"><div class="uc-name">Gestão de contencioso no Excel</div><div class="uc-desc">Organiza portfólio de processos com valores, prazos, probabilidade de perda e provisões.</div></div><div class="uc-item"><div class="uc-name">Comunicação jurídica no Outlook</div><div class="uc-desc">Redige pareceres, notificações e respostas a consultorias com tom jurídico adequado.</div></div><div class="uc-item"><div class="uc-name">Base de conhecimento jurídico no SharePoint</div><div class="uc-desc">Pesquisa em biblioteca de contratos, pareceres e precedentes da empresa.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Compliance LGPD</div><div class="uc-desc">Monitora conformidade com LGPD, responde consultas sobre tratamento de dados e gera relatórios de impacto.</div></div><div class="uc-item"><div class="uc-name">Agent de Gestão de Contratos</div><div class="uc-desc">Alerta sobre vencimentos, renovações e cláusulas gatilho em contratos ativos.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Revisar contrato de 40 páginas</td>
+      <td class="ba-before">4-6h de leitura manual</td>
+      <td class="ba-after">45 min com Copilot no Word</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:85%"></div></div><span class="pct-num">-85%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Pesquisa jurisprudencial</td>
+      <td class="ba-before">2-4h em bases de dados</td>
+      <td class="ba-after">15 min com Copilot Chat</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Consultas de compliance LGPD</td>
+      <td class="ba-before">1-2 dias para responder</td>
+      <td class="ba-after">Instantâneo via Agent Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:95%"></div></div><span class="pct-num">-95%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>O jurídico corporativo no Brasil lida com um dos sistemas legais mais complexos do mundo — centenas de leis tributárias, CLT, LGPD, CPC/2015, e regulamentações setoriais. Copilot como assistente de pesquisa jurídica economiza centenas de horas por ano.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-vp-vendas">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#0078D4">
+      <span class="detail-emoji">🎯</span>
+      <div>
+        <h2 class="detail-title">VP de Vendas</h2>
+        <p class="detail-title-en">VP of Sales</p>
+      </div>
+    </div>
+    <p class="detail-desc">Estratégia comercial, gestão de pipeline, forecast, coaching de vendedores e relacionamento com grandes contas.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Forecast impreciso baseado em gut feeling. Pipeline reviews demoradas e ineficientes. Falta de visibilidade nas atividades dos vendedores. Preparação para reuniões com clientes manual.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de pipeline e forecast</div><div class="uc-desc">Analisa dados de CRM e sugere ajustes no forecast com base em tendências históricas e estágio dos deals.</div></div><div class="uc-item"><div class="uc-name">Coaching de vendedores</div><div class="uc-desc">Gera sugestões de abordagem para deals específicos com base em perfil do cliente e objeções comuns.</div></div><div class="uc-item"><div class="uc-name">Preparação de QBR</div><div class="uc-desc">Cria estrutura de Quarterly Business Review com métricas, destaques e plano de ação.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Resumo de interações com cliente no Teams/Outlook</div><div class="uc-desc">Consolida todas as interações (emails, reuniões, chats) com um cliente em timeline de relacionamento.</div></div><div class="uc-item"><div class="uc-name">Análise de pipeline no Excel</div><div class="uc-desc">Processa dados de CRM exportados, calcula win rate, ciclo de vendas e identifica deals em risco.</div></div><div class="uc-item"><div class="uc-name">Decks de proposta comercial no PowerPoint</div><div class="uc-desc">Gera propostas comerciais customizadas com slides de valor, caso de uso e ROI.</div></div><div class="uc-item"><div class="uc-name">Follow-up automático no Outlook</div><div class="uc-desc">Sugere e redige e-mails de follow-up baseados no histórico de conversas com o cliente.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Deal Intelligence</div><div class="uc-desc">Analisa oportunidades do CRM, cruza com atividades de email/Teams e alerta sobre deals em risco.</div></div><div class="uc-item"><div class="uc-name">Agent de Preparação de Reunião</div><div class="uc-desc">Gera briefing pré-reunião com histórico do cliente, deals em aberto, últimas interações e recomendações.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Preparar forecast semanal</td>
+      <td class="ba-before">4-6h compilando dados de vendedores</td>
+      <td class="ba-after">30 min com Copilot no Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Preparação para reunião com cliente</td>
+      <td class="ba-before">2h pesquisando histórico</td>
+      <td class="ba-after">10 min com Agent de Briefing</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:92%"></div></div><span class="pct-num">-92%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Pipeline review mensal</td>
+      <td class="ba-before">1 dia inteiro</td>
+      <td class="ba-after">2h com dashboards inteligentes</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:75%"></div></div><span class="pct-num">-75%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>No Brasil, vendas enterprise envolvem ciclos longos e múltiplos stakeholders. A capacidade do Copilot de consolidar toda a história de relacionamento com um cliente — desde e-mails até reuniões do Teams — é um game-changer para preparação de reuniões.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-dir-operacoes">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#008272">
+      <span class="detail-emoji">🏭</span>
+      <div>
+        <h2 class="detail-title">Diretor de Operações</h2>
+        <p class="detail-title-en">Operations Director</p>
+      </div>
+    </div>
+    <p class="detail-desc">Gestão de operações do dia-a-dia, produção, qualidade, manutenção e eficiência de processos.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Relatórios de produção manuais em planilhas. Comunicação fragmentada entre turnos. Dificuldade em rastrear não-conformidades. Manutenção preventiva mal planejada.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de indicadores de produção</div><div class="uc-desc">Cola dados de produção e pede análise de OEE, downtime, taxa de defeitos e sugestões de melhoria.</div></div><div class="uc-item"><div class="uc-name">Geração de relatórios de turno</div><div class="uc-desc">Cria relatórios padronizados de turno a partir de notas e dados fornecidos.</div></div><div class="uc-item"><div class="uc-name">Plano de manutenção preventiva</div><div class="uc-desc">Gera cronograma de manutenção baseado em dados históricos de falhas e vida útil de equipamentos.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Dashboard de produção no Excel</div><div class="uc-desc">Transforma dados brutos de produção em dashboards visuais com tendências e alertas.</div></div><div class="uc-item"><div class="uc-name">Handoff entre turnos no Teams</div><div class="uc-desc">Resume atividades do turno anterior e destaca pendências e alertas para o próximo turno.</div></div><div class="uc-item"><div class="uc-name">Procedimentos operacionais no Word</div><div class="uc-desc">Atualiza e mantém procedimentos operacionais padronizados com versionamento.</div></div><div class="uc-item"><div class="uc-name">Gestão de não-conformidades no Outlook</div><div class="uc-desc">Rastreia e-mails de reclamações de qualidade e organiza por gravidade e status.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Relatório de Produção</div><div class="uc-desc">Coleta dados de múltiplos sistemas (MES, ERP, planilhas) e gera relatório consolidado diário.</div></div><div class="uc-item"><div class="uc-name">Agent de Qualidade</div><div class="uc-desc">Registra não-conformidades, categoriza e escala automaticamente para as áreas responsáveis.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Relatório diário de produção</td>
+      <td class="ba-before">2h de compilação manual</td>
+      <td class="ba-after">15 min com Agent automático</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:88%"></div></div><span class="pct-num">-88%</span></td>
+      <td class="ba-src">McKinsey Digital 2025</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Handoff entre turnos</td>
+      <td class="ba-before">30 min de reunião presencial</td>
+      <td class="ba-after">5 min via resumo automático Teams</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:83%"></div></div><span class="pct-num">-83%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Rastrear não-conformidades</td>
+      <td class="ba-before">Planilha manual, 1-2h/dia</td>
+      <td class="ba-after">Automatizado via Agent Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Operações industriais no Brasil — especialmente em manufatura, agronegócio e varejo — dependem de coordenação entre múltiplas plantas e turnos. Copilot resolve o gap de comunicação que existe na transição entre turnos.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-ger-rh">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#5C2D91">
+      <span class="detail-emoji">🤝</span>
+      <div>
+        <h2 class="detail-title">Gerente de RH</h2>
+        <p class="detail-title-en">HR Manager</p>
+      </div>
+    </div>
+    <p class="detail-desc">Gestão operacional de RH — recrutamento, folha de pagamento, benefícios, treinamento e desenvolvimento, relações trabalhistas.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Volume alto de perguntas repetitivas de colaboradores. Processos de admissão/desligamento burocráticos. Treinamentos difíceis de personalizar. Gestão de ponto e férias em planilhas.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Criação de job descriptions</div><div class="uc-desc">Gera descrições de vaga completas com requisitos, responsabilidades e competências a partir de briefing.</div></div><div class="uc-item"><div class="uc-name">Roteiro de entrevista</div><div class="uc-desc">Cria roteiros de entrevista por competência personalizados para cada vaga.</div></div><div class="uc-item"><div class="uc-name">Comunicados internos</div><div class="uc-desc">Redige comunicados para diferentes situações (mudanças, eventos, benefícios) com tom adequado.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Gestão de candidatos no Excel</div><div class="uc-desc">Organiza pipeline de recrutamento, calcula métricas (time-to-hire, cost-per-hire) e identifica gargalos.</div></div><div class="uc-item"><div class="uc-name">Materiais de treinamento no PowerPoint</div><div class="uc-desc">Cria apresentações de treinamento e onboarding a partir de conteúdo do SharePoint/Word.</div></div><div class="uc-item"><div class="uc-name">Respostas a colaboradores no Outlook</div><div class="uc-desc">Sugere respostas padronizadas para dúvidas frequentes de colaboradores baseado em políticas internas.</div></div><div class="uc-item"><div class="uc-name">Atas de reuniões trabalhistas no Teams</div><div class="uc-desc">Documenta reuniões de mediação, feedback e avaliação de desempenho com precisão.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Autoatendimento de RH</div><div class="uc-desc">Responde dúvidas de colaboradores 24/7 — holerites, férias, benefícios, políticas — consultando base de conhecimento.</div></div><div class="uc-item"><div class="uc-name">Agent de Admissão Digital</div><div class="uc-desc">Guia novos colaboradores pelo processo de admissão: documentos, exames, assinaturas digitais.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Responder 50 dúvidas/dia de RH</td>
+      <td class="ba-before">4-5h do time de RH</td>
+      <td class="ba-after">90% resolvidas por Agent</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Criar job description</td>
+      <td class="ba-before">2h de pesquisa e redação</td>
+      <td class="ba-after">15 min com Copilot Chat</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:88%"></div></div><span class="pct-num">-88%</span></td>
+      <td class="ba-src">LinkedIn Talent Solutions 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Processo de admissão</td>
+      <td class="ba-before">5-7 dias úteis</td>
+      <td class="ba-after">2-3 dias com Agent digital</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:55%"></div></div><span class="pct-num">-55%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>RH no Brasil opera sob CLT com múltiplas obrigações (e-Social, CAGED, RAIS, DIRF) e convenções coletivas que variam por estado e categoria. Um Agent de FAQ de RH que domina essas particularidades é extremamente valioso.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-ger-financeiro">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#107C10">
+      <span class="detail-emoji">📊</span>
+      <div>
+        <h2 class="detail-title">Gerente Financeiro</h2>
+        <p class="detail-title-en">Finance Manager</p>
+      </div>
+    </div>
+    <p class="detail-desc">Gestão financeira operacional — contas a pagar/receber, conciliação, tesouraria, orçamento departamental.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Conciliações bancárias manuais e demoradas. Previsão de fluxo de caixa imprecisa. Aprovações de despesas via e-mail sem rastreabilidade. Relatórios financeiros para gestão repetitivos.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de fluxo de caixa</div><div class="uc-desc">Analisa dados financeiros e projeta fluxo de caixa com cenários otimista/pessimista/realista.</div></div><div class="uc-item"><div class="uc-name">Explicação de variações</div><div class="uc-desc">Explica variações orçamentárias significativas com narrativa para apresentação à diretoria.</div></div><div class="uc-item"><div class="uc-name">Cálculos financeiros</div><div class="uc-desc">Realiza cálculos de VPL, TIR, payback e outros indicadores financeiros com explicações.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Conciliação assistida no Excel</div><div class="uc-desc">Identifica discrepâncias entre extratos bancários e registros contábeis automaticamente.</div></div><div class="uc-item"><div class="uc-name">Relatórios financeiros no Word</div><div class="uc-desc">Gera relatórios mensais de performance financeira com gráficos e análise narrativa.</div></div><div class="uc-item"><div class="uc-name">Controle orçamentário no Excel</div><div class="uc-desc">Monitora execução orçamentária por centro de custo com alertas de desvio.</div></div><div class="uc-item"><div class="uc-name">Comunicação financeira no Outlook</div><div class="uc-desc">Redige comunicados sobre prazos de pagamento, políticas de reembolso e atualizações de budget.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Aprovação Financeira</div><div class="uc-desc">Automatiza fluxo de aprovação de despesas com regras de alçada, verificação de budget e audit trail.</div></div><div class="uc-item"><div class="uc-name">Agent de Cobrança</div><div class="uc-desc">Envia lembretes automatizados de cobrança, escala inadimplências e gera relatórios de aging.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Conciliação bancária mensal</td>
+      <td class="ba-before">8-12h manuais</td>
+      <td class="ba-after">2h com Copilot no Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Relatório financeiro mensal</td>
+      <td class="ba-before">2 dias para compilar</td>
+      <td class="ba-after">3h com Copilot Word + Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Processar aprovações de despesas</td>
+      <td class="ba-before">2-3 dias via e-mail</td>
+      <td class="ba-after">Instantâneo via Agent Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:95%"></div></div><span class="pct-num">-95%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Gestores financeiros no Brasil lidam com regime tributário complexo, múltiplas obrigações acessórias e prazos rígidos. Automação de processos repetitivos via Copilot Studio libera tempo para análise estratégica.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-ger-marketing">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#FF8C00">
+      <span class="detail-emoji">📱</span>
+      <div>
+        <h2 class="detail-title">Gerente de Marketing</h2>
+        <p class="detail-title-en">Marketing Manager</p>
+      </div>
+    </div>
+    <p class="detail-desc">Execução de marketing — campanhas, conteúdo, eventos, redes sociais, leads e métricas de performance.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Pressão constante por conteúdo novo. Relatórios de ROI de campanhas manuais. Coordenação entre agência e equipe interna lenta. Personalização de conteúdo impossível em escala.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Geração de conteúdo multicanal</div><div class="uc-desc">Cria conteúdo para e-mail marketing, redes sociais, blog e site a partir de um único briefing.</div></div><div class="uc-item"><div class="uc-name">Calendário editorial</div><div class="uc-desc">Sugere temas e cronograma de conteúdo baseado em tendências, datas sazonais e objetivos de negócio.</div></div><div class="uc-item"><div class="uc-name">Análise de concorrência</div><div class="uc-desc">Analisa posicionamento de concorrentes em digital e sugere oportunidades de diferenciação.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Relatório de performance no Excel</div><div class="uc-desc">Processa dados de Google Analytics, Meta Ads, LinkedIn e cria dashboard consolidado de ROI.</div></div><div class="uc-item"><div class="uc-name">Briefings para agência no Word</div><div class="uc-desc">Cria briefings criativos estruturados com objetivos, público, tom de voz e referências visuais.</div></div><div class="uc-item"><div class="uc-name">Apresentação de resultados no PowerPoint</div><div class="uc-desc">Gera deck de resultados de campanha com métricas, aprendizados e próximos passos.</div></div><div class="uc-item"><div class="uc-name">Gestão de eventos no Teams/Outlook</div><div class="uc-desc">Coordena logística de eventos, convites e follow-up pós-evento com templates inteligentes.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Lead Scoring</div><div class="uc-desc">Qualifica leads automaticamente com base em comportamento digital e fit com ICP.</div></div><div class="uc-item"><div class="uc-name">Agent de Nurturing</div><div class="uc-desc">Envia sequências de e-mails personalizados com conteúdo relevante para cada estágio do funil.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Criar 5 peças de conteúdo</td>
+      <td class="ba-before">1 dia inteiro com equipe criativa</td>
+      <td class="ba-after">2h com Copilot Chat + revisão</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:75%"></div></div><span class="pct-num">-75%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Relatório mensal de marketing</td>
+      <td class="ba-before">1.5 dia compilando dados</td>
+      <td class="ba-after">2h com Copilot Excel + PowerPoint</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:83%"></div></div><span class="pct-num">-83%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Qualificação de leads</td>
+      <td class="ba-before">Manual, 2-3 dias de atraso</td>
+      <td class="ba-after">Automática via Agent Studio</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:95%"></div></div><span class="pct-num">-95%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Marketing digital no Brasil é altamente competitivo e mobile-first. Com mais de 170 milhões de usuários de internet, a capacidade de personalizar conteúdo em escala — mantendo o tom do português brasileiro — é essencial.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-ger-ti">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#0078D4">
+      <span class="detail-emoji">🔧</span>
+      <div>
+        <h2 class="detail-title">Gerente de TI</h2>
+        <p class="detail-title-en">IT Manager</p>
+      </div>
+    </div>
+    <p class="detail-desc">Gestão de infraestrutura, service desk, projetos de TI, segurança operacional e suporte aos usuários.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Tickets de suporte repetitivos consomem o time. Documentação técnica desatualizada. Gestão de patches e atualizações manual. Difficulty tracking SLAs across services.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Troubleshooting de problemas de TI</div><div class="uc-desc">Descreve um problema técnico e recebe roteiro de diagnóstico e resolução passo a passo.</div></div><div class="uc-item"><div class="uc-name">Documentação técnica</div><div class="uc-desc">Gera runbooks, wikis e documentação de procedimentos a partir de notas e conhecimento tácito.</div></div><div class="uc-item"><div class="uc-name">Planejamento de migração</div><div class="uc-desc">Cria planos de migração de sistemas com checklist, riscos e rollback plan.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Gestão de tickets no Excel/Teams</div><div class="uc-desc">Analisa volume e padrões de tickets, identifica issues recorrentes e sugere automações.</div></div><div class="uc-item"><div class="uc-name">Comunicados de manutenção no Outlook</div><div class="uc-desc">Redige comunicados de manutenção programada e incidentes com tom adequado para usuários finais.</div></div><div class="uc-item"><div class="uc-name">Knowledge base no SharePoint</div><div class="uc-desc">Pesquisa e mantém artigos de KB técnica atualizada com soluções para problemas comuns.</div></div><div class="uc-item"><div class="uc-name">Reuniões de war room no Teams</div><div class="uc-desc">Resume reuniões de resolução de incidentes com timeline, ações e root cause analysis.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Help Desk L1</div><div class="uc-desc">Chatbot que resolve tickets comuns (senha, VPN, impressora, acesso) consultando KB e executando ações.</div></div><div class="uc-item"><div class="uc-name">Agent de Monitoramento</div><div class="uc-desc">Monitora saúde de sistemas, alerta sobre anomalias e inicia runbooks de recuperação automaticamente.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Resolver ticket L1</td>
+      <td class="ba-before">15 min por ticket (humano)</td>
+      <td class="ba-after">2 min via Agent L1</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:87%"></div></div><span class="pct-num">-87%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Criar documentação técnica</td>
+      <td class="ba-before">4-6h para redigir runbook</td>
+      <td class="ba-after">1h com Copilot gerando draft</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Diagnóstico de incidente</td>
+      <td class="ba-before">1-4h de investigação manual</td>
+      <td class="ba-after">15 min com Copilot analisando logs</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:85%"></div></div><span class="pct-num">-85%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>TI no Brasil frequentemente opera com equipes enxutas atendendo grande volume de usuários. A automação de tickets L1 via Copilot Studio pode liberar 40-60% do tempo do service desk para atividades de maior valor.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-analista-financeiro">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#107C10">
+      <span class="detail-emoji">📈</span>
+      <div>
+        <h2 class="detail-title">Analista Financeiro</h2>
+        <p class="detail-title-en">Financial Analyst</p>
+      </div>
+    </div>
+    <p class="detail-desc">Análise financeira, modelagem, orçamento, forecasting e suporte à tomada de decisão da diretoria.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Horas gastas em formatação de planilhas e consolidação de dados. Modelos financeiros complexos difíceis de documentar. Versões de orçamento descontroladas. Análises ad-hoc urgentes.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Modelagem financeira rápida</div><div class="uc-desc">Descreve cenários e pede montagem de modelos de projeção financeira com premissas variáveis.</div></div><div class="uc-item"><div class="uc-name">Interpretação de demonstrativos</div><div class="uc-desc">Cola DRE/balanço e pede análise detalhada com indicadores e comparativos.</div></div><div class="uc-item"><div class="uc-name">Fórmulas complexas de Excel</div><div class="uc-desc">Pede ajuda com fórmulas avançadas (PROCV, ÍNDICE/CORRESP, Power Query) com explicação.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de dados no Excel (estrela)</div><div class="uc-desc">Analisa datasets financeiros com linguagem natural, cria tabelas dinâmicas e gráficos automaticamente.</div></div><div class="uc-item"><div class="uc-name">Apresentação de resultados no PowerPoint</div><div class="uc-desc">Transforma análise do Excel em deck executivo com narrativa e visualizações.</div></div><div class="uc-item"><div class="uc-name">Documentação de modelos no Word</div><div class="uc-desc">Documenta premissas, metodologia e resultados de modelos financeiros.</div></div><div class="uc-item"><div class="uc-name">Coleta de dados via Outlook/Teams</div><div class="uc-desc">Resume pedidos de informação de diferentes áreas e organiza em checklist de dados pendentes.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Data Collection</div><div class="uc-desc">Coleta automaticamente dados financeiros de múltiplas fontes e consolida em planilha padronizada.</div></div><div class="uc-item"><div class="uc-name">Agent de Alertas Orçamentários</div><div class="uc-desc">Monitora execução vs orçamento e alerta gestores quando desvios ultrapassam thresholds.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Consolidar dados de 10 unidades</td>
+      <td class="ba-before">1 dia inteiro copiando/colando</td>
+      <td class="ba-after">1h com Copilot no Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:88%"></div></div><span class="pct-num">-88%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Criar deck de análise financeira</td>
+      <td class="ba-before">6-8h entre análise e formatação</td>
+      <td class="ba-after">2h com Copilot Excel → PowerPoint</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div><span class="pct-num">-70%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Análise ad-hoc urgente</td>
+      <td class="ba-before">4-6h de trabalho manual</td>
+      <td class="ba-after">1h com Copilot analisando dados</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">McKinsey Digital 2025</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Analistas financeiros no Brasil lidam com particularidades como correção monetária, múltiplos indexadores (IPCA, CDI, Selic) e regras tributárias complexas. Copilot no Excel é particularmente transformador para esse perfil.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-analista-rh">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#5C2D91">
+      <span class="detail-emoji">📋</span>
+      <div>
+        <h2 class="detail-title">Analista de RH</h2>
+        <p class="detail-title-en">HR Analyst</p>
+      </div>
+    </div>
+    <p class="detail-desc">Execução de processos de RH — recrutamento, admissão, folha, benefícios, treinamento e atendimento ao colaborador.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Volume massivo de perguntas repetitivas de colaboradores. Processos burocráticos de admissão/demissão. Planilhas de controle manual. Treinamentos sem personalização.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Criação de conteúdo de treinamento</div><div class="uc-desc">Gera materiais de treinamento, quizzes e avaliações a partir de políticas e manuais internos.</div></div><div class="uc-item"><div class="uc-name">Templates de e-mail de RH</div><div class="uc-desc">Cria templates para comunicações padrão: admissão, desligamento, promoção, feedback.</div></div><div class="uc-item"><div class="uc-name">Análise de indicadores de RH</div><div class="uc-desc">Calcula e interpreta turnover, absenteísmo, headcount e outros KPIs de gestão de pessoas.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Controles de RH no Excel</div><div class="uc-desc">Gerencia planilhas de férias, banco de horas, avaliações de desempenho com fórmulas inteligentes.</div></div><div class="uc-item"><div class="uc-name">Documentos de admissão no Word</div><div class="uc-desc">Gera contratos, termos e documentos de admissão padronizados preenchidos automaticamente.</div></div><div class="uc-item"><div class="uc-name">Comunicação com candidatos no Outlook</div><div class="uc-desc">Redige e-mails de feedback, agendamento de entrevistas e ofertas com tom profissional.</div></div><div class="uc-item"><div class="uc-name">Organização de treinamentos no Teams</div><div class="uc-desc">Coordena logística de treinamentos, materiais e avaliações pós-evento.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Atendimento ao Colaborador</div><div class="uc-desc">Chatbot que resolve dúvidas sobre holerite, férias, benefícios, ponto e políticas 24/7.</div></div><div class="uc-item"><div class="uc-name">Agent de Onboarding Automatizado</div><div class="uc-desc">Conduz novo colaborador por checklist digital: documentos, acessos, treinamentos obrigatórios.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Atender 80 dúvidas/dia</td>
+      <td class="ba-before">6h do time de RH</td>
+      <td class="ba-after">85% resolvidas por Agent</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:85%"></div></div><span class="pct-num">-85%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Processo de admissão completo</td>
+      <td class="ba-before">5 dias úteis</td>
+      <td class="ba-after">2 dias com automações</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:60%"></div></div><span class="pct-num">-60%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Gerar contrato de trabalho</td>
+      <td class="ba-before">1h de preenchimento manual</td>
+      <td class="ba-after">5 min com template Copilot</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:92%"></div></div><span class="pct-num">-92%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Analistas de RH no Brasil processam obrigações como e-Social, exame admissional, ASO, registro em CTPS digital. Automatizar a parte burocrática libera tempo para o que importa: a experiência do colaborador.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-analista-marketing">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#FF8C00">
+      <span class="detail-emoji">✏️</span>
+      <div>
+        <h2 class="detail-title">Analista de Marketing</h2>
+        <p class="detail-title-en">Marketing Analyst</p>
+      </div>
+    </div>
+    <p class="detail-desc">Execução de campanhas, criação de conteúdo, gestão de redes sociais, análise de dados de marketing.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Deadline constante para produzir conteúdo. Relatórios de campanhas em múltiplas plataformas. Personalização manual de peças para cada canal. A/B testing manual.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Redação de posts e legendas</div><div class="uc-desc">Cria posts para Instagram, LinkedIn, Twitter com hashtags, CTAs e adaptação de tom por plataforma.</div></div><div class="uc-item"><div class="uc-name">E-mail marketing</div><div class="uc-desc">Gera subject lines, body copy e CTAs para campanhas de e-mail com variações para A/B test.</div></div><div class="uc-item"><div class="uc-name">SEO e keyword research</div><div class="uc-desc">Sugere palavras-chave, títulos SEO e meta descriptions para conteúdo digital.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de métricas no Excel</div><div class="uc-desc">Processa dados de Google Analytics, Meta Business Suite e cria dashboards de performance.</div></div><div class="uc-item"><div class="uc-name">Briefings e apresentações no PowerPoint</div><div class="uc-desc">Cria decks de proposta de campanha e relatórios de resultados com visual profissional.</div></div><div class="uc-item"><div class="uc-name">Conteúdo longo no Word</div><div class="uc-desc">Redige artigos de blog, e-books e whitepapers com estrutura, SEO e formatação profissional.</div></div><div class="uc-item"><div class="uc-name">Gestão de calendário editorial no Teams</div><div class="uc-desc">Organiza e-mails de aprovação de conteúdo e coordena com equipe criativa/agência.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Publicação Social</div><div class="uc-desc">Agenda posts em múltiplas redes a partir de calendário editorial e adapta formato automaticamente.</div></div><div class="uc-item"><div class="uc-name">Agent de Relatório Automático</div><div class="uc-desc">Gera relatório semanal de performance de mídia consolidando dados de múltiplas plataformas.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Criar pacote de 10 posts sociais</td>
+      <td class="ba-before">4-5h de redação e adaptação</td>
+      <td class="ba-after">1h com Copilot + revisão</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:78%"></div></div><span class="pct-num">-78%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Relatório semanal de mídia</td>
+      <td class="ba-before">3h compilando dados</td>
+      <td class="ba-after">30 min com Agent automático</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:83%"></div></div><span class="pct-num">-83%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">A/B test de subject lines</td>
+      <td class="ba-before">2h criando variações</td>
+      <td class="ba-after">10 min com Copilot Chat</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:92%"></div></div><span class="pct-num">-92%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>O mercado brasileiro de marketing digital é o 3º maior em tempo de uso de redes sociais no mundo. Analistas precisam produzir conteúdo em volume e velocidade sem perder qualidade — Copilot é o multiplicador ideal.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-vendedor">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#0078D4">
+      <span class="detail-emoji">💼</span>
+      <div>
+        <h2 class="detail-title">Vendedor / Account Executive</h2>
+        <p class="detail-title-en">Salesperson / Account Executive</p>
+      </div>
+    </div>
+    <p class="detail-desc">Prospecção, qualificação, negociação, fechamento e gestão de carteira de clientes.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Tempo excessivo em atividades administrativas (CRM, relatórios) vs. vender. Dificuldade em personalizar abordagens para cada cliente. Preparação para reuniões superficial. Follow-up inconsistente.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Preparação de pitch personalizado</div><div class="uc-desc">Cria argumentos de venda customizados para cada cliente baseado em setor, dores e perfil decisor.</div></div><div class="uc-item"><div class="uc-name">Tratamento de objeções</div><div class="uc-desc">Gera respostas para objeções comuns (preço, concorrência, timing) com dados e cases de suporte.</div></div><div class="uc-item"><div class="uc-name">Pesquisa de prospect</div><div class="uc-desc">Pesquisa informações sobre empresa e setor do prospect para personalizar a abordagem.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">E-mails de prospecção no Outlook</div><div class="uc-desc">Gera e-mails de prospecção personalizados, follow-ups e propostas baseados no histórico de interação.</div></div><div class="uc-item"><div class="uc-name">Propostas comerciais no PowerPoint</div><div class="uc-desc">Cria decks de proposta com slides de valor, case studies e ROI customizados para o cliente.</div></div><div class="uc-item"><div class="uc-name">Análise de carteira no Excel</div><div class="uc-desc">Analisa pipeline pessoal, identifica deals em risco, prioriza atividades por probabilidade de fechamento.</div></div><div class="uc-item"><div class="uc-name">Resumo de reuniões no Teams</div><div class="uc-desc">Captura compromissos, decisões e próximos passos de reuniões com clientes automaticamente.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de CRM Intelligence</div><div class="uc-desc">Enriquece dados do CRM com informações públicas do cliente e sugere ações de engajamento.</div></div><div class="uc-item"><div class="uc-name">Agent de Follow-up</div><div class="uc-desc">Envia follow-ups automatizados baseados em regras de timing e comportamento do prospect.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Preparar para reunião com cliente</td>
+      <td class="ba-before">1-2h pesquisando e organizando</td>
+      <td class="ba-after">10 min com briefing automático</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">-90%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Escrever proposta comercial</td>
+      <td class="ba-before">3-4h entre pesquisa e formatação</td>
+      <td class="ba-after">1h com Copilot gerando draft</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div><span class="pct-num">-70%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Follow-up pós-reunião</td>
+      <td class="ba-before">Muitas vezes esquecido ou atrasado</td>
+      <td class="ba-after">Automático via Agent em 1h</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:95%"></div></div><span class="pct-num">-95%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Vendedores no Brasil operam em ambiente altamente relacional — o relacionamento pessoal ainda é decisivo. Copilot libera tempo de tarefas administrativas para que o vendedor foque no que importa: construir e manter relacionamentos.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-atendimento">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#008272">
+      <span class="detail-emoji">🎧</span>
+      <div>
+        <h2 class="detail-title">Atendimento ao Cliente</h2>
+        <p class="detail-title-en">Customer Service Rep</p>
+      </div>
+    </div>
+    <p class="detail-desc">Atendimento, suporte, resolução de reclamações, SAC e gestão de experiência do cliente.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Volume alto de tickets repetitivos. Tempo de resposta lento por falta de acesso rápido a informações. Inconsistência nas respostas entre atendentes. Dificuldade em escalar issues complexos.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Geração de respostas padrão</div><div class="uc-desc">Cria templates de resposta para cenários comuns de atendimento com tom empático e profissional.</div></div><div class="uc-item"><div class="uc-name">Análise de reclamações</div><div class="uc-desc">Categoriza reclamações, identifica padrões e sugere melhorias de processo.</div></div><div class="uc-item"><div class="uc-name">Treinamento de atendentes</div><div class="uc-desc">Gera cenários de role-play e scripts de atendimento para treinamento de novos atendentes.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Gestão de tickets no Excel/Teams</div><div class="uc-desc">Analisa volume, SLA, CSAT e identifica tipos de ticket mais frequentes para automação.</div></div><div class="uc-item"><div class="uc-name">Base de conhecimento no SharePoint</div><div class="uc-desc">Pesquisa rapidamente em KB interna para encontrar soluções durante atendimento.</div></div><div class="uc-item"><div class="uc-name">Respostas a clientes no Outlook</div><div class="uc-desc">Redige respostas profissionais e empáticas para reclamações e solicitações complexas.</div></div><div class="uc-item"><div class="uc-name">Escalação inteligente no Teams</div><div class="uc-desc">Resume contexto do atendimento para escalar para especialista com todas as informações.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Autoatendimento</div><div class="uc-desc">Chatbot que resolve issues comuns (status de pedido, troca, cancelamento) sem intervenção humana.</div></div><div class="uc-item"><div class="uc-name">Agent de Classificação e Roteamento</div><div class="uc-desc">Classifica tickets automaticamente e roteia para fila/atendente correto com contexto.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Tempo médio de atendimento (TMA)</td>
+      <td class="ba-before">12-15 min por ticket</td>
+      <td class="ba-after">5-7 min com Copilot assistindo</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:55%"></div></div><span class="pct-num">-55%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Resolução no primeiro contato</td>
+      <td class="ba-before">60% FCR</td>
+      <td class="ba-after">85% FCR com KB + Agent</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:42%"></div></div><span class="pct-num">-42%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Tickets resolvidos sem humano</td>
+      <td class="ba-before">0% (tudo manual)</td>
+      <td class="ba-after">40-50% via Agent autoatendimento</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:45%"></div></div><span class="pct-num">-45%</span></td>
+      <td class="ba-src">McKinsey Digital 2025</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>O consumidor brasileiro é exigente e vocal — canais como Reclame Aqui e redes sociais amplificam insatisfação rapidamente. Atendimento rápido e consistente, potencializado por Copilot, é diferencial competitivo real.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-advogado">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#D13438">
+      <span class="detail-emoji">📜</span>
+      <div>
+        <h2 class="detail-title">Advogado Corporativo</h2>
+        <p class="detail-title-en">Corporate Lawyer</p>
+      </div>
+    </div>
+    <p class="detail-desc">Análise e elaboração de contratos, pareceres jurídicos, compliance, contencioso e assessoria à diretoria.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Revisão de contratos extensos consome horas. Pesquisa de jurisprudência e legislação é lenta e fragmentada. Volume crescente de demandas de compliance. Prazos processuais críticos.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Pesquisa de legislação e jurisprudência</div><div class="uc-desc">Consulta rápida sobre leis, decretos, regulamentos e decisões judiciais relevantes para um caso.</div></div><div class="uc-item"><div class="uc-name">Redação de cláusulas contratuais</div><div class="uc-desc">Gera cláusulas padrão ou customizadas com linguagem jurídica precisa.</div></div><div class="uc-item"><div class="uc-name">Análise de risco jurídico</div><div class="uc-desc">Avalia cenários jurídicos e estima probabilidade e impacto de diferentes outcomes.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Revisão de contratos no Word</div><div class="uc-desc">Compara contratos com templates padrão, identifica cláusulas atípicas e sugere redação alternativa.</div></div><div class="uc-item"><div class="uc-name">Controle de processos no Excel</div><div class="uc-desc">Gerencia portfólio de processos judiciais com prazos, provisões, probabilidade de perda e status.</div></div><div class="uc-item"><div class="uc-name">Pareceres jurídicos no Word</div><div class="uc-desc">Gera rascunhos de pareceres com fundamentação legal estruturada.</div></div><div class="uc-item"><div class="uc-name">Comunicação jurídica no Outlook</div><div class="uc-desc">Redige notificações, pareceres e respostas a consultorias com formalidade jurídica adequada.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Prazos Processuais</div><div class="uc-desc">Monitora prazos de processos judiciais e administrativos, envia alertas e checklists de ação.</div></div><div class="uc-item"><div class="uc-name">Agent de Consulta Jurídica</div><div class="uc-desc">Responde consultas internas sobre políticas, contratos e compliance consultando base de conhecimento.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Revisar contrato de 60 páginas</td>
+      <td class="ba-before">6-8h de leitura e análise</td>
+      <td class="ba-after">1-2h com Copilot no Word</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:75%"></div></div><span class="pct-num">-75%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Pesquisa de jurisprudência</td>
+      <td class="ba-before">3-5h em bases de dados</td>
+      <td class="ba-after">20 min com Copilot Chat</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:93%"></div></div><span class="pct-num">-93%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Elaborar parecer jurídico</td>
+      <td class="ba-before">1-2 dias de pesquisa e redação</td>
+      <td class="ba-after">4h com Copilot gerando draft</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div><span class="pct-num">-70%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>O sistema jurídico brasileiro é um dos mais complexos do mundo — milhares de normas tributárias, trabalhistas e regulatórias. Copilot como assistente de pesquisa jurídica pode economizar centenas de horas anuais por advogado.</p>
+    </div>
+  </div>
+  <div class="profile-detail" id="detail-engenheiro">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:#008272">
+      <span class="detail-emoji">🏗️</span>
+      <div>
+        <h2 class="detail-title">Engenheiro / Operações</h2>
+        <p class="detail-title-en">Engineer / Operations</p>
+      </div>
+    </div>
+    <p class="detail-desc">Engenharia de produto, processos, manutenção, qualidade e operações industriais ou de serviços.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem IA</h3>
+      <p>Documentação técnica extensa e difícil de manter. Relatórios de qualidade manuais. Análise de falhas demorada. Comunicação fragmentada entre engenharia e operações.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de causa raiz (RCA)</div><div class="uc-desc">Descreve uma falha e pede análise estruturada de causa raiz com 5 Porquês e Ishikawa.</div></div><div class="uc-item"><div class="uc-name">Documentação técnica</div><div class="uc-desc">Gera manuais de operação, especificações técnicas e procedimentos de manutenção.</div></div><div class="uc-item"><div class="uc-name">Cálculos de engenharia</div><div class="uc-desc">Realiza cálculos técnicos, conversões de unidades e dimensionamento com explicação passo a passo.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Relatórios de qualidade no Excel</div><div class="uc-desc">Analisa dados de controle de qualidade, gera cartas de controle, Pareto e análise de capability.</div></div><div class="uc-item"><div class="uc-name">Especificações no Word</div><div class="uc-desc">Cria e mantém especificações técnicas, procedimentos e manuais com versionamento.</div></div><div class="uc-item"><div class="uc-name">Apresentações de projeto no PowerPoint</div><div class="uc-desc">Gera decks de status de projeto de engenharia com milestones, KPIs e riscos.</div></div><div class="uc-item"><div class="uc-name">Coordenação de projeto no Teams</div><div class="uc-desc">Resume discussões técnicas em canais de projeto e extrai decisões de design.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Manutenção Preventiva</div><div class="uc-desc">Agenda manutenções baseado em dados de sensores, histórico de falhas e recomendações do fabricante.</div></div><div class="uc-item"><div class="uc-name">Agent de Gestão de Mudanças (MOC)</div><div class="uc-desc">Automatiza workflow de Management of Change com aprovações, avaliação de impacto e documentação.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM IA</th><th>COM IA</th><th>Redução</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Análise de causa raiz</td>
+      <td class="ba-before">2-4h de investigação e documentação</td>
+      <td class="ba-after">45 min com Copilot estruturando</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div><span class="pct-num">-70%</span></td>
+      <td class="ba-src">McKinsey Digital 2025</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Criar especificação técnica</td>
+      <td class="ba-before">1-2 dias de redação</td>
+      <td class="ba-after">3h com Copilot gerando draft</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:75%"></div></div><span class="pct-num">-75%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2024</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Relatório de qualidade mensal</td>
+      <td class="ba-before">1 dia compilando dados</td>
+      <td class="ba-after">2h com Copilot no Excel</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Forrester TEI 2024</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Engenheiros em indústrias brasileiras (manufatura, mineração, óleo e gás, agronegócio) lidam com normas locais (ABNT, NRs) e internacionais (ISO, API). Copilot auxilia na consulta e interpretação dessas normas, acelerando projetos e auditorias.</p>
+    </div>
+  </div>
+
+<!-- Journey Section -->
+<section class="journey-section" id="journey">
+  <div class="section-header">
+    <div class="section-title">Jornada de Adoção — 3 Fases</div>
+    <div class="section-sub">Comece pelo Copilot Chat (gratuito), evolua para M365 Copilot (integrado ao Office 365) e escale com Copilot Studio (agentes customizados).</div>
+  </div>
+  <div class="journey-grid">
+    <div class="journey-card">
+      <div class="journey-num" style="background:var(--green)">1</div>
+      <div class="journey-title">Copilot Chat</div>
+      <div class="journey-desc">Comece a usar IA no dia-a-dia com chat inteligente. Disponível gratuitamente ou com licença comercial. Ideal para brainstorm, pesquisa, redação e análise de documentos.</div>
+      <div class="journey-tag" style="background:#E7F5E7;color:#107C10">Entrada — Gratuito</div>
+    </div>
+    <div class="journey-card">
+      <div class="journey-num" style="background:var(--blue)">2</div>
+      <div class="journey-title">Microsoft 365 Copilot</div>
+      <div class="journey-desc">IA integrada ao Word, Excel, PowerPoint, Outlook e Teams. Acessa dados corporativos via Microsoft Graph. Transforma cada aplicativo em assistente inteligente.</div>
+      <div class="journey-tag" style="background:#E8F4FD;color:#0078D4">Expansão — Licença add-on</div>
+    </div>
+    <div class="journey-card">
+      <div class="journey-num" style="background:var(--purple)">3</div>
+      <div class="journey-title">Copilot Studio</div>
+      <div class="journey-desc">Crie agentes e automações customizados. Conecte a sistemas internos, bases de conhecimento e APIs. Resolva casos de uso únicos da sua empresa.</div>
+      <div class="journey-tag" style="background:#F3EDF7;color:#5C2D91">Escala — Agentes customizados</div>
+    </div>
+  </div>
 </section>
 
-<section class="section section-alt" id="compete">
-<div class="section-inner">
-  <h2 class="section-title">Análise Competitiva</h2>
-  <p class="section-sub">Como o Microsoft Copilot se compara às alternativas de mercado.</p>
-  <table class="lic-table">
-    <thead><tr><th>Capacidade</th><th style="background:var(--blue)">Microsoft Copilot</th><th>Google Gemini</th><th>ChatGPT Enterprise</th></tr></thead>
-    <tbody>
-      <tr><td><strong>IA integrada nos apps</strong></td><td style="color:var(--green);font-weight:800">✅ Nativo em Word, Excel, PPT, Outlook, Teams</td><td>⚠️ Parcial em Docs, Sheets, Slides</td><td>❌ App separado</td></tr>
-      <tr><td><strong>Dados organizacionais</strong></td><td style="color:var(--green);font-weight:800">✅ Microsoft Graph</td><td>⚠️ Google Workspace data</td><td>❌ Apenas dados uploaded</td></tr>
-      <tr><td><strong>Agentes customizados</strong></td><td style="color:var(--green);font-weight:800">✅ Copilot Studio (low-code)</td><td>⚠️ Vertex AI Agent Builder</td><td>⚠️ Custom GPTs (limitado)</td></tr>
-      <tr><td><strong>Segurança & Compliance</strong></td><td style="color:var(--green);font-weight:800">✅ DLP, Purview, eDiscovery</td><td>⚠️ Básico</td><td>⚠️ SOC2 + SSO</td></tr>
-      <tr><td><strong>Resumo de reuniões</strong></td><td style="color:var(--green);font-weight:800">✅ Teams nativo</td><td>⚠️ Google Meet (básico)</td><td>❌ Não disponível</td></tr>
-      <tr><td><strong>Stack de segurança</strong></td><td style="color:var(--green);font-weight:800">✅ Defender, Intune, Entra ID</td><td>❌ Stack separada</td><td>❌ N/A</td></tr>
-      <tr><td><strong>Automação</strong></td><td style="color:var(--green);font-weight:800">✅ Power Platform + Studio</td><td>⚠️ AppSheet</td><td>❌ N/A</td></tr>
-    </tbody>
-  </table>
-</div>
+<!-- Licensing Section -->
+<section class="lic-section" id="licensing">
+  <div class="section-header" style="margin-top:0">
+    <div class="section-title">Licenciamento — Visão Geral</div>
+    <div class="section-sub">Três soluções complementares com modelos de licenciamento distintos. Consulte seu representante Microsoft para detalhes de preço.</div>
+  </div>
+  <div class="lic-grid">
+    <div class="lic-card">
+      <h4>💬 Copilot Chat</h4>
+      <p>Acesso web/mobile ao chat de IA com proteção de dados comerciais. Versão gratuita disponível. Versão comercial inclusa em licenças M365.</p>
+      <div class="lic-tag" style="background:#E7F5E7;color:#107C10">Incluso em M365</div>
+    </div>
+    <div class="lic-card">
+      <h4>🤖 Microsoft 365 Copilot</h4>
+      <p>Add-on por usuário para M365. Integra IA ao Word, Excel, PowerPoint, Outlook, Teams e Microsoft Graph. Requer licença base E3/E5, ME3/ME5 ou Business Premium.</p>
+      <div class="lic-tag" style="background:#E8F4FD;color:#0078D4">Add-on por usuário</div>
+    </div>
+    <div class="lic-card">
+      <h4>🏗️ Copilot Studio</h4>
+      <p>Plataforma para criar agentes e automações customizados. Modelo baseado em mensagens consumidas. Conecta a Dataverse, SharePoint, APIs e sistemas externos.</p>
+      <div class="lic-tag" style="background:#F3EDF7;color:#5C2D91">Pay-per-use (mensagens)</div>
+    </div>
+  </div>
+  <div style="max-width:700px;margin:24px auto 0;background:#FFF4E5;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:16px 20px">
+    <p style="font-size:13px;font-weight:700;color:#92400e">💡 Estratégia O → M: Clientes com licenças Office (O) devem planejar a transição para Microsoft 365 (M) para habilitar Copilot e as funcionalidades avançadas de segurança e compliance.</p>
+  </div>
 </section>
 
 <footer class="footer">
-<div class="footer-inner">
-  <div class="footer-name">Wilson Hsie</div>
-  <div class="footer-role">Digital Solution Area Specialist — AI Workforce | Microsoft Brasil</div>
-  <div class="footer-disclaimer" style="margin-top:24px">
-    Dados: Microsoft Work Trend Index 2024, Forrester TEI Study 2024, documentação oficial Microsoft.<br>
-    Conteúdo informativo — não constitui oferta comercial. Preços sujeitos a alteração.<br><br>
-    <span style="opacity:.6">Gerado com ❤️ e GitHub Copilot CLI</span>
-  </div>
-</div>
+  <p><strong>AI Workforce Solutions — Deep Dive por Perfil Enterprise</strong></p>
+  <p>Wilson Hsie — Digital Solution Area Specialist — Microsoft Brasil</p>
+  <p style="margin-top:12px">Fontes: Microsoft Work Trend Index 2024 · Forrester Total Economic Impact 2024 · McKinsey Digital 2025 · LinkedIn Talent Solutions 2024</p>
+  <p style="margin-top:8px">Criado com ☁️ GitHub Copilot CLI · <a href="https://wilsonhsie-ai.github.io/pages/">wilsonhsie-ai.github.io</a></p>
 </footer>
 
 <script>
-const useCases=[
-  {icon:'📧',title:'Email Inteligente',desc:'Resumir threads longos, redigir respostas e priorizar inbox automaticamente.',product:'m365',cat:'exec'},
-  {icon:'📊',title:'Análise de Dados',desc:'Perguntar em linguagem natural sobre planilhas: "qual produto teve maior crescimento no Q3?"',product:'m365',cat:'finance'},
-  {icon:'📝',title:'Geração de Documentos',desc:'Criar propostas, contratos e relatórios a partir de instruções em linguagem natural.',product:'m365',cat:'sales'},
-  {icon:'🎯',title:'Preparação de Reuniões',desc:'Copilot resume emails, documentos e chats anteriores para você chegar preparado.',product:'m365',cat:'exec'},
-  {icon:'🎬',title:'Apresentações Instantâneas',desc:'Criar decks no PowerPoint a partir de um documento Word ou prompt de texto.',product:'m365',cat:'marketing'},
-  {icon:'📋',title:'Atas Automáticas',desc:'Resumo de reuniões no Teams com action items, decisões e owners atribuídos.',product:'m365',cat:'exec'},
-  {icon:'🤖',title:'Agente de RH',desc:'Bot para responder dúvidas de colaboradores sobre políticas, benefícios e férias.',product:'studio',cat:'hr'},
-  {icon:'💼',title:'Agente de Vendas',desc:'Agente que consulta CRM, gera propostas e responde dúvidas sobre produtos.',product:'studio',cat:'sales'},
-  {icon:'⚖️',title:'Revisão de Contratos',desc:'Copilot analisa contratos, identifica cláusulas de risco e sugere alterações.',product:'m365',cat:'legal'},
-  {icon:'📈',title:'Forecast Financeiro',desc:'Análise preditiva em Excel com linguagem natural: "projete receita para os próximos 6 meses".',product:'m365',cat:'finance'},
-  {icon:'🔍',title:'Pesquisa com IA',desc:'Chat com GPT-4 para pesquisa, brainstorming e ideação — gratuito para toda a organização.',product:'chat',cat:'exec'},
-  {icon:'🏭',title:'Agente de Operações',desc:'Bot que monitora KPIs, alerta sobre anomalias e sugere ações corretivas.',product:'studio',cat:'ops'},
-  {icon:'📢',title:'Conteúdo de Marketing',desc:'Criar campanhas, social posts, newsletters e copy com tom de voz personalizado.',product:'m365',cat:'marketing'},
-  {icon:'👥',title:'Onboarding Inteligente',desc:'Agente que guia novos colaboradores pelo processo de integração 24/7.',product:'studio',cat:'hr'},
-  {icon:'🔧',title:'Suporte Interno',desc:'Agente de help desk que resolve tickets de TI consultando base de conhecimento.',product:'studio',cat:'ops'},
-];
-let curTab='all';
-function renderUC(){
-  const g=document.getElementById('uc-grid');
-  const f=curTab==='all'?useCases:useCases.filter(u=>u.cat===curTab);
-  g.innerHTML=f.map(u=>`<div class="uc-card"><div class="uc-icon">${u.icon}</div><div class="uc-title">${u.title}</div><div class="uc-desc">${u.desc}</div><div style="margin-top:12px"><span class="pill ${u.product==='chat'?'pill-blue':u.product==='m365'?'pill-purple':'pill-green'}">${u.product==='chat'?'💬 Copilot Chat':u.product==='m365'?'🚀 M365 Copilot':'🏗️ Copilot Studio'}</span></div></div>`).join('');
+function showProfile(id) {
+  document.getElementById('profiles-overview').style.display = 'none';
+  document.querySelectorAll('.journey-section, .lic-section').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.profile-detail').forEach(d => d.classList.remove('active'));
+  const detail = document.getElementById('detail-' + id);
+  if (detail) {detail.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});}
 }
-function setUcTab(t,el){curTab=t;document.querySelectorAll('#uc-tabs .tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderUC()}
-
-const jData={
-  chat:{title:'💬 Fase 1: Copilot Chat — Experimentar',items:[{l:'Objetivo',v:'Criar familiaridade com IA no ambiente de trabalho'},{l:'Ação',v:'Ativar Copilot Chat para toda a organização (gratuito)'},{l:'Duração',v:'1-2 meses'},{l:'KPIs',v:'# de usuários ativos, # de prompts/semana'},{l:'Resultado',v:'Engajamento orgânico e identificação de champions'}],tip:'💡 Use o Copilot Chat como "land" gratuito. Uma vez que os usuários experimentam IA, 77% não querem mais trabalhar sem.'},
-  m365:{title:'🚀 Fase 2: M365 Copilot — Escalar',items:[{l:'Objetivo',v:'Integrar IA nos workflows diários de toda a organização'},{l:'Ação',v:'Licenciar M365 Copilot para knowledge workers (começar com champions)'},{l:'Duração',v:'3-6 meses de ramp'},{l:'KPIs',v:'MAU%, horas economizadas/semana, NPS do Copilot'},{l:'Resultado',v:'7h/semana de economia por usuário, ROI 3.7x em 3 anos'}],tip:'💡 Comece com 5-10% dos usuários (champions), meça resultados, e use os dados para justificar a expansão wall-to-wall.'},
-  studio:{title:'🏗️ Fase 3: Copilot Studio — Automatizar',items:[{l:'Objetivo',v:'Criar agentes de IA customizados para processos de negócio'},{l:'Ação',v:'Identificar top 3 processos repetitivos e construir agentes'},{l:'Duração',v:'2-4 semanas por agente'},{l:'KPIs',v:'# tickets resolvidos por agente, CSAT, custo/interação'},{l:'Resultado',v:'Automação de 40-60% das interações repetitivas'}],tip:'💡 Melhores candidatos para agentes: FAQ de RH, suporte de TI, consulta de pedidos, onboarding de funcionários.'}
-};
-function selectJourney(s){
-  document.querySelectorAll('.journey-step').forEach(x=>x.className='journey-step');
-  document.getElementById('j-'+s).classList.add('active-'+s);
-  const d=jData[s];
-  document.getElementById('journey-content').innerHTML=`<h3 style="font-size:20px;font-weight:800;margin-bottom:20px">${d.title}</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">${d.items.map(i=>`<div style="padding:14px 18px;background:var(--gray-50);border-radius:10px;border:1px solid var(--gray-200)"><div style="font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;margin-bottom:4px">${i.l}</div><div style="font-size:14px;font-weight:600;color:var(--gray-800)">${i.v}</div></div>`).join('')}</div><div style="padding:16px;background:#fff8e1;border-radius:10px;border:1px solid #fde68a;font-size:13px;color:#92400e">${d.tip}</div>`;
+function hideProfile() {
+  document.querySelectorAll('.profile-detail').forEach(d => d.classList.remove('active'));
+  document.getElementById('profiles-overview').style.display = 'block';
+  document.querySelectorAll('.journey-section, .lic-section').forEach(s => s.style.display = '');
+  document.getElementById('profiles').scrollIntoView({behavior:'smooth'});
 }
-
-function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
-
-function setLang(l){
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btn-'+l).classList.add('active');
-}
-
-renderUC();selectJourney('chat');
 </script>
 </body>
 </html>
