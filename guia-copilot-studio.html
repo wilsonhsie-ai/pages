@@ -424,13 +424,28 @@
         }
 
         /* Responsive */
+        /* Responsive table wrapper */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 16px 0;
+        }
+        .table-wrap table {
+            margin: 0;
+            min-width: 600px;
+        }
+
         @media (max-width: 768px) {
             .hero-inner { flex-direction: column; text-align: center; }
             .compare-grid { grid-template-columns: 1fr; }
             .diagram-flow { flex-direction: column; }
             .diagram-arrow { transform: rotate(90deg); }
-            .section-body { padding: 20px; }
-            .toc { padding: 20px; }
+            .section-body { padding: 16px; }
+            .toc { padding: 16px; }
+            .container { padding: 16px 10px; }
+            table { font-size: 0.82rem; }
+            thead th { padding: 8px 10px; font-size: 0.75rem; }
+            tbody td { padding: 8px 10px; }
         }
 
         /* Print */
@@ -537,7 +552,7 @@
             </div>
 
             <h3>Pré-requisitos</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Requisito</th>
@@ -566,7 +581,7 @@
                         <td>Mesmo tenant do Microsoft 365 e do Azure</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Passo a Passo de Configuração</h3>
             <ol class="steps">
@@ -602,7 +617,7 @@
             </div>
 
             <h3>PAYG vs. Pacotes Pré-pagos</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Aspecto</th>
@@ -636,7 +651,7 @@
                         <td colspan="2">✅ É possível combinar PAYG + Pacotes (base pré-paga com overflow via PAYG)</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
     </div>
 
@@ -688,7 +703,7 @@
             </ul>
 
             <h3>Sugestão de Grupos</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Grupo Entra ID</th>
@@ -717,7 +732,7 @@
                         <td>Administradores de governança e billing</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
     </div>
 
@@ -771,7 +786,7 @@
             </ol>
 
             <h3>Canais de Publicação Disponíveis</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Canal</th>
@@ -801,7 +816,7 @@
                         <td>Via Power Apps ou embed</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="box box-info">
                 <div class="box-title">💡 Dica: Application Lifecycle Management (ALM)</div>
@@ -819,7 +834,7 @@
         <div class="section-body">
 
             <h3>Onde Monitorar</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Ferramenta</th>
@@ -849,10 +864,10 @@
                         <td><span class="badge badge-orange">Avançado</span></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Mensagens Faturáveis vs. Não Faturáveis</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
@@ -872,7 +887,7 @@
                         <td><span class="badge badge-green">Não</span></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Configuração do Azure Application Insights (Recomendado)</h3>
             <ol class="steps">
@@ -927,7 +942,7 @@
             </ul>
 
             <h4>3. RACI Matrix para Agentes</h4>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Atividade</th>
@@ -967,7 +982,7 @@
                         <td>Gestor da área</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h4>4. Center of Excellence (CoE) Starter Kit</h4>
             <p>Implemente o <strong>CoE Starter Kit</strong> da Microsoft para ter visibilidade total de:</p>
@@ -1063,7 +1078,7 @@
             </div>
 
             <h3>Se no futuro quiser separar por departamento</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Critério</th>
@@ -1088,7 +1103,7 @@
                         <td>Se cada departamento tiver orçamento próprio para IA e precisar de Resource Groups separados</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
     </div>
 
@@ -1109,7 +1124,7 @@
 
             <h3>Estratégias de Rateio e Controle</h3>
 
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Estratégia</th>
@@ -1144,10 +1159,10 @@
                         <td><span class="badge badge-green">Por ambiente</span></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Limites e Quotas do Copilot Studio</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Recurso</th>
@@ -1180,7 +1195,7 @@
                         <td>50</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Modelo de Rateio Sugerido</h3>
             <div class="diagram">
@@ -1218,7 +1233,7 @@
             </div>
 
             <h3>Opções de Arquitetura Comparadas</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Abordagem</th>
@@ -1258,7 +1273,7 @@
                         <td>Enterprise, milhares de docs</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>🏆 Arquitetura Recomendada: RAG com Azure AI Foundry</h3>
             <p>Para agentes que precisam consultar <strong>documentos grandes, PDFs escaneados, tabelas complexas</strong> e um volume crescente de conteúdo, a arquitetura ideal combina os componentes do <strong>Azure AI Foundry</strong> no padrão <strong>RAG (Retrieval-Augmented Generation)</strong>.</p>
@@ -1303,7 +1318,7 @@
             </div>
 
             <h3>Componentes do Azure AI Foundry Utilizados</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Componente</th>
@@ -1333,10 +1348,10 @@
                         <td>Precisão na recuperação de trechos relevantes</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Benefícios vs. SharePoint Direto</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Capacidade</th>
@@ -1386,10 +1401,10 @@
                         <td style="text-align:center"><span class="badge badge-green">Milhões de docs</span></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>💰 Custo Estimado (Azure AI Search)</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Tier</th>
@@ -1418,7 +1433,7 @@
                         <td>Produção enterprise</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h3>Plano de Implementação da Arquitetura RAG</h3>
 
@@ -1442,7 +1457,7 @@
             </ol>
 
             <h3>📎 Referências da Arquitetura</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Recurso</th>
@@ -1467,7 +1482,7 @@
                         <td><a href="https://www.matthewdevaney.com/copilot-studio-azure-ai-search-complete-setup-guide/" target="_blank">Matthew Devaney Blog</a></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
     </div>
 
@@ -1481,7 +1496,7 @@
 
             <h3>Jornada em 4 Fases</h3>
 
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th style="width:15%">Fase</th>
@@ -1535,7 +1550,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
         </div>
     </div>
 
@@ -1614,7 +1629,7 @@
             <h2>Referências e Links Úteis</h2>
         </div>
         <div class="section-body">
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Recurso</th>
@@ -1663,7 +1678,7 @@
                         <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-bot-framework-composer-example3" target="_blank">Microsoft Learn</a></td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="box box-info" style="margin-top: 24px;">
                 <div class="box-title">📬 Contato Microsoft</div>
@@ -1690,7 +1705,7 @@
             </div>
 
             <h3>Visão Comparativa</h3>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th style="width:18%">Característica</th>
@@ -1773,7 +1788,7 @@
                         <td>Agentes enterprise, automação de processos, atendimento externo, chatbots complexos</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <div class="box box-warning">
                 <div class="box-title">⚠️ Sobre o consumo de créditos do M365 Copilot</div>
@@ -1808,7 +1823,7 @@
             <p><strong>Não automaticamente.</strong> Agentes declarativos no M365 Copilot que usam apenas knowledge (fontes de dados) estão inclusos na licença M365 Copilot do usuário. Porém, se o agente executa <strong>ações via conectores</strong>, utiliza <strong>tópicos customizados</strong> ou é acessado por usuários <strong>sem licença</strong>, o consumo passa a ser medido em Copilot Credits — que precisam ser adquiridos via Copilot Studio (PAYG ou pacote).</p>
 
             <h4>6. Posso compartilhar meu agente com toda a organização?</h4>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Plataforma</th>
@@ -1833,10 +1848,10 @@
                         <td><span class="badge badge-green">Qualquer pessoa</span> — não precisa de licença</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
 
             <h4>7. Qual o custo de cada tipo de agente?</h4>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
@@ -1865,12 +1880,12 @@
                         <td><span class="badge badge-green">Gratuito</span> — sem licença necessária</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
             <p style="font-size: 0.85rem; color: var(--pira-gray-600);">*Enquanto usar apenas knowledge sources. Ações com conectores consomem Copilot Credits.</p>
 
             <h4>8. O que são Copilot Credits e como funcionam?</h4>
             <p>A partir de 2025, a Microsoft unificou a medição de consumo do Copilot Studio em <strong>Copilot Credits</strong>. Cada tipo de interação consome uma quantidade diferente de créditos:</p>
-            <table>
+            <div class="table-wrap"><table>
                 <thead>
                     <tr>
                         <th>Tipo de Interação</th>
@@ -1895,7 +1910,7 @@
                         <td>Variável (depende do modelo)</td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
             <p>Os créditos podem ser adquiridos via <strong>PAYG</strong> (paga pelo consumido via Azure) ou <strong>pacotes pré-pagos</strong> (25.000 créditos/mês incluso no plano Copilot Studio). Consulte a <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing" target="_blank">documentação oficial de licenciamento</a> para valores atualizados.</p>
 
             <h4>9. Posso começar simples e evoluir?</h4>
