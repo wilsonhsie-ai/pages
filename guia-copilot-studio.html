@@ -1,0 +1,1942 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Adoção do Microsoft Copilot Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pira-blue-dark: #002E6E;
+            --pira-blue: #0046A8;
+            --pira-blue-light: #3373C4;
+            --pira-sky: #E8F0FE;
+            --pira-white: #FFFFFF;
+            --pira-gray-50: #F8F9FA;
+            --pira-gray-100: #F1F3F5;
+            --pira-gray-200: #E9ECEF;
+            --pira-gray-600: #6C757D;
+            --pira-gray-800: #343A40;
+            --pira-green: #198754;
+            --pira-green-light: #D1E7DD;
+            --pira-orange: #FD7E14;
+            --pira-orange-light: #FFF3CD;
+            --pira-red: #DC3545;
+            --pira-red-light: #F8D7DA;
+            --pira-purple: #6F42C1;
+            --pira-purple-light: #E8DAFB;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0, 46, 110, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 46, 110, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: var(--pira-gray-50);
+            color: var(--pira-gray-800);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ===== HEADER ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--pira-blue-dark) 0%, var(--pira-blue) 50%, var(--pira-blue-light) 100%);
+            color: white;
+            padding: 50px 40px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--pira-gray-50);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .hero-logo {
+            flex-shrink: 0;
+        }
+        .hero-logo img {
+            height: 80px;
+            filter: brightness(0) invert(1);
+        }
+        .hero-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* ===== NAV ===== */
+        .toc {
+            max-width: 1100px;
+            margin: -20px auto 40px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 30px 36px;
+            position: relative;
+            z-index: 10;
+        }
+        .toc h2 {
+            font-size: 1rem;
+            color: var(--pira-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+        }
+        .toc a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--pira-gray-800);
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+        .toc a:hover {
+            background: var(--pira-sky);
+            color: var(--pira-blue);
+        }
+        .toc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--pira-blue);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: var(--pira-blue);
+            color: white;
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .section-header .sec-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            opacity: 0.6;
+        }
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .section-body {
+            padding: 32px;
+        }
+
+        h3 {
+            color: var(--pira-blue);
+            font-size: 1.1rem;
+            margin: 28px 0 12px;
+            font-weight: 600;
+        }
+        h3:first-child { margin-top: 0; }
+
+        h4 {
+            color: var(--pira-blue-dark);
+            font-size: 0.95rem;
+            margin: 20px 0 8px;
+            font-weight: 600;
+        }
+
+        p { margin-bottom: 12px; }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding: 14px 16px 14px 56px;
+            margin-bottom: 10px;
+            background: var(--pira-gray-50);
+            border-radius: 8px;
+            border-left: 3px solid var(--pira-blue);
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 14px;
+            top: 14px;
+            width: 28px;
+            height: 28px;
+            background: var(--pira-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .steps li strong {
+            color: var(--pira-blue-dark);
+        }
+
+        /* Info boxes */
+        .box {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-left: 4px solid;
+        }
+        .box-info {
+            background: var(--pira-sky);
+            border-color: var(--pira-blue);
+        }
+        .box-success {
+            background: var(--pira-green-light);
+            border-color: var(--pira-green);
+        }
+        .box-warning {
+            background: var(--pira-orange-light);
+            border-color: var(--pira-orange);
+        }
+        .box-danger {
+            background: var(--pira-red-light);
+            border-color: var(--pira-red);
+        }
+        .box-purple {
+            background: var(--pira-purple-light);
+            border-color: var(--pira-purple);
+        }
+        .box-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        .box p:last-child { margin-bottom: 0; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+        thead th {
+            background: var(--pira-blue);
+            color: white;
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        thead th:first-child { border-radius: 8px 0 0 0; }
+        thead th:last-child { border-radius: 0 8px 0 0; }
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--pira-gray-200);
+            vertical-align: top;
+        }
+        tbody tr:nth-child(even) { background: var(--pira-gray-50); }
+        tbody tr:hover { background: var(--pira-sky); }
+
+        /* Comparison cards */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .compare-card {
+            border: 2px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .compare-card.recommended {
+            border-color: var(--pira-green);
+        }
+        .compare-card-header {
+            padding: 14px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .compare-card.recommended .compare-card-header {
+            background: var(--pira-green);
+            color: white;
+        }
+        .compare-card:not(.recommended) .compare-card-header {
+            background: var(--pira-gray-200);
+            color: var(--pira-gray-800);
+        }
+        .compare-card-body {
+            padding: 20px;
+        }
+        .compare-card-body ul {
+            list-style: none;
+            padding: 0;
+        }
+        .compare-card-body li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .compare-card-body li::before {
+            position: absolute;
+            left: 0;
+            top: 6px;
+        }
+        .compare-card.recommended li::before {
+            content: '✅';
+        }
+        .compare-card:not(.recommended) li::before {
+            content: '⚠️';
+        }
+
+        /* Diagram */
+        .diagram {
+            background: var(--pira-gray-50);
+            border: 1px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .diagram-box {
+            background: white;
+            border: 2px solid var(--pira-blue);
+            border-radius: 10px;
+            padding: 14px 22px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--pira-blue-dark);
+            min-width: 140px;
+        }
+        .diagram-box.highlight {
+            background: var(--pira-blue);
+            color: white;
+        }
+        .diagram-arrow {
+            font-size: 1.4rem;
+            color: var(--pira-blue-light);
+            font-weight: 700;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-blue { background: var(--pira-sky); color: var(--pira-blue); }
+        .badge-green { background: var(--pira-green-light); color: var(--pira-green); }
+        .badge-orange { background: var(--pira-orange-light); color: #B45309; }
+        .badge-red { background: var(--pira-red-light); color: var(--pira-red); }
+
+        /* Code */
+        code {
+            background: var(--pira-gray-100);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'Consolas', monospace;
+            color: var(--pira-blue-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--pira-blue-dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+        }
+        .footer strong {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-inner { flex-direction: column; text-align: center; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .diagram-flow { flex-direction: column; }
+            .diagram-arrow { transform: rotate(90deg); }
+            .section-body { padding: 20px; }
+            .toc { padding: 20px; }
+        }
+
+        /* Print */
+        @media print {
+            .hero { padding: 20px; }
+            .hero::after { display: none; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+            .toc { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+        .checklist li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 4px;
+            font-size: 1rem;
+        }
+
+        /* Governance zone cards */
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .zone-card {
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .zone-green { background: #D1E7DD; border: 2px solid #198754; }
+        .zone-yellow { background: #FFF3CD; border: 2px solid #FFC107; }
+        .zone-red { background: #F8D7DA; border: 2px solid #DC3545; }
+        .zone-card h4 { margin: 0 0 8px; font-size: 1rem; }
+        .zone-card p { font-size: 0.85rem; margin: 0; }
+
+        @media (max-width: 768px) {
+            .zone-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="hero-inner">
+        <div class="hero-logo">
+            <svg viewBox="0 0 24 24" width="64" height="64" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        </div>
+        <div class="hero-text">
+            <h1>Guia de Adoção do Microsoft Copilot Studio</h1>
+            <p>Procedimentos, governança e melhores práticas para a jornada de agentes inteligentes na sua organização</p>
+            <span class="hero-badge">📘 Preparado por Microsoft Brasil — Abril 2026</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<nav class="toc">
+    <h2>📑 Índice de Conteúdos</h2>
+    <div class="toc-grid">
+        <a href="#s1"><span class="toc-num">1</span> Criação da Conta PAYG (Pay-As-You-Go)</a>
+        <a href="#s2"><span class="toc-num">2</span> Atribuição de Usuários Criadores de Agentes</a>
+        <a href="#s3"><span class="toc-num">3</span> Publicação de Agentes</a>
+        <a href="#s4"><span class="toc-num">4</span> Monitoramento de Consumo de Mensagens</a>
+        <a href="#s5"><span class="toc-num">5</span> Governança de Agentes — Melhores Práticas</a>
+        <a href="#s6"><span class="toc-num">6</span> Estratégia de Ambientes: Dev vs. Prod vs. Por Departamento</a>
+        <a href="#s7"><span class="toc-num">7</span> Cotas, Rateio e Controle de Custos</a>
+        <a href="#s8"><span class="toc-num">8</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
+        <a href="#s9"><span class="toc-num">9</span> Roadmap Recomendado</a>
+        <a href="#s10"><span class="toc-num">10</span> Checklist de Implementação</a>
+        <a href="#s11"><span class="toc-num">11</span> Referências e Links Úteis</a>
+        <a href="#s12"><span class="toc-num">12</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
+    </div>
+</nav>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+
+    <!-- SECTION 1 -->
+    <div class="section" id="s1">
+        <div class="section-header">
+            <span class="sec-num">01</span>
+            <h2>Criação da Conta PAYG (Pay-As-You-Go)</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>O que é o modelo PAYG?</h3>
+            <p>O modelo <strong>Pay-As-You-Go</strong> permite usar o Copilot Studio sem pacotes pré-pagos. A cobrança é feita com base no consumo real de mensagens/créditos, vinculada diretamente a uma assinatura Azure. É ideal para pilotos e início de jornada, pois não exige compromisso financeiro antecipado.</p>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Importante</div>
+                <p>A partir de setembro de 2025, o Copilot Studio migrou de "mensagens" para <strong>"Copilot Credits"</strong>, onde cada tipo de interação consome diferentes quantidades de créditos (respostas básicas, ações generativas com IA, chamadas de API, etc.).</p>
+            </div>
+
+            <h3>Pré-requisitos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Requisito</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Assinatura Azure</strong></td>
+                        <td>Ativa, com permissão de <code>Owner</code> ou <code>Contributor</code> no Resource Group</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource Group</strong></td>
+                        <td>Criado dentro da assinatura Azure para rastrear custos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ambiente Power Platform</strong></td>
+                        <td>Com Dataverse habilitado (Sandbox ou Production)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Permissões de Admin</strong></td>
+                        <td>Power Platform Admin, Global Admin ou Dynamics 365 Admin</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tenant vinculado</strong></td>
+                        <td>Mesmo tenant do Microsoft 365 e do Azure</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Passo a Passo de Configuração</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Criar Assinatura e Resource Group no Azure</strong><br>
+                    Acesse o <a href="https://portal.azure.com" target="_blank">Portal Azure</a> → Subscriptions → Adicionar (se necessário). Em seguida, crie um Resource Group dedicado (ex: <code>RG-CopilotStudio</code>) para rastrear custos separadamente.
+                </li>
+                <li>
+                    <strong>Acessar o Power Platform Admin Center</strong><br>
+                    Navegue até <a href="https://admin.powerplatform.microsoft.com" target="_blank">admin.powerplatform.microsoft.com</a> com credenciais de administrador.
+                </li>
+                <li>
+                    <strong>Criar Billing Policy (Plano de Faturamento)</strong><br>
+                    No menu lateral, vá em <strong>Billing → Billing Plans → New Billing Plan</strong>. Selecione a assinatura Azure e o Resource Group criado no passo 1. Escolha <strong>Copilot Studio</strong> como produto habilitado.
+                </li>
+                <li>
+                    <strong>Vincular o Ambiente ao Billing Policy</strong><br>
+                    Associe o Billing Policy ao ambiente Dataverse desejado. Todo consumo desse ambiente será medido e cobrado via Azure.
+                </li>
+                <li>
+                    <strong>Verificar no Azure Cost Management</strong><br>
+                    Após a vinculação, acesse <strong>Azure Portal → Cost Management + Billing</strong> para confirmar que o recurso está aparecendo e configurar alertas de orçamento.
+                </li>
+                <li>
+                    <strong>Configurar Alertas de Custo</strong><br>
+                    Em Azure Cost Management, crie <strong>Budget Alerts</strong> (ex: R$ 500, R$ 1.000, R$ 5.000) para receber notificações antes de atingir limites.
+                </li>
+            </ol>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Recomendação</div>
+                <p>Crie um Resource Group dedicado por cada ambiente (Dev e Prod) para facilitar o controle de custos. Exemplo: <code>RG-CopilotStudio-Dev</code> e <code>RG-CopilotStudio-Prod</code>.</p>
+            </div>
+
+            <h3>PAYG vs. Pacotes Pré-pagos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>PAYG</th>
+                        <th>Pacotes Pré-pagos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Compromisso inicial</td>
+                        <td><span class="badge badge-green">Nenhum</span></td>
+                        <td><span class="badge badge-orange">Valor fixo</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ideal para</td>
+                        <td>Pilotos, validação, baixo volume</td>
+                        <td>Produção estabilizada, previsibilidade</td>
+                    </tr>
+                    <tr>
+                        <td>Controle de custo</td>
+                        <td>Alertas no Azure Cost Management</td>
+                        <td>Limite natural do pacote</td>
+                    </tr>
+                    <tr>
+                        <td>Flexibilidade</td>
+                        <td><span class="badge badge-green">Alta</span></td>
+                        <td><span class="badge badge-orange">Moderada</span></td>
+                    </tr>
+                    <tr>
+                        <td>Combinação</td>
+                        <td colspan="2">✅ É possível combinar PAYG + Pacotes (base pré-paga com overflow via PAYG)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section" id="s2">
+        <div class="section-header">
+            <span class="sec-num">02</span>
+            <h2>Atribuição de Usuários Criadores de Agentes</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Quem pode criar agentes?</h3>
+            <p>Para que um usuário consiga criar e editar agentes no Copilot Studio, ele precisa ter o papel de <strong>Environment Maker</strong> (ou um papel customizado equivalente) no ambiente Power Platform onde vai trabalhar.</p>
+
+            <h3>Método Recomendado: Grupos de Segurança via Entra ID</h3>
+            <p>Em vez de atribuir permissões individualmente, utilize <strong>Security Groups do Microsoft Entra ID</strong> para gerenciar os criadores de forma escalável:</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Criar Security Group no Microsoft Entra</strong><br>
+                    Acesse o <a href="https://entra.microsoft.com" target="_blank">Microsoft Entra Admin Center</a> → Groups → New Group. Nomeie como <code>SG-AgentMakers</code>. Adicione os usuários que serão criadores de agentes.
+                </li>
+                <li>
+                    <strong>Associar o Grupo ao Ambiente no Power Platform</strong><br>
+                    No Power Platform Admin Center → Environments → selecione o ambiente → Users + Permissions → Teams → <strong>Create Team</strong>. Escolha o tipo <code>Microsoft Entra ID Security Group</code> e selecione o grupo criado.
+                </li>
+                <li>
+                    <strong>Atribuir o Papel "Environment Maker"</strong><br>
+                    Com o team criado, atribua o papel <strong>Environment Maker</strong>. Todos os membros do grupo herdarão as permissões automaticamente.
+                </li>
+                <li>
+                    <strong>Validar o Acesso</strong><br>
+                    Peça a um membro do grupo acessar <a href="https://copilotstudio.microsoft.com" target="_blank">copilotstudio.microsoft.com</a> e verificar se consegue criar um novo agente no ambiente correto.
+                </li>
+            </ol>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Benefício do Grupo de Segurança</div>
+                <p>Quando um novo colaborador é adicionado ao grupo no Entra, ele recebe permissões automaticamente no Copilot Studio — sem intervenção manual. Da mesma forma, ao remover, o acesso é revogado instantaneamente.</p>
+            </div>
+
+            <h3>Roles Customizados (para controle granular)</h3>
+            <p>Se a organização quiser dar acesso ao Copilot Studio sem conceder todos os privilégios do Environment Maker, é possível criar <strong>Custom Dataverse Security Roles</strong>:</p>
+            <ul class="checklist">
+                <li>Permissão de leitura/escrita apenas nas tabelas do Copilot Studio</li>
+                <li>Bloquear criação de Power Apps, Power Automate flows, etc.</li>
+                <li>Seguir o princípio do <strong>menor privilégio</strong></li>
+                <li>Atribuir o role customizado ao Team/Security Group</li>
+            </ul>
+
+            <h3>Sugestão de Grupos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grupo Entra ID</th>
+                        <th>Papel</th>
+                        <th>Ambiente</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SG-AgentMakers-Dev</code></td>
+                        <td>Environment Maker</td>
+                        <td>Desenvolvimento</td>
+                        <td>Criadores com liberdade para experimentar</td>
+                    </tr>
+                    <tr>
+                        <td><code>SG-AgentMakers-Prod</code></td>
+                        <td>Custom Role (restrito)</td>
+                        <td>Produção</td>
+                        <td>Apenas deploy, sem alteração livre</td>
+                    </tr>
+                    <tr>
+                        <td><code>SG-AgentAdmins</code></td>
+                        <td>System Admin</td>
+                        <td>Todos</td>
+                        <td>Administradores de governança e billing</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section" id="s3">
+        <div class="section-header">
+            <span class="sec-num">03</span>
+            <h2>Publicação de Agentes</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Fluxo de Publicação</h3>
+            <div class="diagram">
+                <div class="diagram-flow">
+                    <div class="diagram-box">🛠 Desenvolvimento<br><small>Criar & Testar</small></div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box">🧪 Teste/QA<br><small>Validar com usuários</small></div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box">✅ Aprovação<br><small>Review de governança</small></div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box highlight">🚀 Produção<br><small>Publicar no canal</small></div>
+                </div>
+            </div>
+
+            <h3>Procedimento de Publicação</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Desenvolver e Testar o Agente</strong><br>
+                    Crie o agente no <strong>ambiente de Desenvolvimento</strong>. Utilize o <em>Test Chat</em> integrado do Copilot Studio (que não consome mensagens faturáveis) para validar tópicos, fontes de conhecimento e ações.
+                </li>
+                <li>
+                    <strong>Publicar no Ambiente de Teste</strong><br>
+                    No Copilot Studio, clique em <strong>Publish</strong>. Configure os canais de teste (ex: Teams com um grupo piloto de 5-10 usuários) para validação com dados reais.
+                </li>
+                <li>
+                    <strong>Aprovar via Workflow (Opcional mas recomendado)</strong><br>
+                    Configure um <strong>Power Automate Approval Flow</strong> para que toda publicação em Produção passe por aprovação do responsável da área ou do TI. Isso garante que apenas agentes revisados cheguem aos usuários finais.
+                </li>
+                <li>
+                    <strong>Exportar como Solução (ALM)</strong><br>
+                    Para promover o agente do ambiente Dev para Prod, exporte-o como uma <strong>Managed Solution</strong> via Power Platform → Solutions. Isso garante rastreabilidade e controle de versão.
+                </li>
+                <li>
+                    <strong>Importar no Ambiente de Produção</strong><br>
+                    No ambiente de Produção, importe a Managed Solution. Configure os canais definitivos (Microsoft Teams, SharePoint, website, etc.).
+                </li>
+                <li>
+                    <strong>Ativar Canais de Distribuição</strong><br>
+                    Configure os canais onde o agente ficará disponível para os usuários finais.
+                </li>
+            </ol>
+
+            <h3>Canais de Publicação Disponíveis</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Canal</th>
+                        <th>Uso Recomendado</th>
+                        <th>Observações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Microsoft Teams</strong></td>
+                        <td>Agentes internos (RH, TI, Suprimentos)</td>
+                        <td>Mais rápido de configurar, autenticação SSO nativa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SharePoint</strong></td>
+                        <td>FAQ da intranet, bases de conhecimento</td>
+                        <td>Integração com páginas existentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Website / iFrame</strong></td>
+                        <td>Atendimento a clientes, fornecedores</td>
+                        <td>Requer configuração de autenticação</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile App</strong></td>
+                        <td>Field service, força de vendas</td>
+                        <td>Via Power Apps ou embed</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Dica: Application Lifecycle Management (ALM)</div>
+                <p>Utilize <strong>Solutions</strong> do Power Platform para gerenciar o ciclo de vida dos agentes. Exporte como <em>Unmanaged</em> do Dev e importe como <em>Managed</em> no Prod. Isso impede alterações acidentais em Produção e permite rollback se necessário.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section" id="s4">
+        <div class="section-header">
+            <span class="sec-num">04</span>
+            <h2>Monitoramento de Consumo de Mensagens</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Onde Monitorar</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ferramenta</th>
+                        <th>O que Mostra</th>
+                        <th>Nível de Detalhe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Power Platform Admin Center</strong></td>
+                        <td>Resources → Capacity → Summary: consumo de mensagens por ambiente, categoria (classic, generative AI)</td>
+                        <td><span class="badge badge-green">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Copilot Studio Analytics</strong></td>
+                        <td>Volume de conversas, performance de tópicos, satisfação do usuário, tendências</td>
+                        <td><span class="badge badge-green">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure Cost Management</strong></td>
+                        <td>Custo em R$ associado ao consumo PAYG, por Resource Group</td>
+                        <td><span class="badge badge-blue">Financeiro</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure Application Insights</strong></td>
+                        <td>Telemetria em tempo real, tempo de resposta, logs detalhados, KQL queries</td>
+                        <td><span class="badge badge-orange">Avançado</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Mensagens Faturáveis vs. Não Faturáveis</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Exemplos</th>
+                        <th>Cobrado?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Faturável</strong></td>
+                        <td>Interação de usuário final que gera resposta do agente, ações generativas com IA, chamadas de API</td>
+                        <td><span class="badge badge-red">Sim</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Não Faturável</strong></td>
+                        <td>Teste interno no Test Chat do Copilot Studio, chamadas de sistema, retries</td>
+                        <td><span class="badge badge-green">Não</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Configuração do Azure Application Insights (Recomendado)</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Criar recurso Application Insights no Azure</strong><br>
+                    Azure Portal → Create Resource → Application Insights. Nomeie como <code>AI-CopilotStudio</code>.
+                </li>
+                <li>
+                    <strong>Copiar a Connection String</strong><br>
+                    Na página do recurso, copie a <code>Connection String</code> (não mais Instrumentation Key).
+                </li>
+                <li>
+                    <strong>Vincular ao Agente no Copilot Studio</strong><br>
+                    No Copilot Studio → Settings do agente → Advanced → cole a Connection String do Application Insights.
+                </li>
+                <li>
+                    <strong>Consultar via KQL</strong><br>
+                    Use queries KQL no Application Insights para criar dashboards customizados de consumo, tempo de resposta e erros.
+                </li>
+            </ol>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Monitoramento Avançado com Purview</div>
+                <p>Para requisitos de compliance e auditoria, o <strong>Microsoft Purview</strong> pode monitorar eventos de ciclo de vida dos agentes, acesso a dados sensíveis e comunicações — ideal para empresas com regulamentações setoriais e LGPD.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section" id="s5">
+        <div class="section-header">
+            <span class="sec-num">05</span>
+            <h2>Governança de Agentes — Melhores Práticas</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Princípio Fundamental: Guardrails, não Gates</h3>
+            <p>A melhor prática da Microsoft é <strong>empoderar a inovação com proteção</strong>, em vez de bloquear completamente a criação de agentes. Crie barreiras inteligentes que orientem os usuários a criar agentes de qualidade, sem sufocar a inovação.</p>
+
+            <h3>Pilares de Governança</h3>
+
+            <h4>1. DLP (Data Loss Prevention)</h4>
+            <p>Configure políticas de DLP no nível do ambiente para controlar quais <strong>conectores</strong> os agentes podem utilizar. Exemplo: permitir SharePoint e Dataverse, mas bloquear conectores de redes sociais ou armazenamento externo.</p>
+
+            <h4>2. Managed Environments</h4>
+            <p>Habilite <strong>Managed Environments</strong> para cada ambiente Power Platform. Isso permite:</p>
+            <ul class="checklist">
+                <li>Limitar quem pode compartilhar apps e agentes</li>
+                <li>Bloquear publicação sem aprovação</li>
+                <li>Requerer compliance com políticas de dados</li>
+                <li>Monitorar ativamente os recursos criados</li>
+            </ul>
+
+            <h4>3. RACI Matrix para Agentes</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Atividade</th>
+                        <th>Responsável (R)</th>
+                        <th>Aprovador (A)</th>
+                        <th>Consultado (C)</th>
+                        <th>Informado (I)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Criação de agente</td>
+                        <td>Maker da área</td>
+                        <td>—</td>
+                        <td>TI / CoE</td>
+                        <td>Gestor da área</td>
+                    </tr>
+                    <tr>
+                        <td>Teste e validação</td>
+                        <td>Maker + usuários piloto</td>
+                        <td>Gestor da área</td>
+                        <td>TI</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Publicação em Prod</td>
+                        <td>TI / CoE</td>
+                        <td>Gestor TI</td>
+                        <td>Maker</td>
+                        <td>Compliance</td>
+                    </tr>
+                    <tr>
+                        <td>Monitoramento contínuo</td>
+                        <td>TI / CoE</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>Gestor da área</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>4. Center of Excellence (CoE) Starter Kit</h4>
+            <p>Implemente o <strong>CoE Starter Kit</strong> da Microsoft para ter visibilidade total de:</p>
+            <ul class="checklist">
+                <li>Quantos agentes existem no tenant</li>
+                <li>Quem criou cada agente e quando</li>
+                <li>Quais conectores estão sendo usados</li>
+                <li>Agentes órfãos (sem dono ativo)</li>
+                <li>Compliance com políticas de DLP</li>
+            </ul>
+
+            <h3>Zonas de Governança (Traffic Light Model)</h3>
+            <div class="zone-grid">
+                <div class="zone-card zone-green">
+                    <h4>🟢 Zona Verde</h4>
+                    <p><strong>Sandbox / Experimentação</strong><br>DLP permissivo. Makers podem testar livremente. Sem impacto em produção.</p>
+                </div>
+                <div class="zone-card zone-yellow">
+                    <h4>🟡 Zona Amarela</h4>
+                    <p><strong>Desenvolvimento Controlado</strong><br>DLP moderado. Conectores aprovados apenas. Review obrigatório antes de promover.</p>
+                </div>
+                <div class="zone-card zone-red">
+                    <h4>🔴 Zona Vermelha</h4>
+                    <p><strong>Produção</strong><br>DLP restritivo. Apenas Managed Solutions. Auditoria completa. Compliance obrigatório.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section" id="s6">
+        <div class="section-header">
+            <span class="sec-num">06</span>
+            <h2>Estratégia de Ambientes: Dev vs. Prod vs. Por Departamento</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>As Duas Abordagens</h3>
+
+            <div class="compare-grid">
+                <div class="compare-card recommended">
+                    <div class="compare-card-header">✅ Recomendado: Dois Ambientes (Dev + Prod)</div>
+                    <div class="compare-card-body">
+                        <ul>
+                            <li>Simplicidade operacional — menos overhead de gestão</li>
+                            <li>Rateio de custos pelo Copilot Studio Analytics (por agente)</li>
+                            <li>DLP e governança consistentes em toda a organização</li>
+                            <li>ALM centralizado (Solutions) para promoção de agentes</li>
+                            <li>Ideal para o início da jornada (até ~20 agentes)</li>
+                            <li>Custo menor de Dataverse (apenas 2 ambientes)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="compare-card">
+                    <div class="compare-card-header">Alternativa: Ambiente por Departamento</div>
+                    <div class="compare-card-body">
+                        <ul>
+                            <li>Isolamento de dados entre departamentos (Comercial, RH, TI, etc.)</li>
+                            <li>Rateio de custos nativo por ambiente/Resource Group</li>
+                            <li>DLP customizado por departamento</li>
+                            <li>Complexidade alta de gestão (múltiplos ambientes × stages)</li>
+                            <li>Custo maior de Dataverse (cada ambiente = capacidade separada)</li>
+                            <li>Recomendado apenas em cenários regulatórios ou com +50 agentes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-purple">
+                <div class="box-title">🎯 Recomendação</div>
+                <p>Para organizações <strong>no início da jornada</strong>, recomendamos fortemente a abordagem <strong>Dois Ambientes (Dev + Prod)</strong>. Isso minimiza complexidade operacional e custos, enquanto o rateio entre departamentos pode ser feito pelas <strong>ferramentas de analytics do Copilot Studio e Azure Cost Management</strong> por agente/tag.</p>
+                <p>Quando a maturidade crescer (acima de 20-30 agentes, múltiplas áreas construindo de forma independente), poderá evoluir para ambientes departamentais de forma gradual.</p>
+            </div>
+
+            <h3>Arquitetura Recomendada</h3>
+            <div class="diagram">
+                <div class="diagram-flow">
+                    <div class="diagram-box">
+                        <strong>🏗 Ambiente DEV</strong><br>
+                        <small>Sandbox / Dataverse</small><br>
+                        <small style="color: var(--pira-blue)">Billing Policy DEV</small><br>
+                        <small style="color: var(--pira-gray-600)">DLP: Permissivo</small>
+                    </div>
+                    <span class="diagram-arrow">→<br><small style="font-size:0.6rem">Managed<br>Solution</small></span>
+                    <div class="diagram-box highlight">
+                        <strong>🚀 Ambiente PROD</strong><br>
+                        <small>Production / Dataverse</small><br>
+                        <small>Billing Policy PROD</small><br>
+                        <small>DLP: Restritivo</small>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--pira-gray-600);">Todos os departamentos (RH, TI, Comercial, Suprimentos) compartilham os mesmos ambientes.<br>Rateio por agente via analytics + tags no Azure.</p>
+            </div>
+
+            <h3>Se no futuro quiser separar por departamento</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critério</th>
+                        <th>Quando separar?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Regulamentação</td>
+                        <td>Se um departamento tiver dados que não podem ser acessados por outros (ex: dados financeiros/jurídico)</td>
+                    </tr>
+                    <tr>
+                        <td>Volume de agentes</td>
+                        <td>Quando passar de ~30 agentes ativos e o rateio se tornar complexo</td>
+                    </tr>
+                    <tr>
+                        <td>Autonomia</td>
+                        <td>Se departamentos quiserem DLP, conectores e políticas diferentes</td>
+                    </tr>
+                    <tr>
+                        <td>Budget</td>
+                        <td>Se cada departamento tiver orçamento próprio para IA e precisar de Resource Groups separados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section" id="s7">
+        <div class="section-header">
+            <span class="sec-num">07</span>
+            <h2>Cotas, Rateio e Controle de Custos</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>É possível criar cotas por área / agente / projeto?</h3>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Resposta Direta</div>
+                <p>O Copilot Studio <strong>não oferece nativamente</strong> cotas granulares por agente individual ou por departamento dentro de um mesmo ambiente. Porém, há estratégias eficazes para alcançar o mesmo resultado:</p>
+            </div>
+
+            <h3>Estratégias de Rateio e Controle</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Estratégia</th>
+                        <th>Como funciona</th>
+                        <th>Nível de Granularidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Billing Policies por Ambiente</strong></td>
+                        <td>Cada ambiente pode ter seu próprio Billing Policy vinculado a um Resource Group Azure diferente. Custos separados automaticamente.</td>
+                        <td><span class="badge badge-green">Por ambiente</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Tags no Azure</strong></td>
+                        <td>Adicione tags de departamento/projeto ao Resource Group (ex: <code>dept=RH</code>, <code>projeto=Onboarding</code>). Filtre custos no Azure Cost Management.</td>
+                        <td><span class="badge badge-blue">Por projeto/dept</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Analytics do Copilot Studio</strong></td>
+                        <td>O painel de analytics mostra consumo por agente individual. Exporte dados para relatórios de rateio interno.</td>
+                        <td><span class="badge badge-green">Por agente</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Budget Alerts no Azure</strong></td>
+                        <td>Configure alertas de custo por Resource Group. Não impede o consumo, mas alerta quando limiares são atingidos.</td>
+                        <td><span class="badge badge-orange">Por ambiente</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Múltiplos Billing Policies</strong></td>
+                        <td>Até 50 Billing Policies por tenant. Cada um pode ser vinculado a Resource Groups diferentes para isolamento financeiro.</td>
+                        <td><span class="badge badge-green">Por ambiente</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Limites e Quotas do Copilot Studio</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Limite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Requests por minuto (por ambiente, pago)</td>
+                        <td>8.000 req/min</td>
+                    </tr>
+                    <tr>
+                        <td>Requests por 24h (plano standard)</td>
+                        <td>250.000</td>
+                    </tr>
+                    <tr>
+                        <td>Requests por dia (plano Teams)</td>
+                        <td>6.000</td>
+                    </tr>
+                    <tr>
+                        <td>Tópicos por agente (Web App)</td>
+                        <td>1.000</td>
+                    </tr>
+                    <tr>
+                        <td>Tópicos por agente (Teams)</td>
+                        <td>250</td>
+                    </tr>
+                    <tr>
+                        <td>Billing Policies por tenant</td>
+                        <td>50</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Modelo de Rateio Sugerido</h3>
+            <div class="diagram">
+                <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                    <p><strong>Fase 1 (Início):</strong> Um único Billing Policy PAYG → monitorar consumo por agente via analytics → criar relatório mensal de rateio manual.</p>
+                    <br>
+                    <p><strong>Fase 2 (Escala):</strong> Se necessário, criar Billing Policies separados por área → cada um vinculado a Resource Groups com tags → automatizar relatórios via Power BI.</p>
+                    <br>
+                    <p><strong>Fase 3 (Maturidade):</strong> Considerar ambientes separados por departamento + pacotes pré-pagos para áreas com consumo previsível.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 8 — ARQUITETURA AZURE AI -->
+    <div class="section" id="s8">
+        <div class="section-header">
+            <span class="sec-num">08</span>
+            <h2>Arquitetura: Base de Conhecimento com Azure AI Foundry</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>O Desafio: Limitações do SharePoint Nativo</h3>
+            <p>Agentes do Copilot Studio que consomem documentos diretamente do SharePoint enfrentam limitações importantes que podem comprometer a qualidade das respostas:</p>
+
+            <div class="box box-danger">
+                <div class="box-title">⚠️ Limitações do Conector SharePoint Nativo</div>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li>Limite prático de <strong>3–7 MB por arquivo</strong> — documentos maiores são parcialmente ignorados</li>
+                    <li>PDFs escaneados (imagem) possuem <strong>OCR básico</strong> — conteúdo frequentemente perdido</li>
+                    <li>Documentos com tabelas complexas e imagens perdem contexto na extração</li>
+                    <li>Conteúdo útil por consulta limitado a <strong>~36.000 caracteres (~15–20 páginas)</strong></li>
+                    <li>Indexação do SharePoint pode levar <strong>4–6 horas</strong> após upload</li>
+                </ul>
+            </div>
+
+            <h3>Opções de Arquitetura Comparadas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Abordagem</th>
+                        <th style="text-align:center">Performance</th>
+                        <th style="text-align:center">Custo</th>
+                        <th style="text-align:center">Limite/Arquivo</th>
+                        <th>Melhor Para</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>① SharePoint Direto</strong></td>
+                        <td style="text-align:center">⭐⭐</td>
+                        <td style="text-align:center"><span class="badge badge-green">Incluso M365</span></td>
+                        <td style="text-align:center">3–7 MB</td>
+                        <td>&lt;1.000 docs simples e pequenos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>② Upload Direto + Dataverse</strong></td>
+                        <td style="text-align:center">⭐⭐⭐</td>
+                        <td style="text-align:center"><span class="badge badge-blue">Power Platform</span></td>
+                        <td style="text-align:center">512 MB</td>
+                        <td>&lt;20 arquivos focados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>③ Power Automate → Dataverse</strong></td>
+                        <td style="text-align:center">⭐⭐⭐</td>
+                        <td style="text-align:center"><span class="badge badge-blue">Power Platform</span></td>
+                        <td style="text-align:center">512 MB</td>
+                        <td>Automação + volume médio</td>
+                    </tr>
+                    <tr style="background: #D1E7DD;">
+                        <td><strong>④ Azure AI Search (RAG) 🏆</strong></td>
+                        <td style="text-align:center">⭐⭐⭐⭐⭐</td>
+                        <td style="text-align:center"><span class="badge badge-orange">Azure metered</span></td>
+                        <td style="text-align:center">Sem limite</td>
+                        <td>Enterprise, milhares de docs</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🏆 Arquitetura Recomendada: RAG com Azure AI Foundry</h3>
+            <p>Para agentes que precisam consultar <strong>documentos grandes, PDFs escaneados, tabelas complexas</strong> e um volume crescente de conteúdo, a arquitetura ideal combina os componentes do <strong>Azure AI Foundry</strong> no padrão <strong>RAG (Retrieval-Augmented Generation)</strong>.</p>
+
+            <div class="diagram">
+                <p style="font-weight: 600; color: var(--pira-blue-dark); margin-bottom: 20px; font-size: 1rem;">Fluxo de Dados — Arquitetura RAG com Azure AI Foundry</p>
+                <div class="diagram-flow">
+                    <div class="diagram-box" style="border-color: #0078D4; min-width: 120px;">
+                        <span style="font-size: 1.5rem;">📁</span><br>
+                        <strong>SharePoint</strong><br>
+                        <small>Library de Docs</small>
+                    </div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box" style="border-color: #00BCF2; min-width: 120px;">
+                        <span style="font-size: 1.5rem;">☁️</span><br>
+                        <strong>Azure Blob</strong><br>
+                        <small>Storage</small>
+                    </div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box" style="border-color: #E74C3C; min-width: 140px;">
+                        <span style="font-size: 1.5rem;">📄</span><br>
+                        <strong>AI Document</strong><br>
+                        <strong>Intelligence</strong><br>
+                        <small>OCR + Layout</small>
+                    </div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box" style="border-color: #5C2D91; background: #5C2D91; color: white; min-width: 130px;">
+                        <span style="font-size: 1.5rem;">🔍</span><br>
+                        <strong>Azure AI</strong><br>
+                        <strong>Search</strong><br>
+                        <small>Indexação + Vetorial</small>
+                    </div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box highlight" style="min-width: 130px;">
+                        <span style="font-size: 1.5rem;">🤖</span><br>
+                        <strong>Copilot</strong><br>
+                        <strong>Studio</strong><br>
+                        <small>Agente Inteligente</small>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.82rem; color: var(--pira-gray-600);">O indexador do Azure AI Search sincroniza automaticamente com o SharePoint/Blob em schedule configurável.</p>
+            </div>
+
+            <h3>Componentes do Azure AI Foundry Utilizados</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Função</th>
+                        <th>Benefício</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Azure AI Search</strong></td>
+                        <td>Indexação, chunking inteligente, busca vetorial + semântica</td>
+                        <td>Encontra conteúdo por <em>significado</em>, não apenas palavras-chave</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Document Intelligence</strong></td>
+                        <td>OCR avançado, extração de layout, tabelas e formulários</td>
+                        <td>PDFs escaneados e docs complexos são processados corretamente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure Blob Storage</strong></td>
+                        <td>Armazenamento centralizado dos documentos originais</td>
+                        <td>Capacidade ilimitada, custo muito baixo por GB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azure OpenAI (Embeddings)</strong></td>
+                        <td>Geração de embeddings vetoriais para busca semântica</td>
+                        <td>Precisão na recuperação de trechos relevantes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Benefícios vs. SharePoint Direto</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Capacidade</th>
+                        <th style="text-align:center">SharePoint Direto</th>
+                        <th style="text-align:center">Azure AI Search (RAG)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Limite de tamanho de arquivo</td>
+                        <td style="text-align:center"><span class="badge badge-red">3–7 MB</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Sem limite</span></td>
+                    </tr>
+                    <tr>
+                        <td>OCR em PDFs escaneados</td>
+                        <td style="text-align:center"><span class="badge badge-red">Básico</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Avançado (Doc Intelligence)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tabelas e layouts complexos</td>
+                        <td style="text-align:center"><span class="badge badge-red">Perde contexto</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Extrai estrutura</span></td>
+                    </tr>
+                    <tr>
+                        <td>Busca semântica / vetorial</td>
+                        <td style="text-align:center"><span class="badge badge-red">Não</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Sim</span></td>
+                    </tr>
+                    <tr>
+                        <td>Chunking inteligente</td>
+                        <td style="text-align:center"><span class="badge badge-red">Não</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Sim (semântico)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Citações com fonte</td>
+                        <td style="text-align:center"><span class="badge badge-orange">Parcial</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Exato (doc + trecho)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tempo de indexação</td>
+                        <td style="text-align:center"><span class="badge badge-orange">4–6 horas</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Configurável (min a horas)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Volume suportado</td>
+                        <td style="text-align:center"><span class="badge badge-orange">&lt;1.000 docs</span></td>
+                        <td style="text-align:center"><span class="badge badge-green">Milhões de docs</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>💰 Custo Estimado (Azure AI Search)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th style="text-align:center">Preço/Mês (USD)</th>
+                        <th style="text-align:center">Capacidade</th>
+                        <th>Ideal Para</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Free</strong></td>
+                        <td style="text-align:center"><span class="badge badge-green">$0</span></td>
+                        <td style="text-align:center">10K docs, 50 MB</td>
+                        <td>PoC / Validação inicial</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Basic</strong></td>
+                        <td style="text-align:center"><span class="badge badge-blue">~$75</span></td>
+                        <td style="text-align:center">1M docs, 2 GB</td>
+                        <td>Projeto inicial / piloto</td>
+                    </tr>
+                    <tr style="background: #D1E7DD;">
+                        <td><strong>Standard S1</strong></td>
+                        <td style="text-align:center"><span class="badge badge-orange">~$250</span></td>
+                        <td style="text-align:center">5–25M docs</td>
+                        <td>Produção enterprise</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Plano de Implementação da Arquitetura RAG</h3>
+
+            <ol class="steps">
+                <li>
+                    <strong>Mitigação Imediata (Semana 1)</strong><br>
+                    Dividir arquivos maiores que 7 MB em documentos menores (&lt;20 páginas). Executar OCR em PDFs escaneados antes de subir ao SharePoint. Converter documentos com muitas imagens para formato texto quando possível.
+                </li>
+                <li>
+                    <strong>PoC com Azure AI Search (Semanas 2–5)</strong><br>
+                    Provisionar Azure AI Search tier <strong>Free</strong> ($0) ou <strong>Basic</strong> (~$75/mês). Configurar indexador apontando para a library SharePoint ou Blob Storage. Habilitar <strong>AI Document Intelligence</strong> para OCR nativo e extração de layout. Conectar ao Copilot Studio como knowledge source customizado.
+                </li>
+                <li>
+                    <strong>Validação e Testes (Semanas 5–6)</strong><br>
+                    Testar com os documentos problemáticos (grandes, escaneados, complexos). Comparar qualidade das respostas vs. SharePoint direto. Ajustar chunking e configurações de busca semântica.
+                </li>
+                <li>
+                    <strong>Produção (Mês 2–3)</strong><br>
+                    Migrar para tier <strong>Standard S1</strong> se volume justificar. Habilitar busca vetorial/semântica para maior precisão. Configurar schedule de re-indexação automática. Implementar monitoramento e políticas de DLP.
+                </li>
+            </ol>
+
+            <h3>📎 Referências da Arquitetura</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Azure AI Search como Knowledge Source</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-azure-ai-search" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Padrão RAG no Copilot Studio</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/retrieval-augmented-generation" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Arquitetura de Referência (GitHub)</td>
+                        <td><a href="https://github.com/Azure-Samples/Copilot-Studio-with-Azure-AI-Search" target="_blank">Azure Samples</a></td>
+                    </tr>
+                    <tr>
+                        <td>Guia Completo de Setup</td>
+                        <td><a href="https://www.matthewdevaney.com/copilot-studio-azure-ai-search-complete-setup-guide/" target="_blank">Matthew Devaney Blog</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="section" id="s9">
+        <div class="section-header">
+            <span class="sec-num">09</span>
+            <h2>Roadmap Recomendado</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Jornada em 4 Fases</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:15%">Fase</th>
+                        <th style="width:25%">Objetivo</th>
+                        <th>Ações Principais</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-blue">Fase 1</span><br><strong>Foundation</strong></td>
+                        <td>Infraestrutura e governança</td>
+                        <td>
+                            • Criar ambientes Dev e Prod<br>
+                            • Configurar PAYG via Azure<br>
+                            • Definir Security Groups no Entra<br>
+                            • Configurar DLP básico<br>
+                            • Habilitar Managed Environments
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-green">Fase 2</span><br><strong>Pilot</strong></td>
+                        <td>Primeiro agente em produção</td>
+                        <td>
+                            • Escolher caso de uso de alto impacto (ex: FAQ de RH ou atendimento a fornecedores)<br>
+                            • Treinar 3-5 makers<br>
+                            • Desenvolver, testar e publicar o primeiro agente<br>
+                            • Configurar Application Insights<br>
+                            • Validar fluxo ALM (Dev → Prod)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-orange">Fase 3</span><br><strong>Scale</strong></td>
+                        <td>Expandir para mais áreas</td>
+                        <td>
+                            • Ampliar para 10-20 agentes em múltiplos departamentos<br>
+                            • Implementar CoE Starter Kit<br>
+                            • Criar relatórios de rateio por agente/área<br>
+                            • Avaliar migração para pacotes pré-pagos<br>
+                            • Estabelecer programa de champions
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-red">Fase 4</span><br><strong>Optimize</strong></td>
+                        <td>Maturidade e otimização</td>
+                        <td>
+                            • Revisão de governança e DLP<br>
+                            • Avaliar ambientes por departamento (se necessário)<br>
+                            • Automação de approval workflows<br>
+                            • Integração com Purview para compliance<br>
+                            • Dashboard executivo de ROI de agentes
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="section" id="s10">
+        <div class="section-header">
+            <span class="sec-num">10</span>
+            <h2>Checklist de Implementação</h2>
+        </div>
+        <div class="section-body">
+            <p>Use este checklist como guia de acompanhamento para as primeiras semanas de implementação:</p>
+
+            <h3>🔧 Infraestrutura</h3>
+            <ul class="checklist">
+                <li>Criar assinatura Azure (ou usar existente)</li>
+                <li>Criar Resource Groups (Dev e Prod)</li>
+                <li>Criar Billing Policies PAYG no Power Platform Admin Center</li>
+                <li>Criar/confirmar ambientes Power Platform com Dataverse (Sandbox + Production)</li>
+                <li>Vincular Billing Policies aos ambientes</li>
+                <li>Configurar Budget Alerts no Azure Cost Management</li>
+            </ul>
+
+            <h3>👥 Identidade e Acesso</h3>
+            <ul class="checklist">
+                <li>Criar Security Groups no Entra ID (Makers Dev, Makers Prod, Admins)</li>
+                <li>Criar Teams no ambiente Power Platform vinculados aos Security Groups</li>
+                <li>Atribuir roles (Environment Maker para Dev, Custom Role para Prod)</li>
+                <li>Validar acesso dos makers ao Copilot Studio</li>
+            </ul>
+
+            <h3>🛡 Governança</h3>
+            <ul class="checklist">
+                <li>Configurar políticas DLP por ambiente</li>
+                <li>Habilitar Managed Environments</li>
+                <li>Definir RACI para criação e publicação de agentes</li>
+                <li>Criar Approval Flow para publicação em Produção (Power Automate)</li>
+                <li>Avaliar instalação do CoE Starter Kit</li>
+            </ul>
+
+            <h3>🚀 Primeiro Agente</h3>
+            <ul class="checklist">
+                <li>Selecionar caso de uso piloto</li>
+                <li>Treinar makers selecionados</li>
+                <li>Desenvolver agente no ambiente Dev</li>
+                <li>Testar com grupo piloto (5-10 usuários)</li>
+                <li>Promover para Prod via Managed Solution</li>
+                <li>Configurar canal (Teams / SharePoint)</li>
+                <li>Configurar Application Insights</li>
+            </ul>
+
+            <h3>📊 Monitoramento</h3>
+            <ul class="checklist">
+                <li>Verificar consumo no Power Platform Admin Center</li>
+                <li>Validar custos no Azure Cost Management</li>
+                <li>Revisar analytics do Copilot Studio (satisfação, volume)</li>
+                <li>Criar relatório de rateio por agente/departamento</li>
+            </ul>
+
+            <h3>🔍 Base de Conhecimento (Azure AI Foundry)</h3>
+            <ul class="checklist">
+                <li>Avaliar documentos que excedem limites do SharePoint nativo (>7 MB, PDFs escaneados)</li>
+                <li>Provisionar Azure AI Search (tier Free para PoC)</li>
+                <li>Configurar Azure Blob Storage para documentos</li>
+                <li>Habilitar AI Document Intelligence para OCR avançado</li>
+                <li>Configurar indexador e schedule de re-indexação</li>
+                <li>Conectar Azure AI Search como knowledge source no Copilot Studio</li>
+                <li>Validar qualidade das respostas vs. SharePoint direto</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SECTION 11 -->
+    <div class="section" id="s11">
+        <div class="section-header">
+            <span class="sec-num">11</span>
+            <h2>Referências e Links Úteis</h2>
+        </div>
+        <div class="section-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Copilot Studio — Licenciamento e Billing</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Power Platform Admin Center</td>
+                        <td><a href="https://admin.powerplatform.microsoft.com" target="_blank">admin.powerplatform.microsoft.com</a></td>
+                    </tr>
+                    <tr>
+                        <td>Azure Cost Management</td>
+                        <td><a href="https://portal.azure.com/#blade/Microsoft_Azure_CostManagement" target="_blank">Portal Azure</a></td>
+                    </tr>
+                    <tr>
+                        <td>Copilot Studio Analytics (Overview)</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-overview" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Agent Governance Whitepaper</td>
+                        <td><a href="https://adoption.microsoft.com/files/copilot-studio/Agent-governance-whitepaper.pdf" target="_blank">Download PDF</a></td>
+                    </tr>
+                    <tr>
+                        <td>CoE Starter Kit (Power CAT)</td>
+                        <td><a href="https://learn.microsoft.com/en-us/power-platform/guidance/coe/starter-kit" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Copilot Studio Quotas & Limits</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-quotas" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Copilot Studio Governance Labs</td>
+                        <td><a href="https://microsoft.github.io/mcs-labs/labs/mcs-governance/" target="_blank">GitHub MCS Labs</a></td>
+                    </tr>
+                    <tr>
+                        <td>Managed Environments Overview</td>
+                        <td><a href="https://learn.microsoft.com/en-us/power-platform/admin/managed-environment-overview" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Application Insights + Copilot Studio</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-bot-framework-composer-example3" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-info" style="margin-top: 24px;">
+                <div class="box-title">📬 Contato Microsoft</div>
+                <p>Para dúvidas sobre este guia ou apoio na implementação, entre em contato com seu representante Microsoft Brasil.<br>
+                <strong>Wilson Hsie</strong> — Digital Solution Area Specialist<br>
+                Microsoft Brasil | Copilot Studio & Modern Work</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!-- SECTION 12 — FAQ AGENTES -->
+    <div class="section" id="s12">
+        <div class="section-header">
+            <span class="sec-num">12</span>
+            <h2>FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</h2>
+        </div>
+        <div class="section-body">
+
+            <div class="box box-info">
+                <div class="box-title">💡 Por que esse FAQ?</div>
+                <p>Uma das dúvidas mais frequentes dos clientes é entender as diferenças entre os agentes que podem ser criados em diferentes superfícies da Microsoft. Cada abordagem tem capacidades, custos e canais de publicação distintos. Este FAQ esclarece as principais diferenças.</p>
+            </div>
+
+            <h3>Visão Comparativa</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:18%">Característica</th>
+                        <th style="width:27%">Agente no Copilot Chat</th>
+                        <th style="width:27%">Agente no M365 Copilot (BizChat)</th>
+                        <th style="width:28%">Agente no Copilot Studio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Onde criar</strong></td>
+                        <td>copilot.microsoft.com → "Criar Agente"</td>
+                        <td>microsoft365.com/copilot → "Criar Agente" (antigo BizChat)</td>
+                        <td><a href="https://copilotstudio.microsoft.com" target="_blank">copilotstudio.microsoft.com</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quem pode criar</strong></td>
+                        <td>Qualquer usuário com Copilot Chat (gratuito ou pago)</td>
+                        <td>Usuários com licença <strong>Microsoft 365 Copilot</strong></td>
+                        <td>Usuários com role <strong>Environment Maker</strong> no Power Platform</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Licença necessária</strong></td>
+                        <td><span class="badge badge-green">Gratuita</span> (Copilot Chat free) ou M365 Copilot</td>
+                        <td><span class="badge badge-blue">M365 Copilot</span> (~US$ 30/usuário/mês)</td>
+                        <td><span class="badge badge-orange">Copilot Studio</span> (PAYG ou pacote pré-pago)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complexidade</strong></td>
+                        <td><span class="badge badge-green">Simples</span> — prompt + fontes</td>
+                        <td><span class="badge badge-blue">Média</span> — prompt + fontes + Graph</td>
+                        <td><span class="badge badge-orange">Avançada</span> — tópicos, ações, conectores, fluxos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fontes de conhecimento</strong></td>
+                        <td>Arquivos enviados, URLs públicas</td>
+                        <td>SharePoint, OneDrive, Graph (emails, Teams, calendário) + arquivos</td>
+                        <td>SharePoint, Dataverse, Azure AI Search, websites, APIs, conectores custom</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ações / Automações</strong></td>
+                        <td><span class="badge badge-red">Não</span></td>
+                        <td><span class="badge badge-orange">Limitado</span> — Plugins pré-aprovados</td>
+                        <td><span class="badge badge-green">Sim</span> — Power Automate, HTTP, conectores, custom code</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acesso a dados M365</strong></td>
+                        <td><span class="badge badge-red">Não</span> — apenas dados fornecidos pelo usuário</td>
+                        <td><span class="badge badge-green">Sim</span> — Graph completo (emails, Teams, arquivos)</td>
+                        <td><span class="badge badge-orange">Via conectores</span> — requer configuração explícita</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Canais de publicação</strong></td>
+                        <td>Apenas dentro do Copilot Chat (pessoal)</td>
+                        <td>M365 Copilot, Teams (app catalog), SharePoint</td>
+                        <td>Teams, SharePoint, Website, Mobile, WhatsApp, Slack, custom channels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compartilhamento</strong></td>
+                        <td><span class="badge badge-orange">Link</span> — o destinatário precisa de Copilot Chat</td>
+                        <td><span class="badge badge-blue">Org-wide</span> — via Teams App Catalog (admin aprova)</td>
+                        <td><span class="badge badge-green">Total</span> — canais internos e externos, sem licença para o usuário final</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custo por interação</strong></td>
+                        <td><span class="badge badge-green">Incluso</span> na licença do usuário</td>
+                        <td><span class="badge badge-green">Incluso</span> na licença M365 Copilot*</td>
+                        <td><span class="badge badge-orange">Copilot Credits</span> — cada interação consome créditos (PAYG ou pacote)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Governança / DLP</strong></td>
+                        <td><span class="badge badge-red">Mínima</span></td>
+                        <td><span class="badge badge-blue">Média</span> — políticas Entra + Purview</td>
+                        <td><span class="badge badge-green">Completa</span> — DLP, Managed Environments, ALM, auditoria</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ideal para</strong></td>
+                        <td>Assistentes pessoais, rascunhos, experimentação rápida</td>
+                        <td>Assistentes de equipe que consultam dados corporativos (emails, arquivos, Teams)</td>
+                        <td>Agentes enterprise, automação de processos, atendimento externo, chatbots complexos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Sobre o consumo de créditos do M365 Copilot</div>
+                <p>*Agentes criados no M365 Copilot que utilizam <strong>apenas fontes de conhecimento</strong> (SharePoint, Graph) estão inclusos na licença. Porém, agentes que executam <strong>ações via conectores</strong> (Power Automate, HTTP) ou são publicados para usuários <strong>sem licença M365 Copilot</strong> passam a consumir <strong>Copilot Credits</strong> do Copilot Studio. Este é um ponto crítico de entendimento para planejamento de custos.</p>
+            </div>
+
+            <h3>Perguntas Frequentes</h3>
+
+            <h4>1. Posso criar um agente de graça?</h4>
+            <p><strong>Sim.</strong> O Copilot Chat (gratuito) permite criar agentes simples com instruções e arquivos enviados. Qualquer usuário com conta Microsoft corporativa pode acessar <a href="https://copilot.microsoft.com" target="_blank">copilot.microsoft.com</a> e criar agentes pessoais sem custo adicional. Porém, esses agentes não acessam dados corporativos (emails, SharePoint, Teams) e não podem executar ações automatizadas.</p>
+
+            <h4>2. Meu agente do M365 Copilot pode ser usado por quem não tem licença?</h4>
+            <p><strong>Depende.</strong> Se o agente for publicado <strong>apenas para usuários licenciados do M365 Copilot</strong> (via Teams, por exemplo), está incluso na licença. Se quiser disponibilizar para <strong>todos os colaboradores</strong> (inclusive sem licença Copilot), o agente precisa ser publicado via <strong>Copilot Studio</strong> e passará a consumir Copilot Credits por interação.</p>
+
+            <h4>3. Qual a diferença prática entre um agente do Copilot Chat e um do M365 Copilot?</h4>
+            <p>O agente do <strong>Copilot Chat</strong> é um assistente pessoal — apenas o criador (ou quem tem o link) consegue usá-lo, e ele só conhece os arquivos que você fornece. O agente do <strong>M365 Copilot</strong> tem acesso ao Microsoft Graph da organização, podendo consultar emails, arquivos do SharePoint/OneDrive, chats do Teams e calendário do usuário. Isso torna o agente do M365 Copilot muito mais poderoso para cenários corporativos, mas exige licenciamento.</p>
+
+            <h4>4. Quando devo usar o Copilot Studio em vez do M365 Copilot?</h4>
+            <div class="box box-purple">
+                <div class="box-title">Use o Copilot Studio quando precisar de:</div>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>Automação de processos</strong> — executar ações (criar ticket, atualizar CRM, enviar email automatizado)</li>
+                    <li><strong>Canais externos</strong> — website, WhatsApp, app mobile (usuários sem M365)</li>
+                    <li><strong>Base de conhecimento avançada</strong> — Azure AI Search, Dataverse, APIs custom</li>
+                    <li><strong>Governança enterprise</strong> — DLP, ambientes segregados, ALM, compliance</li>
+                    <li><strong>Integração com sistemas legados</strong> — via conectores Power Platform ou HTTP</li>
+                    <li><strong>Volume alto</strong> — centenas ou milhares de usuários interagindo simultaneamente</li>
+                </ul>
+            </div>
+
+            <h4>5. Os agentes do M365 Copilot consomem créditos do Copilot Studio?</h4>
+            <p><strong>Não automaticamente.</strong> Agentes declarativos no M365 Copilot que usam apenas knowledge (fontes de dados) estão inclusos na licença M365 Copilot do usuário. Porém, se o agente executa <strong>ações via conectores</strong>, utiliza <strong>tópicos customizados</strong> ou é acessado por usuários <strong>sem licença</strong>, o consumo passa a ser medido em Copilot Credits — que precisam ser adquiridos via Copilot Studio (PAYG ou pacote).</p>
+
+            <h4>6. Posso compartilhar meu agente com toda a organização?</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plataforma</th>
+                        <th>Como compartilhar</th>
+                        <th>Quem pode usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Copilot Chat</strong></td>
+                        <td>Link compartilhável</td>
+                        <td>Apenas quem tem Copilot Chat (gratuito ou pago)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M365 Copilot</strong></td>
+                        <td>Teams App Catalog (admin deve aprovar)</td>
+                        <td>Usuários com licença M365 Copilot</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Copilot Studio</strong></td>
+                        <td>Teams, SharePoint, Website, Mobile, WhatsApp, etc.</td>
+                        <td><span class="badge badge-green">Qualquer pessoa</span> — não precisa de licença</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>7. Qual o custo de cada tipo de agente?</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Custo para criar</th>
+                        <th>Custo por interação</th>
+                        <th>Custo para o usuário final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Copilot Chat</strong></td>
+                        <td><span class="badge badge-green">Gratuito</span></td>
+                        <td><span class="badge badge-green">Incluso</span></td>
+                        <td>Precisa de Copilot Chat (gratuito)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M365 Copilot</strong></td>
+                        <td>Licença M365 Copilot</td>
+                        <td><span class="badge badge-green">Incluso*</span></td>
+                        <td>Precisa de licença M365 Copilot</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Copilot Studio</strong></td>
+                        <td>Licença ambiente Power Platform</td>
+                        <td><span class="badge badge-orange">Copilot Credits</span></td>
+                        <td><span class="badge badge-green">Gratuito</span> — sem licença necessária</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: 0.85rem; color: var(--pira-gray-600);">*Enquanto usar apenas knowledge sources. Ações com conectores consomem Copilot Credits.</p>
+
+            <h4>8. O que são Copilot Credits e como funcionam?</h4>
+            <p>A partir de 2025, a Microsoft unificou a medição de consumo do Copilot Studio em <strong>Copilot Credits</strong>. Cada tipo de interação consome uma quantidade diferente de créditos:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Interação</th>
+                        <th>Consumo Aproximado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Resposta clássica (tópico pré-definido)</td>
+                        <td>~0,2 créditos</td>
+                    </tr>
+                    <tr>
+                        <td>Resposta generativa com IA (RAG)</td>
+                        <td>~1-2 créditos</td>
+                    </tr>
+                    <tr>
+                        <td>Ação via conector / Power Automate</td>
+                        <td>~1 crédito por execução</td>
+                    </tr>
+                    <tr>
+                        <td>Chamada a Azure OpenAI / AI Builder</td>
+                        <td>Variável (depende do modelo)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Os créditos podem ser adquiridos via <strong>PAYG</strong> (paga pelo consumido via Azure) ou <strong>pacotes pré-pagos</strong> (25.000 créditos/mês incluso no plano Copilot Studio). Consulte a <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing" target="_blank">documentação oficial de licenciamento</a> para valores atualizados.</p>
+
+            <h4>9. Posso começar simples e evoluir?</h4>
+            <div class="box box-success">
+                <div class="box-title">✅ Jornada Recomendada</div>
+                <p>A abordagem mais eficaz é progressiva:</p>
+                <ol style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>Fase 1 — Experimentar:</strong> Criar agentes no Copilot Chat (gratuito) para validar casos de uso e engajar stakeholders</li>
+                    <li><strong>Fase 2 — Corporativo:</strong> Usar M365 Copilot para agentes que precisam de dados corporativos (emails, SharePoint, Teams)</li>
+                    <li><strong>Fase 3 — Enterprise:</strong> Migrar para Copilot Studio quando precisar de automação, governança avançada ou canais externos</li>
+                </ol>
+                <p style="margin-top: 8px;">Agentes criados no M365 Copilot podem ser migrados para o Copilot Studio quando a complexidade exigir. Não é necessário recomeçar do zero.</p>
+            </div>
+
+            <h4>10. Como escolher a plataforma certa?</h4>
+            <div class="diagram">
+                <p style="font-weight: 600; color: var(--pira-blue-dark); margin-bottom: 16px; font-size: 1rem;">Árvore de Decisão</p>
+                <div style="text-align: left; max-width: 700px; margin: 0 auto; font-size: 0.92rem; line-height: 2;">
+                    <p>📌 <strong>O agente precisa executar ações automatizadas?</strong></p>
+                    <p style="padding-left: 30px;">→ Sim → <span class="badge badge-orange">Copilot Studio</span></p>
+                    <p style="padding-left: 30px;">→ Não ↓</p>
+                    <p>📌 <strong>O agente precisa acessar dados corporativos (emails, SharePoint, Teams)?</strong></p>
+                    <p style="padding-left: 30px;">→ Sim → <span class="badge badge-blue">M365 Copilot</span></p>
+                    <p style="padding-left: 30px;">→ Não ↓</p>
+                    <p>📌 <strong>O agente será usado por pessoas sem licença M365 Copilot?</strong></p>
+                    <p style="padding-left: 30px;">→ Sim → <span class="badge badge-orange">Copilot Studio</span></p>
+                    <p style="padding-left: 30px;">→ Não ↓</p>
+                    <p>📌 <strong>É um assistente pessoal ou protótipo?</strong></p>
+                    <p style="padding-left: 30px;">→ Sim → <span class="badge badge-green">Copilot Chat</span></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    <p><strong>Microsoft Copilot Studio</strong> — Guia de Adoção Empresarial</p>
+    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Abril 2026</p>
+    <p style="margin-top: 4px; font-size: 0.8rem;">Este material foi preparado para apoiar clientes na adoção do Microsoft Copilot Studio.</p>
+</div>
+
+</body>
+</html>
