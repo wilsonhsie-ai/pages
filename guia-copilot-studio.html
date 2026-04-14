@@ -524,11 +524,12 @@
         <a href="#s5"><span class="toc-num">5</span> Governança de Agentes — Melhores Práticas</a>
         <a href="#s6"><span class="toc-num">6</span> Estratégia de Ambientes: Dev vs. Prod vs. Por Departamento</a>
         <a href="#s7"><span class="toc-num">7</span> Cotas, Rateio e Controle de Custos</a>
-        <a href="#s8"><span class="toc-num">8</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
-        <a href="#s9"><span class="toc-num">9</span> Roadmap Recomendado</a>
-        <a href="#s10"><span class="toc-num">10</span> Checklist de Implementação</a>
-        <a href="#s11"><span class="toc-num">11</span> Referências e Links Úteis</a>
-        <a href="#s12"><span class="toc-num">12</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
+        <a href="#s8"><span class="toc-num">8</span> Conectores do Power Platform</a>
+        <a href="#s9"><span class="toc-num">9</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
+        <a href="#s10"><span class="toc-num">10</span> Roadmap Recomendado</a>
+        <a href="#s11"><span class="toc-num">11</span> Checklist de Implementação</a>
+        <a href="#s12"><span class="toc-num">12</span> Referências e Links Úteis</a>
+        <a href="#s13"><span class="toc-num">13</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
     </div>
 </nav>
 
@@ -1210,10 +1211,251 @@
         </div>
     </div>
 
-    <!-- SECTION 8 — ARQUITETURA AZURE AI -->
+    <!-- SECTION 8 — CONECTORES DO POWER PLATFORM -->
     <div class="section" id="s8">
         <div class="section-header">
             <span class="sec-num">08</span>
+            <h2>Conectores do Power Platform</h2>
+        </div>
+        <div class="section-body">
+
+            <div class="box box-info">
+                <div class="box-title">💡 O que são Conectores?</div>
+                <p>Conectores são pontes pré-construídas que permitem aos agentes do Copilot Studio <strong>se comunicar com serviços externos</strong> — como SharePoint, Outlook, SAP, Salesforce, SQL Server, APIs REST e centenas de outros. Eles transformam agentes conversacionais em agentes que <strong>executam ações reais</strong>: consultar dados, criar registros, enviar notificações e automatizar processos.</p>
+            </div>
+
+            <h3>Como Adicionar Conectores a um Agente</h3>
+
+            <ol class="steps">
+                <li>
+                    <strong>Acesse o Copilot Studio</strong><br>
+                    Abra seu agente em <a href="https://copilotstudio.microsoft.com" target="_blank">copilotstudio.microsoft.com</a> e navegue até <strong>Ações</strong> (Actions) no menu lateral.
+                </li>
+                <li>
+                    <strong>Adicionar uma Ação</strong><br>
+                    Clique em <strong>"+ Adicionar uma ação"</strong>. Você verá opções como: <em>Conectores do Power Platform</em>, <em>Power Automate Flows</em>, <em>HTTP Request</em>, <em>API Plugin</em> e <em>Azure AI Foundry</em>.
+                </li>
+                <li>
+                    <strong>Escolher o Conector</strong><br>
+                    Pesquise pelo nome do serviço (ex: "SharePoint", "Outlook", "SQL Server"). Selecione a <strong>operação</strong> desejada (ex: "Criar item em lista", "Enviar email", "Executar query").
+                </li>
+                <li>
+                    <strong>Configurar Autenticação</strong><br>
+                    Dependendo do conector, será necessário configurar a autenticação: OAuth 2.0, API Key ou credenciais de serviço. Conectores Microsoft geralmente usam o login do usuário (delegated auth).
+                </li>
+                <li>
+                    <strong>Mapear Parâmetros</strong><br>
+                    Vincule os inputs da ação aos dados extraídos da conversa. O Copilot Studio permite mapear variáveis do tópico diretamente aos parâmetros do conector.
+                </li>
+            </ol>
+
+            <h3>Conectores Padrão vs. Premium</h3>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Atenção ao Tipo de Conector</div>
+                <p>O tipo do conector (Standard ou Premium) impacta diretamente o <strong>custo</strong> e o <strong>licenciamento</strong> necessário. Identifique o tipo antes de usar em produção.</p>
+            </div>
+
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th style="width:18%">Característica</th>
+                        <th style="width:41%">Standard (Padrão)</th>
+                        <th style="width:41%">Premium</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Custo adicional</strong></td>
+                        <td><span class="badge badge-green">Não</span> — incluso no Copilot Studio</td>
+                        <td><span class="badge badge-orange">Sim</span> — requer licença Premium ou PAYG</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Identificação</strong></td>
+                        <td>Sem ícone especial no catálogo</td>
+                        <td>Ícone de <strong>diamante 💎</strong> ou label "Premium" no catálogo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exemplos</strong></td>
+                        <td>SharePoint, Outlook, Office 365, OneDrive, Teams, Excel Online, Approvals, Notifications</td>
+                        <td>SQL Server, Dataverse, Azure SQL, SAP, Salesforce, ServiceNow, HTTP (custom), Azure Blob, Power BI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Autenticação</strong></td>
+                        <td>Geralmente delegada (login do usuário)</td>
+                        <td>Pode exigir Service Principal, API Key ou OAuth configurado por admin</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DLP</strong></td>
+                        <td>Classificados como "Business" por padrão</td>
+                        <td>Devem ser classificados explicitamente nas políticas DLP</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Como Identificar se um Conector é Premium</h3>
+            <ol class="steps">
+                <li>
+                    <strong>No Copilot Studio</strong><br>
+                    Ao adicionar uma ação, conectores premium exibem o ícone de <strong>diamante 💎</strong> ao lado do nome ou a label "Premium" abaixo da descrição.
+                </li>
+                <li>
+                    <strong>Na Documentação</strong><br>
+                    Acesse a <a href="https://learn.microsoft.com/en-us/connectors/connector-reference/" target="_blank">Referência de Conectores</a> no Microsoft Learn. Cada conector lista seu tipo (Standard / Premium) na página de detalhes.
+                </li>
+                <li>
+                    <strong>No Power Platform Admin Center</strong><br>
+                    Em <strong>Políticas DLP</strong>, ao classificar conectores, o tipo aparece ao lado de cada um, facilitando a governança.
+                </li>
+            </ol>
+
+            <h3>Impacto nos Custos</h3>
+
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Cenário</th>
+                        <th>Custo</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Agente usa <strong>apenas conhecimento</strong> (SharePoint, sites)</td>
+                        <td><span class="badge badge-green">Copilot Credits padrão</span></td>
+                        <td>Consumo normal por mensagem generativa</td>
+                    </tr>
+                    <tr>
+                        <td>Agente executa ação via <strong>conector Standard</strong></td>
+                        <td><span class="badge badge-green">Copilot Credits padrão</span></td>
+                        <td>~1 crédito por execução de ação</td>
+                    </tr>
+                    <tr>
+                        <td>Agente executa ação via <strong>conector Premium</strong></td>
+                        <td><span class="badge badge-orange">Copilot Credits + licença Premium</span></td>
+                        <td>O ambiente precisa de capacidade Premium (PAYG ou pacote)</td>
+                    </tr>
+                    <tr>
+                        <td>Agente chama <strong>Power Automate Flow</strong></td>
+                        <td><span class="badge badge-orange">Copilot Credits + Power Automate</span></td>
+                        <td>Se o flow usa conectores premium, licença Premium é necessária</td>
+                    </tr>
+                    <tr>
+                        <td>Agente chama <strong>HTTP Request / API custom</strong></td>
+                        <td><span class="badge badge-orange">Premium</span></td>
+                        <td>HTTP é classificado como conector Premium</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Conectores Mais Usados em Agentes</h3>
+
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Conector</th>
+                        <th style="text-align:center">Tipo</th>
+                        <th>Caso de Uso Típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SharePoint</strong></td>
+                        <td style="text-align:center"><span class="badge badge-green">Standard</span></td>
+                        <td>Consultar listas, criar itens, buscar documentos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outlook (Office 365)</strong></td>
+                        <td style="text-align:center"><span class="badge badge-green">Standard</span></td>
+                        <td>Enviar emails, criar eventos, buscar mensagens</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Microsoft Teams</strong></td>
+                        <td style="text-align:center"><span class="badge badge-green">Standard</span></td>
+                        <td>Postar mensagens, criar canais, notificar grupos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Approvals</strong></td>
+                        <td style="text-align:center"><span class="badge badge-green">Standard</span></td>
+                        <td>Iniciar fluxos de aprovação a partir do agente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dataverse</strong></td>
+                        <td style="text-align:center"><span class="badge badge-orange">Premium</span></td>
+                        <td>CRUD em tabelas corporativas, consultar dados estruturados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SQL Server</strong></td>
+                        <td style="text-align:center"><span class="badge badge-orange">Premium</span></td>
+                        <td>Consultar banco de dados, executar stored procedures</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HTTP (with Azure AD)</strong></td>
+                        <td style="text-align:center"><span class="badge badge-orange">Premium</span></td>
+                        <td>Chamar APIs REST, integrar com sistemas legados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SAP ERP / SAP OData</strong></td>
+                        <td style="text-align:center"><span class="badge badge-orange">Premium</span></td>
+                        <td>Consultar pedidos, estoque, dados de fornecedores</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ServiceNow</strong></td>
+                        <td style="text-align:center"><span class="badge badge-orange">Premium</span></td>
+                        <td>Abrir tickets, consultar incidentes, atualizar status</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Boas Práticas para Conectores</h3>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Recomendações</div>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>Comece com conectores Standard</strong> — valide o caso de uso antes de adotar conectores Premium</li>
+                    <li><strong>Classifique conectores nas políticas DLP</strong> — defina quais podem ser usados em cada ambiente (Business / Non-Business / Blocked)</li>
+                    <li><strong>Use Service Principals</strong> para conectores Premium em produção — evite dependência de conta de usuário</li>
+                    <li><strong>Monitore o consumo</strong> — cada execução de ação consome Copilot Credits; acompanhe via Power Platform Admin Center</li>
+                    <li><strong>Prefira Power Automate Flows</strong> para lógica complexa com múltiplos conectores — o agente chama um único flow que orquestra várias ações</li>
+                    <li><strong>Documente as conexões</strong> — mantenha um registro de quais agentes usam quais conectores para facilitar auditoria e troubleshooting</li>
+                </ul>
+            </div>
+
+            <h3>📎 Referências</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Referência Completa de Conectores</td>
+                        <td><a href="https://learn.microsoft.com/en-us/connectors/connector-reference/" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Usar Conectores no Copilot Studio</td>
+                        <td><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-connectors" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Criar Conectores Custom</td>
+                        <td><a href="https://learn.microsoft.com/en-us/connectors/custom-connectors/" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                    <tr>
+                        <td>Políticas DLP para Conectores</td>
+                        <td><a href="https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention" target="_blank">Microsoft Learn</a></td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+        </div>
+    </div>
+
+    <!-- SECTION 9 — ARQUITETURA AZURE AI -->
+    <div class="section" id="#s9">
+        <div class="section-header">
+            <span class="sec-num">09</span>
             <h2>Arquitetura: Base de Conhecimento com Azure AI Foundry</h2>
         </div>
         <div class="section-body">
@@ -1487,9 +1729,9 @@
     </div>
 
     <!-- SECTION 9 -->
-    <div class="section" id="s9">
+    <div class="section" id="#s10">
         <div class="section-header">
-            <span class="sec-num">09</span>
+            <span class="sec-num">10</span>
             <h2>Roadmap Recomendado</h2>
         </div>
         <div class="section-body">
@@ -1555,9 +1797,9 @@
     </div>
 
     <!-- SECTION 10 -->
-    <div class="section" id="s10">
+    <div class="section" id="#s11">
         <div class="section-header">
-            <span class="sec-num">10</span>
+            <span class="sec-num">11</span>
             <h2>Checklist de Implementação</h2>
         </div>
         <div class="section-body">
@@ -1623,9 +1865,9 @@
     </div>
 
     <!-- SECTION 11 -->
-    <div class="section" id="s11">
+    <div class="section" id="#s12">
         <div class="section-header">
-            <span class="sec-num">11</span>
+            <span class="sec-num">12</span>
             <h2>Referências e Links Úteis</h2>
         </div>
         <div class="section-body">
@@ -1692,9 +1934,9 @@
 </div>
 
     <!-- SECTION 12 — FAQ AGENTES -->
-    <div class="section" id="s12">
+    <div class="section" id="#s13">
         <div class="section-header">
-            <span class="sec-num">12</span>
+            <span class="sec-num">13</span>
             <h2>FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</h2>
         </div>
         <div class="section-body">
