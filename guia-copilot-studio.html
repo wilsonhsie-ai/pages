@@ -495,6 +495,30 @@
         @media (max-width: 768px) {
             .zone-grid { grid-template-columns: 1fr; }
         }
+
+
+        /* ===== BACK TO TOC ===== */
+        .back-to-toc {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 28px;
+            padding: 10px 20px;
+            background: var(--pira-sky);
+            color: var(--pira-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .back-to-toc:hover {
+            background: var(--pira-blue);
+            color: white;
+            border-color: var(--pira-blue);
+        }
+
     </style>
 </head>
 <body>
@@ -509,12 +533,11 @@
             <h1>Guia de Adoção do Microsoft Copilot Studio</h1>
             <p>Procedimentos, governança e melhores práticas para a jornada de agentes inteligentes na sua organização</p>
             <span class="hero-badge">📘 Preparado por Microsoft Brasil — Abril 2026</span>
-        </div>
-    </div>
+        </div>    </div>
 </div>
 
 <!-- ===== TOC ===== -->
-<nav class="toc">
+<nav class="toc" id="toc">
     <h2>📑 Índice de Conteúdos</h2>
     <div class="toc-grid">
         <a href="#s1"><span class="toc-num">1</span> Criação da Conta PAYG (Pay-As-You-Go)</a>
@@ -653,6 +676,7 @@
                     </tr>
                 </tbody>
             </table></div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -734,6 +758,7 @@
                     </tr>
                 </tbody>
             </table></div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -754,8 +779,7 @@
                     <span class="diagram-arrow">→</span>
                     <div class="diagram-box">✅ Aprovação<br><small>Review de governança</small></div>
                     <span class="diagram-arrow">→</span>
-                    <div class="diagram-box highlight">🚀 Produção<br><small>Publicar no canal</small></div>
-                </div>
+                    <div class="diagram-box highlight">🚀 Produção<br><small>Publicar no canal</small></div>                </div>
             </div>
 
             <h3>Procedimento de Publicação</h3>
@@ -823,6 +847,7 @@
                 <div class="box-title">💡 Dica: Application Lifecycle Management (ALM)</div>
                 <p>Utilize <strong>Solutions</strong> do Power Platform para gerenciar o ciclo de vida dos agentes. Exporte como <em>Unmanaged</em> do Dev e importe como <em>Managed</em> no Prod. Isso impede alterações acidentais em Produção e permite rollback se necessário.</p>
             </div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -914,6 +939,7 @@
                 <div class="box-title">✅ Monitoramento Avançado com Purview</div>
                 <p>Para requisitos de compliance e auditoria, o <strong>Microsoft Purview</strong> pode monitorar eventos de ciclo de vida dos agentes, acesso a dados sensíveis e comunicações — ideal para empresas com regulamentações setoriais e LGPD.</p>
             </div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1010,6 +1036,7 @@
                     <p><strong>Produção</strong><br>DLP restritivo. Apenas Managed Solutions. Auditoria completa. Compliance obrigatório.</p>
                 </div>
             </div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1048,8 +1075,7 @@
                             <li>Custo maior de Dataverse (cada ambiente = capacidade separada)</li>
                             <li>Recomendado apenas em cenários regulatórios ou com +50 agentes</li>
                         </ul>
-                    </div>
-                </div>
+                    </div>                </div>
             </div>
 
             <div class="box box-purple">
@@ -1105,6 +1131,7 @@
                     </tr>
                 </tbody>
             </table></div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1208,6 +1235,7 @@
                     <p><strong>Fase 3 (Maturidade):</strong> Considerar ambientes separados por departamento + pacotes pré-pagos para áreas com consumo previsível.</p>
                 </div>
             </div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1448,7 +1476,7 @@
                     </tr>
                 </tbody>
             </table></div>
-
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1725,6 +1753,7 @@
                     </tr>
                 </tbody>
             </table></div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1793,6 +1822,7 @@
                     </tr>
                 </tbody>
             </table></div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1861,6 +1891,7 @@
                 <li>Conectar Azure AI Search como knowledge source no Copilot Studio</li>
                 <li>Validar qualidade das respostas vs. SharePoint direto</li>
             </ul>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -1928,6 +1959,7 @@
                 <strong>Wilson Hsie</strong> — Digital Solution Area Specialist<br>
                 Microsoft Brasil | Copilot Studio & Modern Work</p>
             </div>
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
@@ -2181,10 +2213,9 @@
                     <p style="padding-left: 30px;">→ Sim → <span class="badge badge-orange">Copilot Studio</span></p>
                     <p style="padding-left: 30px;">→ Não ↓</p>
                     <p>📌 <strong>É um assistente pessoal ou protótipo?</strong></p>
-                    <p style="padding-left: 30px;">→ Sim → <span class="badge badge-green">Copilot Chat</span></p>
-                </div>
+                    <p style="padding-left: 30px;">→ Sim → <span class="badge badge-green">Copilot Chat</span></p>                </div>
             </div>
-
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
 
