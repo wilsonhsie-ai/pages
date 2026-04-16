@@ -935,6 +935,76 @@
                 </li>
             </ol>
 
+            <h3>🧮 Calculadora de Estimativa de Copilot Credits</h3>
+            <p>Antes de publicar um agente em produção, é fundamental <strong>estimar o consumo de Copilot Credits</strong> para dimensionar corretamente seu Billing Policy e evitar surpresas no custo. A Microsoft disponibiliza uma calculadora oficial para isso:</p>
+
+            <div class="box box-info">
+                <div class="box-title">🔗 Copilot Studio Estimator</div>
+                <p><a href="https://microsoft.github.io/copilot-studio-estimator/" target="_blank" style="color: var(--pira-blue); font-weight: 600;">https://microsoft.github.io/copilot-studio-estimator/</a></p>
+                <p style="margin-top: 8px;">Ferramenta interativa que calcula a estimativa de Copilot Credits com base no perfil do seu agente. <strong>Não é uma oferta vinculante</strong> — use como referência para planejamento.</p>
+            </div>
+
+            <h4>Como usar a calculadora:</h4>
+            <ol class="steps">
+                <li>
+                    <strong>Selecione a categoria do agente</strong><br>
+                    Escolha uma ou mais categorias (ex: atendimento ao cliente, RH, TI) para filtrar os tipos de agente disponíveis.
+                </li>
+                <li>
+                    <strong>Configure o tráfego do agente</strong><br>
+                    Informe: quantos usuários acessarão o agente e quantas interações por mês cada usuário fará em média. Indique também quantos possuem licença M365 Copilot (esses têm créditos inclusos).
+                </li>
+                <li>
+                    <strong>Defina as fontes de conhecimento</strong><br>
+                    Qual percentual de respostas usa knowledge? Dessas, quantas usam <strong>Tenant Graph Grounding</strong> (SharePoint, emails, calendário) vs. outras fontes (Dataverse, websites, arquivos)?
+                </li>
+                <li>
+                    <strong>Configure as ferramentas (Tools)</strong><br>
+                    Adicione os tipos de tool que o agente usa: Prompts, Agent Flows, Custom Connectors, REST APIs, MCP. Informe quantidade e frequência de invocação por interação.
+                </li>
+                <li>
+                    <strong>Revise os modificadores opcionais</strong><br>
+                    Se usar nós de Prompt (Basic, Standard ou Premium), informe a quantidade e frequência de disparo.
+                </li>
+            </ol>
+
+            <h4>O que a calculadora retorna:</h4>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>O que Calcula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Total de Copilot Credits</strong></td>
+                        <td>Estimativa total mensal de créditos consumidos pelo agente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Credits por Knowledge</strong></td>
+                        <td>Créditos para respostas via Tenant Graph Grounding e outras fontes de conhecimento</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Credits por Agent Flows</strong></td>
+                        <td>Cobrados a 13 créditos por 100 ações (0,13/ação) — custo fixo independente de usuários</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Credits por Modificadores</strong></td>
+                        <td>Créditos adicionais para nós de Prompt (Basic, Standard, Premium)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Negação M365 Copilot</strong></td>
+                        <td>Créditos descontados para usuários com licença M365 Copilot (já incluem allocation)</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Importante sobre a Estimativa</div>
+                <p>A calculadora é uma <strong>ferramenta de referência</strong>, não uma oferta vinculante. O consumo real pode variar conforme região, workload, número de usuários e complexidade das interações. Use-a para dimensionamento inicial e depois monitore o consumo real com as ferramentas da seção acima.</p>
+            </div>
+
             <div class="box box-success">
                 <div class="box-title">✅ Monitoramento Avançado com Purview</div>
                 <p>Para requisitos de compliance e auditoria, o <strong>Microsoft Purview</strong> pode monitorar eventos de ciclo de vida dos agentes, acesso a dados sensíveis e comunicações — ideal para empresas com regulamentações setoriais e LGPD.</p>
