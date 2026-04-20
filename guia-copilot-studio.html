@@ -549,10 +549,11 @@
         <a href="#s7"><span class="toc-num">7</span> Cotas, Rateio e Controle de Custos</a>
         <a href="#s8"><span class="toc-num">8</span> Conectores do Power Platform</a>
         <a href="#s9"><span class="toc-num">9</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
-        <a href="#s10"><span class="toc-num">10</span> Roadmap Recomendado</a>
-        <a href="#s11"><span class="toc-num">11</span> Checklist de Implementação</a>
-        <a href="#s12"><span class="toc-num">12</span> Referências e Links Úteis</a>
-        <a href="#s13"><span class="toc-num">13</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
+        <a href="#s10"><span class="toc-num">10</span> Orquestração de Multi-Agentes (Connected Agents)</a>
+        <a href="#s11"><span class="toc-num">11</span> Roadmap Recomendado</a>
+        <a href="#s12"><span class="toc-num">12</span> Checklist de Implementação</a>
+        <a href="#s13"><span class="toc-num">13</span> Referências e Links Úteis</a>
+        <a href="#s14"><span class="toc-num">14</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
     </div>
 </nav>
 
@@ -1827,10 +1828,225 @@
         </div>
     </div>
 
-    <!-- SECTION 9 -->
+    <!-- SECTION 10 — ORQUESTRAÇÃO DE MULTI-AGENTES -->
     <div class="section" id="s10">
         <div class="section-header">
             <span class="sec-num">10</span>
+            <h2>Orquestração de Multi-Agentes (Connected Agents)</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Por que Orquestrar Múltiplos Agentes?</h3>
+            <p>À medida que a adoção evolui, surge uma armadilha comum: o "agente monolítico" que tenta resolver tudo (RH + Finanças + Operações + TI) com dezenas de tópicos, conectores e instruções. O resultado é previsível — respostas inconsistentes, dificuldade de manutenção, governança confusa e custo crescente. A solução é decompor em <strong>agentes especialistas</strong> coordenados por um <strong>agente orquestrador</strong>.</p>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Benefícios da Arquitetura Multi-Agente</div>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>Especialização</strong> — cada agente domina um domínio (RH, Finanças, Jurídico) com instruções e knowledge focados</li>
+                    <li><strong>Governança distribuída</strong> — cada área é dona do seu agente, mantém seu próprio knowledge e ciclo de release</li>
+                    <li><strong>Reuso</strong> — um agente especialista pode ser invocado por múltiplos orquestradores</li>
+                    <li><strong>Manutenibilidade</strong> — alterar um especialista não impacta os demais</li>
+                    <li><strong>Performance</strong> — contexto menor por agente = respostas mais rápidas e precisas</li>
+                </ul>
+            </div>
+
+            <h3>Connected Agents — O Que É</h3>
+            <p>Em maio/2025 o Copilot Studio liberou o recurso <strong>Connected Agents</strong> (Agent-to-Agent), que permite a um agente <em>delegar</em> uma tarefa a outro agente — interno ou externo — em tempo de execução. O agente "pai" funciona como roteador: interpreta a intenção do usuário e despacha para o especialista certo, recebendo a resposta de volta para compor a interação final.</p>
+
+            <div class="diagram">
+                <p style="font-weight: 600; color: var(--pira-blue-dark); margin-bottom: 20px; font-size: 1rem;">Padrão Hub-and-Spoke — Orquestrador + Especialistas</p>
+                <div class="diagram-flow">
+                    <div class="diagram-box" style="border-color: #0078D4; min-width: 120px;">
+                        <span style="font-size: 1.5rem;">👤</span><br>
+                        <strong>Usuário</strong><br>
+                        <small>Teams / Web</small>
+                    </div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box highlight" style="min-width: 140px;">
+                        <span style="font-size: 1.5rem;">🧠</span><br>
+                        <strong>Orquestrador</strong><br>
+                        <strong>Corporativo</strong><br>
+                        <small>Roteador de Intenção</small>
+                    </div>
+                    <span class="diagram-arrow">→</span>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="diagram-box" style="border-color: #198754; min-width: 130px;">
+                            <span style="font-size: 1.2rem;">👥</span> <strong>Agente RH</strong>
+                        </div>
+                        <div class="diagram-box" style="border-color: #FD7E14; min-width: 130px;">
+                            <span style="font-size: 1.2rem;">💰</span> <strong>Agente Financeiro</strong>
+                        </div>
+                        <div class="diagram-box" style="border-color: #6F42C1; min-width: 130px;">
+                            <span style="font-size: 1.2rem;">⚖️</span> <strong>Agente Jurídico</strong>
+                        </div>
+                        <div class="diagram-box" style="border-color: #DC3545; min-width: 130px;">
+                            <span style="font-size: 1.2rem;">🔧</span> <strong>Agente Operações</strong>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.82rem; color: var(--pira-gray-600);">O orquestrador não responde diretamente — ele identifica a intenção e delega ao especialista, consolidando a resposta final ao usuário.</p>
+            </div>
+
+            <h3>Padrões de Orquestração</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Padrão</th>
+                        <th>Quando Usar</th>
+                        <th>Exemplo Prático</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hub-and-Spoke</strong><br><small>(1 orquestrador + N especialistas)</small></td>
+                        <td>Ponto único de entrada para usuário final, com domínios bem definidos</td>
+                        <td>"Assistente Corporativo" no Teams roteia para RH, Finanças, Operações, TI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pipeline Sequencial</strong><br><small>(A → B → C)</small></td>
+                        <td>Processos com etapas dependentes (saída de um alimenta o próximo)</td>
+                        <td>Onboarding: Agente Recrutamento → Agente RH → Agente TI (provisionamento)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Paralelo / Fan-out</strong><br><small>(orquestrador chama N em paralelo)</small></td>
+                        <td>Quando precisa consolidar informação de múltiplas fontes</td>
+                        <td>Briefing de cliente: agentes Comercial + Financeiro + Operacional respondem em paralelo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mesh / Peer-to-Peer</strong><br><small>(agentes se chamam entre si)</small></td>
+                        <td>Cenários complexos onde especialistas precisam colaborar entre si</td>
+                        <td>Agente Compras consulta Agente Jurídico para validação contratual durante a cotação</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Como Configurar Connected Agents</h3>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <strong>Criar os Agentes Especialistas Primeiro</strong><br>
+                    Construa cada especialista isoladamente, com sua descrição, instruções, knowledge e topics próprios. Teste em produção com um piloto antes de conectá-lo a um orquestrador.
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <strong>Criar o Agente Orquestrador</strong><br>
+                    Novo agente no Copilot Studio com instruções de "roteador": <em>"Você é o ponto de entrada do colaborador da empresa. Identifique a intenção e delegue ao agente especialista apropriado. Não responda perguntas técnicas diretamente — sempre encaminhe."</em>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <strong>Adicionar Connected Agents</strong><br>
+                    No orquestrador, em <strong>Agents</strong> → <strong>Add → Connected agent</strong>. Selecione um agente do mesmo ambiente (ou de outro ambiente compartilhado). Defina <strong>nome de exibição</strong> e, principalmente, a <strong>descrição</strong> — o orquestrador usa essa descrição para decidir quando chamá-lo.
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <strong>Definir Inputs e Outputs</strong><br>
+                    Para cada agente conectado, defina os <em>parâmetros de entrada</em> que o orquestrador deve passar (ex: pergunta do usuário, ID do colaborador, contexto) e os <em>outputs</em> esperados de retorno.
+                </div>
+                <div class="step">
+                    <span class="step-num">5</span>
+                    <strong>Testar a Roteamento</strong><br>
+                    No painel de teste, faça perguntas de domínios diferentes e valide que o orquestrador está delegando corretamente. Ajuste descrições dos especialistas se houver confusão de roteamento — descrição clara é a chave.
+                </div>
+                <div class="step">
+                    <span class="step-num">6</span>
+                    <strong>Publicar Apenas o Orquestrador</strong><br>
+                    Os agentes especialistas <strong>não precisam estar publicados em canais</strong> — basta estarem disponíveis no ambiente. O usuário final só conhece o orquestrador.
+                </div>
+            </div>
+
+            <h3>Boas Práticas de Design</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Princípio</th>
+                        <th>Recomendação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Limite de Especialistas por Orquestrador</strong></td>
+                        <td>Comece com <strong>3–5 agentes conectados</strong>. Acima disso, a precisão de roteamento cai e o consumo de créditos sobe. Para mais domínios, considere orquestradores hierárquicos (orquestrador → sub-orquestrador → especialistas).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Descrições Discriminantes</strong></td>
+                        <td>Cada agente conectado precisa de uma descrição que <em>diferencie claramente</em> seu domínio dos demais. Evite sobreposição — "responde dúvidas de RH" e "responde sobre benefícios" vão competir.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ownership Distribuído</strong></td>
+                        <td>Cada agente especialista deve ter um <strong>maker owner</strong> da área de negócio (RH owner para Agente RH, etc.). O time central de IA mantém apenas o orquestrador.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Versionamento Independente</strong></td>
+                        <td>Cada especialista evolui no seu próprio ciclo (Dev → Prod via Managed Solutions). Mudanças no especialista são transparentes ao orquestrador, desde que a interface (inputs/outputs) seja preservada.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Observabilidade</strong></td>
+                        <td>Habilite <strong>Application Insights</strong> em cada agente. Use o dashboard do Copilot Studio Analytics para identificar roteamento incorreto, agentes pouco usados e gargalos de latência.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fallback Explícito</strong></td>
+                        <td>Configure no orquestrador um topic de fallback para quando nenhum especialista for adequado — encaminhar para humano (Teams handoff) ou abrir ticket no ServiceNow.</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Impacto no Consumo de Copilot Credits</h3>
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Atenção ao Custo</div>
+                <p>Cada chamada de agente conectado conta como uma <strong>interação adicional</strong> e consome Copilot Credits separadamente. Uma pergunta do usuário que aciona o orquestrador + 1 especialista = <strong>2 interações faturadas</strong>. Em padrões fan-out (orquestrador + 3 paralelos) = <strong>4 interações</strong>. Dimensione o PAYG considerando esse multiplicador e monitore o consumo médio por conversa nas primeiras semanas.</p>
+            </div>
+
+            <h3>Roadmap Sugerido de Adoção Multi-Agente</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Escopo</th>
+                        <th>Entregável</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fase 1 — Especialistas</strong></td>
+                        <td>Construir 3 agentes especialistas isolados (sugestão: RH, TI Service Desk, Operações Industriais)</td>
+                        <td>3 agentes em produção, cada um publicado no Teams para sua audiência</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 2 — Orquestrador Piloto</strong></td>
+                        <td>Criar "Assistente Corporativo" como orquestrador conectando os 3 especialistas, piloto com 50 usuários</td>
+                        <td>Ponto único de entrada no Teams; medir taxa de roteamento correto (&gt;85%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 3 — Expansão</strong></td>
+                        <td>Adicionar Jurídico, Financeiro, Compras como novos especialistas conectados</td>
+                        <td>Orquestrador com 6+ agentes; descontinuar acessos isolados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 4 — Mesh</strong></td>
+                        <td>Habilitar colaboração agente-a-agente (ex: Compras consulta Jurídico)</td>
+                        <td>Workflows cross-funcionais automatizados ponta a ponta</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Quando NÃO Usar Multi-Agentes</h3>
+            <div class="box box-info">
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li>Domínio único e bem definido (ex: agente exclusivo de cotação) — agente único é mais simples e barato</li>
+                    <li>Volume baixo (&lt;100 interações/mês) — overhead operacional não compensa</li>
+                    <li>Equipe sem maturidade em governança de agentes — comece com 1, evolua depois</li>
+                    <li>Quando a sobreposição de domínios é alta — refatore os domínios primeiro</li>
+                </ul>
+            </div>
+
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+        </div>
+    </div>
+
+    <!-- SECTION 11 — ROADMAP -->
+    <div class="section" id="s11">
+        <div class="section-header">
+            <span class="sec-num">11</span>
             <h2>Roadmap Recomendado</h2>
         </div>
         <div class="section-body">
@@ -1897,9 +2113,9 @@
     </div>
 
     <!-- SECTION 10 -->
-    <div class="section" id="s11">
+    <div class="section" id="s12">
         <div class="section-header">
-            <span class="sec-num">11</span>
+            <span class="sec-num">12</span>
             <h2>Checklist de Implementação</h2>
         </div>
         <div class="section-body">
@@ -1966,9 +2182,9 @@
     </div>
 
     <!-- SECTION 11 -->
-    <div class="section" id="s12">
+    <div class="section" id="s13">
         <div class="section-header">
-            <span class="sec-num">12</span>
+            <span class="sec-num">13</span>
             <h2>Referências e Links Úteis</h2>
         </div>
         <div class="section-body">
@@ -2033,12 +2249,10 @@
         </div>
     </div>
 
-</div>
-
-    <!-- SECTION 12 — FAQ AGENTES -->
-    <div class="section" id="s13">
+    <!-- SECTION 14 — FAQ AGENTES -->
+    <div class="section" id="s14">
         <div class="section-header">
-            <span class="sec-num">13</span>
+            <span class="sec-num">14</span>
             <h2>FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</h2>
         </div>
         <div class="section-body">
@@ -2288,6 +2502,8 @@
             <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
+
+</div>
 
 <!-- ===== FOOTER ===== -->
 <div class="footer">
