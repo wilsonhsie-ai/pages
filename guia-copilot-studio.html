@@ -550,10 +550,11 @@
         <a href="#s8"><span class="toc-num">8</span> Conectores do Power Platform</a>
         <a href="#s9"><span class="toc-num">9</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
         <a href="#s10"><span class="toc-num">10</span> Orquestração de Multi-Agentes (Connected Agents)</a>
-        <a href="#s11"><span class="toc-num">11</span> Roadmap Recomendado</a>
-        <a href="#s12"><span class="toc-num">12</span> Checklist de Implementação</a>
-        <a href="#s13"><span class="toc-num">13</span> Referências e Links Úteis</a>
-        <a href="#s14"><span class="toc-num">14</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
+        <a href="#s11"><span class="toc-num">11</span> Arquitetura Mesh (Multi-Agentes Peer-to-Peer)</a>
+        <a href="#s12"><span class="toc-num">12</span> Roadmap Recomendado</a>
+        <a href="#s13"><span class="toc-num">13</span> Checklist de Implementação</a>
+        <a href="#s14"><span class="toc-num">14</span> Referências e Links Úteis</a>
+        <a href="#s15"><span class="toc-num">15</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
     </div>
 </nav>
 
@@ -2043,10 +2044,278 @@
         </div>
     </div>
 
-    <!-- SECTION 11 — ROADMAP -->
+    <!-- SECTION 11 — ARQUITETURA MESH -->
     <div class="section" id="s11">
         <div class="section-header">
             <span class="sec-num">11</span>
+            <h2>Arquitetura Mesh (Multi-Agentes Peer-to-Peer)</h2>
+        </div>
+        <div class="section-body">
+
+            <h3>Por que Considerar uma Arquitetura Mesh?</h3>
+            <p>O modelo Hub-and-Spoke (Seção 10) é excelente para <em>roteamento</em> de intenção do usuário, mas tem um limite estrutural: <strong>todo o tráfego passa pelo orquestrador</strong>. Quando os processos do negócio exigem que especialistas <em>colaborem entre si</em> — não só respondam ao usuário — o orquestrador vira gargalo (de latência, de governança e de manutenção). A arquitetura <strong>Mesh</strong> resolve isso permitindo que <strong>qualquer agente chame qualquer outro agente</strong>, formando uma rede peer-to-peer de especialistas.</p>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Benefícios da Arquitetura Mesh</div>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>Colaboração nativa</strong> — agentes consultam pares para compor respostas mais ricas (ex: Compras consulta Jurídico durante uma cotação)</li>
+                    <li><strong>Workflows cross-funcionais</strong> — processos ponta a ponta sem reescrever o orquestrador a cada nova integração</li>
+                    <li><strong>Sem ponto único de falha</strong> — não há "agente rei"; falha de um especialista não derruba toda a experiência</li>
+                    <li><strong>Evolução orgânica</strong> — novas conexões surgem conforme os domínios maduram, sem refatoração central</li>
+                    <li><strong>Reuso máximo</strong> — cada agente é simultaneamente provedor e consumidor de capacidades</li>
+                </ul>
+            </div>
+
+            <h3>Mesh — O Que É Tecnicamente</h3>
+            <p>No Copilot Studio, a arquitetura Mesh é implementada usando o mesmo recurso de <strong>Connected Agents</strong> (e/ou <strong>agent-to-agent via MCP/Foundry</strong>), porém <em>sem hierarquia</em>: cada agente declara, em sua configuração, <strong>quais pares ele pode invocar</strong>. Não existe um agente "pai" — existem múltiplos agentes que se conhecem e se chamam conforme a necessidade. O usuário final pode entrar pela porta que fizer mais sentido (Teams, SharePoint, app de campo) e o agente acessado consulta os demais sob demanda.</p>
+
+            <div class="diagram">
+                <p style="font-weight: 600; color: var(--pira-blue-dark); margin-bottom: 20px; font-size: 1rem;">Padrão Mesh — Rede Peer-to-Peer de Agentes Especialistas</p>
+                <div class="diagram-flow" style="flex-direction: column; align-items: center; gap: 16px;">
+                    <div style="display: flex; gap: 24px; align-items: center;">
+                        <div class="diagram-box" style="border-color: #0078D4; min-width: 110px;">
+                            <span style="font-size: 1.4rem;">👤</span><br>
+                            <strong>Usuário</strong><br>
+                            <small>Teams</small>
+                        </div>
+                        <div class="diagram-box" style="border-color: #0078D4; min-width: 110px;">
+                            <span style="font-size: 1.4rem;">📱</span><br>
+                            <strong>Usuário</strong><br>
+                            <small>App Mobile</small>
+                        </div>
+                        <div class="diagram-box" style="border-color: #0078D4; min-width: 110px;">
+                            <span style="font-size: 1.4rem;">🌐</span><br>
+                            <strong>Usuário</strong><br>
+                            <small>Web</small>
+                        </div>
+                    </div>
+                    <div style="font-size: 1.4rem; color: var(--pira-gray-600);">↓ ↓ ↓</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 640px; width: 100%;">
+                        <div class="diagram-box highlight" style="border-color: #198754;">
+                            <span style="font-size: 1.2rem;">👥</span> <strong>RH</strong><br>
+                            <small>↔ Jurídico, TI</small>
+                        </div>
+                        <div class="diagram-box highlight" style="border-color: #FD7E14;">
+                            <span style="font-size: 1.2rem;">💰</span> <strong>Financeiro</strong><br>
+                            <small>↔ Compras, Jurídico</small>
+                        </div>
+                        <div class="diagram-box highlight" style="border-color: #6F42C1;">
+                            <span style="font-size: 1.2rem;">⚖️</span> <strong>Jurídico</strong><br>
+                            <small>↔ Compras, RH</small>
+                        </div>
+                        <div class="diagram-box highlight" style="border-color: #DC3545;">
+                            <span style="font-size: 1.2rem;">🛒</span> <strong>Compras</strong><br>
+                            <small>↔ Jurídico, Financeiro</small>
+                        </div>
+                        <div class="diagram-box highlight" style="border-color: #20C997;">
+                            <span style="font-size: 1.2rem;">🔧</span> <strong>TI</strong><br>
+                            <small>↔ RH, Operações</small>
+                        </div>
+                        <div class="diagram-box highlight" style="border-color: #6C757D;">
+                            <span style="font-size: 1.2rem;">🏭</span> <strong>Operações</strong><br>
+                            <small>↔ TI, Compras</small>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; font-size: 0.82rem; color: var(--pira-gray-600);">Cada agente é independente e expõe capacidades para os pares. As setas (↔) indicam relações de invocação bidirecional declaradas em cada agente. Não há orquestrador central — o "roteamento" acontece localmente, dentro do agente que recebeu a pergunta.</p>
+            </div>
+
+            <h3>Mesh vs. Hub-and-Spoke — Quando Escolher Cada Um</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th style="width:22%">Critério</th>
+                        <th>Hub-and-Spoke (Seção 10)</th>
+                        <th>Mesh (Seção 11)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ponto de entrada</strong></td>
+                        <td>Único (orquestrador)</td>
+                        <td>Múltiplos (qualquer agente especialista)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Roteamento</strong></td>
+                        <td>Centralizado no orquestrador</td>
+                        <td>Distribuído — cada agente conhece seus pares relevantes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso de uso ideal</strong></td>
+                        <td>"Assistente Corporativo" único para o colaborador</td>
+                        <td>Workflows cross-funcionais (P2P, O2C, RH+TI, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Governança</strong></td>
+                        <td>Time central mantém o orquestrador</td>
+                        <td>Distribuída — exige contratos de interface (inputs/outputs) bem definidos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latência</strong></td>
+                        <td>Maior (sempre passa pelo hub)</td>
+                        <td>Menor em chamadas pontuais; pode crescer em cadeias longas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maturidade necessária</strong></td>
+                        <td>Baixa — é o ponto de partida natural</td>
+                        <td>Alta — requer observabilidade madura e versionamento disciplinado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custo (Copilot Credits)</strong></td>
+                        <td>Previsível: 1 hub + 1 spoke = 2 interações</td>
+                        <td>Variável: cadeias de 3-4 agentes podem multiplicar o consumo</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Padrão Híbrido — Recomendado para Maioria dos Casos</div>
+                <p>Na prática, raramente se adota Mesh "puro". O padrão mais maduro é <strong>híbrido</strong>: um orquestrador (Hub-and-Spoke) atende o usuário final, e os especialistas adicionalmente conversam entre si (Mesh) para resolver workflows complexos. Você ganha o melhor dos dois mundos: simplicidade na entrada do usuário + colaboração rica no back-end.</p>
+            </div>
+
+            <h3>Como Configurar uma Rede Mesh</h3>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <strong>Mapear os Workflows Cross-Funcionais Reais</strong><br>
+                    Antes de configurar conexões, desenhe os 3-5 processos que cruzam departamentos hoje (ex: <em>onboarding</em>, <em>aprovação de compra</em>, <em>análise de risco contratual</em>). Cada workflow vai revelar uma "aresta" entre dois agentes — essas são as conexões mesh que valem a pena criar.
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <strong>Definir Contratos de Interface por Agente</strong><br>
+                    Cada agente especialista deve documentar publicamente, no seu próprio repositório de governança, <strong>quais capacidades expõe</strong> (tópicos invocáveis), <strong>inputs esperados</strong>, <strong>outputs garantidos</strong> e <strong>SLA de resposta</strong>. Trate como um contrato de API — mudanças quebram consumidores.
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <strong>Criar Conexões Bidirecionais com Connected Agents</strong><br>
+                    Em cada agente, vá em <strong>Agents → Add → Connected agent</strong> e adicione apenas os pares que ele realmente precisa invocar (não conecte tudo com tudo — explosão combinatória mata governança). Use <strong>descrições discriminantes</strong> que deixem claro <em>quando</em> chamar cada par.
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <strong>Estabelecer um Catálogo Central de Agentes</strong><br>
+                    Mantenha um <strong>registro vivo</strong> (SharePoint, Power Pages ou CoE Kit) listando todos os agentes da rede, seus owners, capacidades expostas, dependências e versão atual. Este catálogo é a "service map" da sua arquitetura mesh — sem ele, ninguém sabe o que existe.
+                </div>
+                <div class="step">
+                    <span class="step-num">5</span>
+                    <strong>Implementar Loop Detection e Profundidade Máxima</strong><br>
+                    Em mesh, o agente A pode chamar B que chama C que chama A — loop. Configure no orquestrador (ou via Power Automate intermediário) um <strong>limite de profundidade de chamadas</strong> (ex: máximo 3 saltos) e logging de cadeia de invocação para detectar ciclos.
+                </div>
+                <div class="step">
+                    <span class="step-num">6</span>
+                    <strong>Publicar nos Canais de Usuário</strong><br>
+                    Diferente do Hub-and-Spoke, em mesh <strong>vários agentes podem ser publicados</strong> diretamente no Teams/SharePoint para suas audiências naturais (RH para colaboradores, Compras para área de suprimentos). A colaboração entre eles fica invisível para o usuário final.
+                </div>
+            </div>
+
+            <h3>Boas Práticas de Design Mesh</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Princípio</th>
+                        <th>Recomendação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Conexões Mínimas Necessárias</strong></td>
+                        <td>Não conecte todos com todos. A regra é: <strong>uma conexão = um workflow real e validado</strong>. Mesh com 6 agentes deveria ter 8-12 arestas, não 30.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Idempotência nas Chamadas</strong></td>
+                        <td>Agentes invocados como pares devem retornar o mesmo resultado para a mesma entrada. Operações com efeitos colaterais (ex: criar registro) devem usar IDs de transação para evitar duplicação em cenários de retry.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Versionamento Semântico de Interfaces</strong></td>
+                        <td>Quando um agente muda inputs/outputs, publique como nova versão (v2) e mantenha a v1 ativa por um período de migração. Avise consumidores via catálogo central.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Observabilidade End-to-End</strong></td>
+                        <td>Habilite <strong>Application Insights</strong> em todos os agentes da rede e propague um <strong>correlation ID</strong> em cada chamada. Sem isso, é impossível depurar uma cadeia de 4 agentes que falhou no terceiro salto.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Circuit Breaker</strong></td>
+                        <td>Se um agente par está fora do ar ou lento, configure <strong>fallbacks locais</strong> (resposta degradada baseada em cache ou knowledge próprio) em vez de propagar a falha ao usuário.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Governança Federada</strong></td>
+                        <td>Cada agente tem um maker owner; mas a <strong>arquitetura mesh como um todo</strong> precisa de um "arquiteto de plataforma" (CoE) que aprova novas conexões, revisa contratos e mantém o catálogo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Segurança e Permissões</strong></td>
+                        <td>Quando o agente A chama o agente B, decida explicitamente se B usa a <strong>identidade do usuário original</strong> (delegação) ou uma <strong>identidade de serviço</strong> (managed identity). Documente — isso impacta DLP e audit trail.</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Impacto no Consumo de Copilot Credits</h3>
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Mesh Pode Multiplicar o Custo Rapidamente</div>
+                <p>Em mesh, uma única pergunta do usuário pode disparar uma cadeia de invocações: <em>Compras → Jurídico → RH → resposta consolidada</em> = <strong>4 interações faturadas</strong>. Cenários complexos podem chegar a 6-8 saltos. Recomendações:</p>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li>Defina um <strong>orçamento por workflow</strong> (ex: "aprovação de compra não pode consumir mais que 5 interações")</li>
+                    <li>Use a <strong>calculadora de Copilot Credits</strong> (Seção 4) para estimar consumo médio antes do go-live</li>
+                    <li>Monitore semanalmente o <strong>"chain depth" médio</strong> nas primeiras 8 semanas — se subir descontroladamente, refatore conexões</li>
+                    <li>Considere <strong>caching de respostas</strong> de agentes pares (Power Automate + Dataverse) para perguntas repetitivas</li>
+                </ul>
+            </div>
+
+            <h3>Roadmap Sugerido de Adoção Mesh</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Escopo</th>
+                        <th>Entregável</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fase 1 — Pré-requisito</strong></td>
+                        <td>Ter pelo menos 4-5 agentes especialistas maduros já em produção (saída natural da Seção 10)</td>
+                        <td>Agentes estáveis, com ownership definido e knowledge consolidado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 2 — Catálogo e Contratos</strong></td>
+                        <td>Documentar capacidades, inputs/outputs e SLAs de cada agente em um registro central</td>
+                        <td>Catálogo publicado (SharePoint ou Power Pages); contratos versionados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 3 — Primeiras Conexões P2P</strong></td>
+                        <td>Implementar 2-3 conexões mesh para os workflows cross-funcionais de maior valor (ex: Compras ↔ Jurídico)</td>
+                        <td>Workflows cross-funcionais funcionando; correlation ID propagado; dashboards de chain depth</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 4 — Expansão Controlada</strong></td>
+                        <td>Adicionar novas arestas conforme novos workflows emergem; manter governança de "uma conexão = um workflow validado"</td>
+                        <td>Rede mesh com 8-12 conexões mapeadas; reuniões mensais de arquitetura</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fase 5 — Otimização Contínua</strong></td>
+                        <td>Refatorar conexões pouco usadas, consolidar agentes redundantes, introduzir caching e circuit breakers</td>
+                        <td>Custo por conversa otimizado; SLA de 99% nas chamadas peer-to-peer</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Quando NÃO Usar Arquitetura Mesh</h3>
+            <div class="box box-info">
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>Adoção inicial</strong> — comece sempre com Hub-and-Spoke (Seção 10); mesh é evolução, não ponto de partida</li>
+                    <li><strong>Sem CoE ou arquiteto de plataforma</strong> — mesh sem governança vira "spaghetti architecture" em poucos meses</li>
+                    <li><strong>Workflows não foram validados</strong> — não crie conexões "por via das dúvidas"; cada aresta tem custo de manutenção</li>
+                    <li><strong>Observabilidade imatura</strong> — sem Application Insights e correlation IDs, depurar mesh é praticamente impossível</li>
+                    <li><strong>Domínios fortemente acoplados</strong> — se RH e Financeiro precisam estar sempre juntos, talvez sejam um único agente</li>
+                </ul>
+            </div>
+
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+        </div>
+    </div>
+
+    <!-- SECTION 12 — ROADMAP -->
+    <div class="section" id="s12">
+        <div class="section-header">
+            <span class="sec-num">12</span>
             <h2>Roadmap Recomendado</h2>
         </div>
         <div class="section-body">
@@ -2112,10 +2381,10 @@
         </div>
     </div>
 
-    <!-- SECTION 10 -->
-    <div class="section" id="s12">
+    <!-- SECTION 13 — CHECKLIST -->
+    <div class="section" id="s13">
         <div class="section-header">
-            <span class="sec-num">12</span>
+            <span class="sec-num">13</span>
             <h2>Checklist de Implementação</h2>
         </div>
         <div class="section-body">
@@ -2181,10 +2450,10 @@
         </div>
     </div>
 
-    <!-- SECTION 11 -->
-    <div class="section" id="s13">
+    <!-- SECTION 14 — REFERÊNCIAS -->
+    <div class="section" id="s14">
         <div class="section-header">
-            <span class="sec-num">13</span>
+            <span class="sec-num">14</span>
             <h2>Referências e Links Úteis</h2>
         </div>
         <div class="section-body">
@@ -2249,10 +2518,10 @@
         </div>
     </div>
 
-    <!-- SECTION 14 — FAQ AGENTES -->
-    <div class="section" id="s14">
+    <!-- SECTION 15 — FAQ AGENTES -->
+    <div class="section" id="s15">
         <div class="section-header">
-            <span class="sec-num">14</span>
+            <span class="sec-num">15</span>
             <h2>FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</h2>
         </div>
         <div class="section-body">
