@@ -543,17 +543,18 @@
         <a href="#s1"><span class="toc-num">1</span> Criação da Conta PAYG (Pay-As-You-Go)</a>
         <a href="#s2"><span class="toc-num">2</span> Atribuição de Usuários Criadores de Agentes</a>
         <a href="#s3"><span class="toc-num">3</span> Publicação de Agentes</a>
-        <a href="#s4"><span class="toc-num">4</span> Monitoramento de Consumo de Mensagens</a>
-        <a href="#s5"><span class="toc-num">5</span> Governança de Agentes — Melhores Práticas</a>
-        <a href="#s6"><span class="toc-num">6</span> Estratégia de Ambientes: Dev vs. Prod vs. Por Departamento</a>
-        <a href="#s7"><span class="toc-num">7</span> Cotas, Rateio e Controle de Custos</a>
-        <a href="#s8"><span class="toc-num">8</span> Conectores do Power Platform</a>
-        <a href="#s9"><span class="toc-num">9</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
-        <a href="#s10"><span class="toc-num">10</span> Multi-Agentes (Connected Agents)</a>
-        <a href="#s11"><span class="toc-num">11</span> Roadmap Recomendado</a>
-        <a href="#s12"><span class="toc-num">12</span> Checklist de Implementação</a>
-        <a href="#s13"><span class="toc-num">13</span> Referências e Links Úteis</a>
-        <a href="#s14"><span class="toc-num">14</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
+        <a href="#s4"><span class="toc-num">4</span> Distribuição e Governança de Acesso aos Agentes</a>
+        <a href="#s5"><span class="toc-num">5</span> Monitoramento de Consumo de Mensagens</a>
+        <a href="#s6"><span class="toc-num">6</span> Governança de Agentes — Melhores Práticas</a>
+        <a href="#s7"><span class="toc-num">7</span> Estratégia de Ambientes: Dev vs. Prod vs. Por Departamento</a>
+        <a href="#s8"><span class="toc-num">8</span> Cotas, Rateio e Controle de Custos</a>
+        <a href="#s9"><span class="toc-num">9</span> Conectores do Power Platform</a>
+        <a href="#s10"><span class="toc-num">10</span> Arquitetura: Base de Conhecimento com Azure AI Foundry</a>
+        <a href="#s11"><span class="toc-num">11</span> Multi-Agentes (Connected Agents)</a>
+        <a href="#s12"><span class="toc-num">12</span> Roadmap Recomendado</a>
+        <a href="#s13"><span class="toc-num">13</span> Checklist de Implementação</a>
+        <a href="#s14"><span class="toc-num">14</span> Referências e Links Úteis</a>
+        <a href="#s15"><span class="toc-num">15</span> FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</a>
     </div>
 </nav>
 
@@ -856,6 +857,203 @@
     <div class="section" id="s4">
         <div class="section-header">
             <span class="sec-num">04</span>
+            <h2>Distribuição e Governança de Acesso aos Agentes</h2>
+        </div>
+        <div class="section-body">
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Mito Comum: "Publiquei, logo está disponível para todos"</div>
+                <p>Publicar (<strong>Publish</strong>) no Copilot Studio apenas <em>compila e disponibiliza</em> a versão atual do agente nos canais configurados. <strong>Não significa que o agente fica acessível a todos os usuários do tenant</strong>. A liberação de acesso é uma etapa separada, com 3 níveis e governança própria — incluindo aprovação obrigatória do administrador do Microsoft 365 para distribuição organizacional.</p>
+            </div>
+
+            <h3>Os 3 Níveis de Distribuição</h3>
+            <div class="diagram">
+                <div class="diagram-flow">
+                    <div class="diagram-box">👤 Apenas Você<br><small>Default pós-Publish</small></div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box">👥 Usuários/Grupos Específicos<br><small>Share direto</small></div>
+                    <span class="diagram-arrow">→</span>
+                    <div class="diagram-box highlight">🏢 Toda a Organização<br><small>Catálogo + Aprovação Admin</small></div>
+                </div>
+            </div>
+
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Nível</th>
+                        <th>Quem Acessa</th>
+                        <th>Como Habilitar</th>
+                        <th>Responsável</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Apenas você (Maker)</strong></td>
+                        <td>Somente o autor do agente e usuários com role <em>System Administrator</em> ou <em>Environment Maker</em> no environment</td>
+                        <td>Padrão automático após o primeiro Publish</td>
+                        <td>Maker</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Usuários ou grupos específicos</strong></td>
+                        <td>Usuários, grupos do Entra ID ou teams selecionados manualmente</td>
+                        <td>Botão <em>Share</em> no Copilot Studio → adiciona pessoas com role <strong>Agent User</strong>; ou compartilhar link direto do canal (ex.: Demo Website, app Teams instalado individualmente via sideload)</td>
+                        <td>Maker</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Toda a organização (tenant-wide)</strong></td>
+                        <td>Qualquer usuário licenciado no tenant</td>
+                        <td><em>Submit for admin approval</em> → publica no <strong>catálogo organizacional do M365</strong> → admin do M365 aprova e disponibiliza no <strong>Microsoft 365 Admin Center → Integrated Apps</strong></td>
+                        <td>Maker submete; Admin M365 aprova</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Procedimento Detalhado por Nível</h3>
+
+            <h4 style="margin-top:18px;color:var(--pira-blue-dark);">Nível 1 → Nível 2: Compartilhar com usuários ou grupos específicos</h4>
+            <ol class="steps">
+                <li>
+                    <strong>Abra o agente</strong> no Copilot Studio (<code>copilotstudio.microsoft.com</code>) e clique no botão <strong>Share</strong> no topo direito.
+                </li>
+                <li>
+                    <strong>Adicione usuários ou grupos do Entra ID</strong> (Microsoft 365 groups, security groups). Recomenda-se sempre usar <strong>grupos</strong> em vez de usuários individuais para facilitar manutenção.
+                </li>
+                <li>
+                    <strong>Defina a permissão</strong>: <em>Agent User</em> (apenas conversa) ou <em>Co-owner</em> (pode editar). Para a maioria dos consumidores finais, use <em>Agent User</em>.
+                </li>
+                <li>
+                    <strong>Notificação por email (opcional)</strong>: marque a opção para enviar o link do agente automaticamente aos novos usuários compartilhados.
+                </li>
+                <li>
+                    <strong>Para o canal Teams</strong>: o usuário compartilhado precisa <strong>instalar o app do agente individualmente</strong> via link "Add to Teams". Não há instalação automática neste nível.
+                </li>
+            </ol>
+
+            <h4 style="margin-top:18px;color:var(--pira-blue-dark);">Nível 2 → Nível 3: Distribuir para toda a organização</h4>
+            <ol class="steps">
+                <li>
+                    <strong>No Copilot Studio</strong>, abra o agente publicado e vá em <strong>Channels → Teams and Microsoft 365</strong>.
+                </li>
+                <li>
+                    <strong>Clique em <em>Availability options</em></strong> e selecione <strong>"Show to everyone in my org"</strong> (ou equivalente). Isso gera uma submissão para o catálogo organizacional.
+                </li>
+                <li>
+                    <strong>Clique em <em>Submit for admin approval</em></strong>. O agente vai para a fila de aprovação do administrador do Microsoft 365 e <strong>fica indisponível para usuários finais até a aprovação</strong>.
+                </li>
+                <li>
+                    <strong>Admin do M365</strong>: acessa o <strong>Microsoft 365 Admin Center → Settings → Integrated Apps → Manage submissions</strong>, revisa o agente (permissões, fontes de dados, conectores, certificação) e <strong>aprova ou rejeita</strong>.
+                </li>
+                <li>
+                    <strong>Após aprovação</strong>: o admin define a <strong>política de implantação</strong> — disponível para todo o tenant, para grupos específicos, instalação automática (push) ou opcional (pull).
+                </li>
+                <li>
+                    <strong>Política de App no Teams (opcional)</strong>: no <strong>Teams Admin Center → Teams apps → Permission policies / Setup policies</strong>, o admin pode bloquear, fixar ou pré-instalar o app do agente conforme a estratégia.
+                </li>
+            </ol>
+
+            <h3>Quem Aprova o Quê — Matriz de Responsabilidades</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Etapa</th>
+                        <th>Responsável</th>
+                        <th>Console</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Criar e publicar o agente</td>
+                        <td>Maker (criador autorizado)</td>
+                        <td>Copilot Studio</td>
+                    </tr>
+                    <tr>
+                        <td>Compartilhar com usuários/grupos pontuais</td>
+                        <td>Maker</td>
+                        <td>Copilot Studio → Share</td>
+                    </tr>
+                    <tr>
+                        <td>Aprovar publicação no catálogo organizacional</td>
+                        <td><strong>Admin Microsoft 365</strong> (Global Admin ou função delegada)</td>
+                        <td>M365 Admin Center → Integrated Apps</td>
+                    </tr>
+                    <tr>
+                        <td>Definir política de instalação no Teams</td>
+                        <td><strong>Teams Admin</strong></td>
+                        <td>Teams Admin Center → Teams apps</td>
+                    </tr>
+                    <tr>
+                        <td>Auditar uso, mensagens e custos</td>
+                        <td>FinOps / Owner do environment</td>
+                        <td>Power Platform Admin Center + Azure Cost Management</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Licenciamento do Consumidor</h3>
+            <p>Mesmo que o agente esteja "visível", o usuário precisa de licença para consumi-lo:</p>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Perfil do Consumidor</th>
+                        <th>Como Consome</th>
+                        <th>Cobrança</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Usuário <strong>com licença M365 Copilot</strong></td>
+                        <td>Consome o agente diretamente no Microsoft 365 Copilot Chat / Teams sem custo adicional para capabilities básicas</td>
+                        <td>Incluso na licença até limites de uso (generative answers, classic actions). <strong>Autonomous actions e Tenant Graph grounding</strong> consomem mensagens faturáveis adicionais</td>
+                    </tr>
+                    <tr>
+                        <td>Usuário <strong>sem licença M365 Copilot</strong> (Copilot Chat free)</td>
+                        <td>Consome via <strong>Copilot Chat</strong> (m365.cloud.microsoft) ou Teams</td>
+                        <td><strong>100% PAYG</strong> — toda interação consome mensagens faturáveis no recurso Azure Pay-as-you-go vinculado</td>
+                    </tr>
+                    <tr>
+                        <td>Usuário <strong>externo</strong> (cliente, fornecedor)</td>
+                        <td>Apenas via canais públicos (Demo Website, custom website com auth configurada)</td>
+                        <td>100% PAYG ou capacidade pré-paga</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Segurança e Permissões de Dados</h3>
+            <div class="box box-success">
+                <div class="box-title">🔒 Security Trimming Automático</div>
+                <p>Quando um agente acessa <strong>SharePoint, OneDrive, Dataverse, Microsoft Graph ou conectores empresariais</strong>, ele <strong>respeita as permissões do usuário final</strong> que está conversando — não as permissões do criador do agente. Ou seja: mesmo que dois usuários tenham acesso ao mesmo agente, cada um receberá respostas baseadas apenas nos dados que ele individualmente tem permissão para ver.</p>
+                <p style="margin-top:8px;"><strong>Exceção</strong>: conectores configurados com <em>service account</em> ou credencial fixa (não delegada) ignoram o security trimming. Use com cautela e sempre documente.</p>
+            </div>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Riscos Comuns na Distribuição Aberta</div>
+                <ul style="margin-left:18px;">
+                    <li><strong>Vazamento de dados sensíveis</strong> via fontes de conhecimento mal configuradas (ex.: site SharePoint com documentos confidenciais incluído como knowledge source)</li>
+                    <li><strong>Estouro de custo</strong> com agentes usando autonomous actions ou Tenant Graph grounding distribuídos para milhares de usuários sem cap de capacidade</li>
+                    <li><strong>Shadow IT</strong>: makers criando agentes em environments default e compartilhando livremente sem revisão</li>
+                    <li><strong>Conformidade</strong>: agentes processando dados pessoais sem DPIA / LGPD review formal</li>
+                </ul>
+            </div>
+
+            <h3>Boas Práticas de Distribuição</h3>
+            <ul style="margin-left:24px;line-height:1.8;">
+                <li>✅ <strong>Default seguro</strong>: comece sempre no Nível 1 (apenas você) e expanda gradualmente conforme a validação</li>
+                <li>✅ <strong>Pilote no Nível 2</strong>: rode com 5–20 usuários reais por 2–4 semanas antes de submeter ao catálogo</li>
+                <li>✅ <strong>Use grupos do Entra ID</strong> em vez de usuários individuais — facilita onboarding/offboarding</li>
+                <li>✅ <strong>Documente</strong> objetivo, fontes de dados, conectores, owner e SLA antes de submeter ao admin</li>
+                <li>✅ <strong>Configure capacity caps</strong> e alertas de consumo antes da liberação tenant-wide</li>
+                <li>✅ <strong>Bloqueie environments default</strong> para criação de agentes — force makers a usar environments dedicados com governança</li>
+                <li>✅ <strong>Crie um "App Catalog" interno</strong> com guidelines de submissão para makers (template de descrição, capturas, justificativa de negócio)</li>
+            </ul>
+
+            <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+        </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section" id="s5">
+        <div class="section-header">
+            <span class="sec-num">05</span>
             <h2>Monitoramento de Consumo de Mensagens</h2>
         </div>
         <div class="section-body">
@@ -1014,10 +1212,10 @@
         </div>
     </div>
 
-    <!-- SECTION 5 -->
-    <div class="section" id="s5">
+    <!-- SECTION 6 -->
+    <div class="section" id="s6">
         <div class="section-header">
-            <span class="sec-num">05</span>
+            <span class="sec-num">06</span>
             <h2>Governança de Agentes — Melhores Práticas</h2>
         </div>
         <div class="section-body">
@@ -1111,10 +1309,10 @@
         </div>
     </div>
 
-    <!-- SECTION 6 -->
-    <div class="section" id="s6">
+    <!-- SECTION 7 -->
+    <div class="section" id="s7">
         <div class="section-header">
-            <span class="sec-num">06</span>
+            <span class="sec-num">07</span>
             <h2>Estratégia de Ambientes: Dev vs. Prod vs. Por Departamento</h2>
         </div>
         <div class="section-body">
@@ -1206,10 +1404,10 @@
         </div>
     </div>
 
-    <!-- SECTION 7 -->
-    <div class="section" id="s7">
+    <!-- SECTION 8 -->
+    <div class="section" id="s8">
         <div class="section-header">
-            <span class="sec-num">07</span>
+            <span class="sec-num">08</span>
             <h2>Cotas, Rateio e Controle de Custos</h2>
         </div>
         <div class="section-body">
@@ -1310,10 +1508,10 @@
         </div>
     </div>
 
-    <!-- SECTION 8 — CONECTORES DO POWER PLATFORM -->
-    <div class="section" id="s8">
+    <!-- SECTION 9 — CONECTORES DO POWER PLATFORM -->
+    <div class="section" id="s9">
         <div class="section-header">
-            <span class="sec-num">08</span>
+            <span class="sec-num">09</span>
             <h2>Conectores do Power Platform</h2>
         </div>
         <div class="section-body">
@@ -1551,10 +1749,10 @@
         </div>
     </div>
 
-    <!-- SECTION 9 — ARQUITETURA AZURE AI -->
-    <div class="section" id="s9">
+    <!-- SECTION 10 — ARQUITETURA AZURE AI -->
+    <div class="section" id="s10">
         <div class="section-header">
-            <span class="sec-num">09</span>
+            <span class="sec-num">10</span>
             <h2>Arquitetura: Base de Conhecimento com Azure AI Foundry</h2>
         </div>
         <div class="section-body">
@@ -1828,10 +2026,10 @@
         </div>
     </div>
 
-    <!-- SECTION 10 — MULTI-AGENTES -->
-    <div class="section" id="s10">
+    <!-- SECTION 11 — MULTI-AGENTES -->
+    <div class="section" id="s11">
         <div class="section-header">
-            <span class="sec-num">10</span>
+            <span class="sec-num">11</span>
             <h2>Multi-Agentes (Connected Agents)</h2>
         </div>
         <div class="section-body">
@@ -2317,10 +2515,10 @@
         </div>
     </div>
 
-    <!-- SECTION 11 — ROADMAP -->
-    <div class="section" id="s11">
+    <!-- SECTION 12 — ROADMAP -->
+    <div class="section" id="s12">
         <div class="section-header">
-            <span class="sec-num">11</span>
+            <span class="sec-num">12</span>
             <h2>Roadmap Recomendado</h2>
         </div>
         <div class="section-body">
@@ -2386,10 +2584,10 @@
         </div>
     </div>
 
-    <!-- SECTION 12 — CHECKLIST -->
-    <div class="section" id="s12">
+    <!-- SECTION 13 — CHECKLIST -->
+    <div class="section" id="s13">
         <div class="section-header">
-            <span class="sec-num">12</span>
+            <span class="sec-num">13</span>
             <h2>Checklist de Implementação</h2>
         </div>
         <div class="section-body">
@@ -2455,10 +2653,10 @@
         </div>
     </div>
 
-    <!-- SECTION 13 — REFERÊNCIAS -->
-    <div class="section" id="s13">
+    <!-- SECTION 14 — REFERÊNCIAS -->
+    <div class="section" id="s14">
         <div class="section-header">
-            <span class="sec-num">13</span>
+            <span class="sec-num">14</span>
             <h2>Referências e Links Úteis</h2>
         </div>
         <div class="section-body">
@@ -2523,10 +2721,10 @@
         </div>
     </div>
 
-    <!-- SECTION 14 — FAQ AGENTES -->
-    <div class="section" id="s14">
+    <!-- SECTION 15 — FAQ AGENTES -->
+    <div class="section" id="s15">
         <div class="section-header">
-            <span class="sec-num">14</span>
+            <span class="sec-num">15</span>
             <h2>FAQ: Agentes no Copilot Chat vs. M365 Copilot vs. Copilot Studio</h2>
         </div>
         <div class="section-body">
