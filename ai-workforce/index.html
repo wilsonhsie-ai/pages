@@ -132,7 +132,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#fafbfc;color:var(--dar
   <div class="nav-links">
     <a href="#frontier">Brasil é Frontier</a>
     <a href="#frontier-prof">Frontier Professionals</a>
-    <a href="#profiles">20 Perfis</a>
+    <a href="#profiles">22 Perfis</a>
     <a href="#journey">Jornada</a>
     <a href="#licensing">Licenciamento</a>
   </div>
@@ -146,7 +146,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#fafbfc;color:var(--dar
     <div class="hero-metric"><div class="hero-metric-val">27%</div><div class="hero-metric-lbl">dos brasileiros já são<br>Frontier Professionals</div></div>
     <div class="hero-metric"><div class="hero-metric-val">15x</div><div class="hero-metric-lbl">crescimento de agentes<br>ativos em 1 ano</div></div>
     <div class="hero-metric"><div class="hero-metric-val">82%</div><div class="hero-metric-lbl">Frontier no Brasil produzem<br>trabalho impossível há 1 ano</div></div>
-    <div class="hero-metric"><div class="hero-metric-val">20</div><div class="hero-metric-lbl">Perfis Enterprise<br>analisados</div></div>
+    <div class="hero-metric"><div class="hero-metric-val">22</div><div class="hero-metric-lbl">Perfis Enterprise<br>analisados</div></div>
   </div>
 </section>
 
@@ -276,8 +276,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:#fafbfc;color:var(--dar
 
 <div id="profiles-overview">
   <div class="section-header" id="profiles">
-    <div class="section-title">20 Perfis Profissionais — Deep Dive Completo</div>
-    <div class="section-sub">Clique em qualquer perfil para ver: dor principal, use cases de Copilot Chat, M365 Copilot e Copilot Studio, métricas antes/depois com fontes, e contexto enterprise Brasil.</div>
+    <div class="section-title">22 Perfis Profissionais — Deep Dive Completo</div>
+    <div class="section-sub">Clique em qualquer perfil para ver: dor principal, use cases de Copilot Chat, M365 Copilot e Copilot Studio, métricas antes/depois com fontes, e contexto enterprise Brasil. <strong>Inclui os 2 papéis críticos para escalar Frontier Firms (WTI 2026):</strong> IT Leader (Agent Operations) e Security Leader (Agent Trust).</div>
   </div>
   <div class="profiles-grid">
     
@@ -360,6 +360,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:#fafbfc;color:var(--dar
     <div class="profile-card" onclick="showProfile('engenheiro')" style="animation-delay:0.9500000000000001s" data-id="engenheiro">
       <div class="profile-emoji">🏗️</div>
       <div class="profile-name">Engenheiro / Operações</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('it-leader')" style="animation-delay:1.0s" data-id="it-leader">
+      <div class="profile-emoji">⚙️</div>
+      <div class="profile-name">IT Leader<br>(Agent Operations)</div>
+    </div>
+    <div class="profile-card" onclick="showProfile('security-leader')" style="animation-delay:1.05s" data-id="security-leader">
+      <div class="profile-emoji">🔒</div>
+      <div class="profile-name">Security Leader<br>(Agent Trust)</div>
     </div>
   </div>
 </div>
@@ -1604,6 +1612,134 @@ body{font-family:'Inter',system-ui,sans-serif;background:#fafbfc;color:var(--dar
     <div class="section-block context-block">
       <h3>🏢 Contexto Enterprise — Brasil</h3>
       <p>Engenheiros em indústrias brasileiras (manufatura, mineração, óleo e gás, agronegócio) lidam com normas locais (ABNT, NRs) e internacionais (ISO, API). Copilot auxilia na consulta e interpretação dessas normas, acelerando projetos e auditorias.</p>
+    </div>
+  </div>
+
+  <!-- IT Leader (Agent Operations) — novo perfil destacado pelo WTI 2026 -->
+  <div class="profile-detail" id="detail-it-leader">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:linear-gradient(135deg,#008272 0%,#0078D4 100%)">
+      <span class="detail-emoji">⚙️</span>
+      <div>
+        <h2 class="detail-title">IT Leader — Agent Operations</h2>
+        <p class="detail-title-en">IT Leader / Head of Agent Operations · Novo papel WTI 2026</p>
+      </div>
+    </div>
+    <p class="detail-desc">Líder de TI responsável por tratar agentes como <strong>entidades gerenciadas</strong> — com identidade, permissões, governança e ciclo de vida — extendendo o mesmo rigor já aplicado a pessoas e aplicações para o novo "control plane" de operações de agente. Papel destacado no <strong>2026 Work Trend Index</strong> como crítico para escalar Frontier Firms.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem governança de agentes</h3>
+      <p>Crescimento de <strong>15x ao ano</strong> em agentes ativos (18x em large enterprises) sem visibilidade. Shadow agents proliferam. Sem control plane unificado, não há como garantir conformidade, auditabilidade ou desligar agentes obsoletos. Risco de scale sem governança = risco multiplicado.</p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Definição de policies de agentes</div><div class="uc-desc">Brainstorm de regras de identity, autenticação, escopo de dados e níveis de autonomia para diferentes classes de agentes.</div></div><div class="uc-item"><div class="uc-name">Comparativo de plataformas</div><div class="uc-desc">Avalia opções de agent runtimes, tradeoffs de M365 Copilot Agents vs. Copilot Studio vs. Azure AI Foundry.</div></div><div class="uc-item"><div class="uc-name">Roadmap de Agent Operations</div><div class="uc-desc">Estrutura plano de implantação de agent ops: discovery, inventário, governança, lifecycle, observabilidade.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Inventário de agentes no Excel</div><div class="uc-desc">Consolida agentes ativos por business unit, owner, frequência de uso, custo de mensagens — visão executiva da frota.</div></div><div class="uc-item"><div class="uc-name">Documentação técnica no Word</div><div class="uc-desc">Gera padrões de arquitetura de agentes, runbooks de incident response e políticas de retirement.</div></div><div class="uc-item"><div class="uc-name">Agent Operations dashboard no PowerPoint</div><div class="uc-desc">Apresenta para liderança: # agentes ativos, hand-offs humanos, taxa de aprovação, incidentes, ROI.</div></div><div class="uc-item"><div class="uc-name">Coordenação no Teams</div><div class="uc-desc">Resume reuniões do Agent Governance Board e extrai decisões sobre aprovações, riscos e novos casos de uso.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Discovery</div><div class="uc-desc">Mapeia agentes em uso na organização (M365, Studio, custom), identifica owners e classifica por criticidade.</div></div><div class="uc-item"><div class="uc-name">Agent de Lifecycle Management</div><div class="uc-desc">Automatiza onboarding/offboarding de agentes: registro, atribuição de permissões, monitoramento de uso, deprecação.</div></div><div class="uc-item"><div class="uc-name">Agent de Quality Review</div><div class="uc-desc">Coleta feedback de usuários sobre outputs de agentes e aciona revisão quando taxa de aprovação cai abaixo do threshold.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM Agent Ops</th><th>COM Agent Ops</th><th>Ganho</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Visibilidade de agentes ativos na frota</td>
+      <td class="ba-before">Inventário manual / desconhecido</td>
+      <td class="ba-after">Dashboard em tempo real</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:95%"></div></div><span class="pct-num">+95%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2026</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Tempo médio de aprovação de novo agente</td>
+      <td class="ba-before">2-4 semanas (sem framework)</td>
+      <td class="ba-after">3-5 dias com pipeline padronizado</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:75%"></div></div><span class="pct-num">-75%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Crescimento de agentes ativos (YoY)</td>
+      <td class="ba-before">Pre-Frontier Firm</td>
+      <td class="ba-after">15x global / 18x large enterprises</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">15x</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2026</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>Com 27% dos profissionais brasileiros já em modo Frontier, a escala de agentes no Brasil tende a acelerar acima da média global. IT Leaders precisam antecipar a construção do <strong>control plane de agentes</strong> — caso contrário, o crescimento vira shadow IT amplificado. Frontier Firms tratam IT como o operador da plataforma onde a inteligência institucional ("Owned Intelligence") se acumula.</p>
+    </div>
+  </div>
+
+  <!-- Security Leader (Agent Trust) — novo perfil destacado pelo WTI 2026 -->
+  <div class="profile-detail" id="detail-security-leader">
+    <button class="back-btn" onclick="hideProfile()">← Todos os Perfis</button>
+    <div class="detail-header" style="background:linear-gradient(135deg,#D13438 0%,#7a0001 100%)">
+      <span class="detail-emoji">🔒</span>
+      <div>
+        <h2 class="detail-title">Security Leader — Agent Trust</h2>
+        <p class="detail-title-en">CISO / Security Leader · Novo papel WTI 2026</p>
+      </div>
+    </div>
+    <p class="detail-desc">Líder de segurança responsável por embutir <strong>confiança como propriedade estrutural</strong> da plataforma de agentes. Endereça os novos riscos introduzidos pela operação de agentes em escala: exfiltração de dados, ações não-intencionais em sistemas críticos e acessos não autorizados. Papel destacado no <strong>2026 Work Trend Index</strong> como crítico para o Learning System.</p>
+    <div class="section-block pain-block">
+      <h3>🎯 Dor Principal — Sem agent trust</h3>
+      <p>Agentes operam com permissões delegadas e podem acessar dados sensíveis em nome de usuários. Sem auditoria, monitoramento e policy enforcement embutidos na plataforma, qualquer falha em escala compõe risco regulatório, reputacional e financeiro. <strong>"Approving one bad output is manageable; bad outputs at scale compound risk."</strong></p>
+    </div>
+    <div class="section-block">
+      <h3>💬 Copilot Chat — Use Cases</h3>
+      <div class="pill-badge chat-badge">Gratuito / Copilot Chat Comercial</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de risco de novos cenários de agentes</div><div class="uc-desc">Avalia rapidamente exposição de dados, permissões necessárias e mitigations para casos de uso propostos por business units.</div></div><div class="uc-item"><div class="uc-name">Threat modeling de agentes</div><div class="uc-desc">Estrutura threat model (STRIDE adaptado) considerando prompt injection, data exfiltration e elevation of privilege.</div></div><div class="uc-item"><div class="uc-name">Resumo de regulações</div><div class="uc-desc">Consulta sobre LGPD, AI Act, Bacen, CVM e demais regulações aplicáveis ao uso de IA generativa.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🤖 Microsoft 365 Copilot — Use Cases</h3>
+      <div class="pill-badge m365-badge">Licença M365 Copilot</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Análise de logs de agentes no Excel</div><div class="uc-desc">Identifica padrões anômalos de uso, picos de acesso a dados sensíveis e correlaciona com identity signals (Entra ID).</div></div><div class="uc-item"><div class="uc-name">Políticas de Purview no Word</div><div class="uc-desc">Redige e mantém políticas de DLP, sensitivity labels e retention para conteúdo gerado por agentes.</div></div><div class="uc-item"><div class="uc-name">Security review meetings no Teams</div><div class="uc-desc">Resume comitês de segurança, captura decisões sobre exceções e monitora follow-ups de remediação.</div></div><div class="uc-item"><div class="uc-name">Board deck de Agent Trust no PowerPoint</div><div class="uc-desc">Apresenta postura de segurança da operação de agentes para conselho: incidentes, MTTR, cobertura de controles.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>🏗️ Copilot Studio — Agentes & Automações</h3>
+      <div class="pill-badge studio-badge">Copilot Studio</div>
+      <div class="uc-grid"><div class="uc-item"><div class="uc-name">Agent de Risk Triage</div><div class="uc-desc">Classifica solicitações de uso de IA por nível de risco (dados, autonomia, escopo) e roteia para o aprovador correto.</div></div><div class="uc-item"><div class="uc-name">Agent de Compliance Monitor</div><div class="uc-desc">Monitora 24/7 conformidade de uso de agentes com políticas internas e regulações aplicáveis (LGPD, setoriais).</div></div><div class="uc-item"><div class="uc-name">Agent de Incident Response</div><div class="uc-desc">Orquestra resposta a incidentes envolvendo agentes: contém, notifica stakeholders, coleta evidências e abre RCA.</div></div></div>
+    </div>
+    <div class="section-block">
+      <h3>📊 Antes vs. Depois — Métricas com Fontes</h3>
+      <table class="ba-table">
+        <thead><tr><th>Atividade</th><th>SEM Agent Trust</th><th>COM Agent Trust</th><th>Ganho</th><th>Fonte</th></tr></thead>
+        <tbody>
+    <tr>
+      <td class="ba-func">Detecção de uso anômalo de agente</td>
+      <td class="ba-before">Reativa, após incidente</td>
+      <td class="ba-after">Proativa via Defender + Purview</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div><span class="pct-num">+90%</span></td>
+      <td class="ba-src">Microsoft Customer Evidence</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Aprovação de novo cenário de agente</td>
+      <td class="ba-before">Comitê manual, 3-6 semanas</td>
+      <td class="ba-after">Triage automatizado, 5 dias</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div><span class="pct-num">-80%</span></td>
+      <td class="ba-src">Microsoft Work Trend Index 2026</td>
+    </tr>
+    <tr>
+      <td class="ba-func">Cobertura de auditabilidade de agentes</td>
+      <td class="ba-before">Logs dispersos, sem correlação</td>
+      <td class="ba-after">Trilha unificada Entra + Purview</td>
+      <td class="ba-pct"><div class="pct-bar"><div class="pct-fill" style="width:95%"></div></div><span class="pct-num">+95%</span></td>
+      <td class="ba-src">Microsoft Defender for Cloud Apps</td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div class="section-block context-block">
+      <h3>🏢 Contexto Enterprise — Brasil</h3>
+      <p>No Brasil, Security Leaders enfrentam três pressões simultâneas: <strong>LGPD</strong> (consentimento, finalidade, retenção), regulações setoriais (Bacen 4.658, CVM, ANS, ANPD) e a chegada do <strong>AI Act europeu</strong> (que afeta multinacionais). Construir agent trust agora é a forma mais barata de evitar dívida de compliance — Frontier Firms embutem segurança como propriedade da plataforma, não como camada posterior.</p>
     </div>
   </div>
 
