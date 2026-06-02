@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Microsoft Copilot Cowork</title>    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pira-blue-dark: #002E6E;
+            --pira-blue: #0046A8;
+            --pira-blue-light: #3373C4;
+            --pira-sky: #E8F0FE;
+            --pira-white: #FFFFFF;
+            --pira-gray-50: #F8F9FA;
+            --pira-gray-100: #F1F3F5;
+            --pira-gray-200: #E9ECEF;
+            --pira-gray-600: #6C757D;
+            --pira-gray-800: #343A40;
+            --pira-green: #198754;
+            --pira-green-light: #D1E7DD;
+            --pira-orange: #FD7E14;
+            --pira-orange-light: #FFF3CD;
+            --pira-red: #DC3545;
+            --pira-red-light: #F8D7DA;
+            --pira-purple: #6F42C1;
+            --pira-purple-light: #E8DAFB;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0, 46, 110, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 46, 110, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: var(--pira-gray-50);
+            color: var(--pira-gray-800);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ===== HEADER ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--pira-blue-dark) 0%, var(--pira-blue) 50%, var(--pira-blue-light) 100%);
+            color: white;
+            padding: 50px 40px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--pira-gray-50);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .hero-logo {
+            flex-shrink: 0;
+        }
+        .hero-logo img {
+            height: 80px;
+            filter: brightness(0) invert(1);
+        }
+        .hero-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* ===== NAV ===== */
+        .toc {
+            max-width: 1100px;
+            margin: -20px auto 40px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 30px 36px;
+            position: relative;
+            z-index: 10;
+        }
+        .toc h2 {
+            font-size: 1rem;
+            color: var(--pira-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+        }
+        .toc a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--pira-gray-800);
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+        .toc a:hover {
+            background: var(--pira-sky);
+            color: var(--pira-blue);
+        }
+        .toc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--pira-blue);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: var(--pira-blue);
+            color: white;
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .section-header .sec-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            opacity: 0.6;
+        }
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .section-body {
+            padding: 32px;
+        }
+
+        h3 {
+            color: var(--pira-blue);
+            font-size: 1.1rem;
+            margin: 28px 0 12px;
+            font-weight: 600;
+        }
+        h3:first-child { margin-top: 0; }
+
+        h4 {
+            color: var(--pira-blue-dark);
+            font-size: 0.95rem;
+            margin: 20px 0 8px;
+            font-weight: 600;
+        }
+
+        p { margin-bottom: 12px; }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding: 14px 16px 14px 56px;
+            margin-bottom: 10px;
+            background: var(--pira-gray-50);
+            border-radius: 8px;
+            border-left: 3px solid var(--pira-blue);
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 14px;
+            top: 14px;
+            width: 28px;
+            height: 28px;
+            background: var(--pira-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .steps li strong {
+            color: var(--pira-blue-dark);
+        }
+
+        /* Info boxes */
+        .box {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-left: 4px solid;
+        }
+        .box-info {
+            background: var(--pira-sky);
+            border-color: var(--pira-blue);
+        }
+        .box-success {
+            background: var(--pira-green-light);
+            border-color: var(--pira-green);
+        }
+        .box-warning {
+            background: var(--pira-orange-light);
+            border-color: var(--pira-orange);
+        }
+        .box-danger {
+            background: var(--pira-red-light);
+            border-color: var(--pira-red);
+        }
+        .box-purple {
+            background: var(--pira-purple-light);
+            border-color: var(--pira-purple);
+        }
+        .box-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        .box p:last-child { margin-bottom: 0; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+        thead th {
+            background: var(--pira-blue);
+            color: white;
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        thead th:first-child { border-radius: 8px 0 0 0; }
+        thead th:last-child { border-radius: 0 8px 0 0; }
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--pira-gray-200);
+            vertical-align: top;
+        }
+        tbody tr:nth-child(even) { background: var(--pira-gray-50); }
+        tbody tr:hover { background: var(--pira-sky); }
+
+        /* Comparison cards */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .compare-card {
+            border: 2px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .compare-card.recommended {
+            border-color: var(--pira-green);
+        }
+        .compare-card-header {
+            padding: 14px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .compare-card.recommended .compare-card-header {
+            background: var(--pira-green);
+            color: white;
+        }
+        .compare-card:not(.recommended) .compare-card-header {
+            background: var(--pira-gray-200);
+            color: var(--pira-gray-800);
+        }
+        .compare-card-body {
+            padding: 20px;
+        }
+        .compare-card-body ul {
+            list-style: none;
+            padding: 0;
+        }
+        .compare-card-body li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .compare-card-body li::before {
+            position: absolute;
+            left: 0;
+            top: 6px;
+        }
+        .compare-card.recommended li::before {
+            content: '✅';
+        }
+        .compare-card:not(.recommended) li::before {
+            content: '⚠️';
+        }
+
+        /* Diagram */
+        .diagram {
+            background: var(--pira-gray-50);
+            border: 1px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .diagram-box {
+            background: white;
+            border: 2px solid var(--pira-blue);
+            border-radius: 10px;
+            padding: 14px 22px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--pira-blue-dark);
+            min-width: 140px;
+        }
+        .diagram-box.highlight {
+            background: var(--pira-blue);
+            color: white;
+        }
+        .diagram-arrow {
+            font-size: 1.4rem;
+            color: var(--pira-blue-light);
+            font-weight: 700;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-blue { background: var(--pira-sky); color: var(--pira-blue); }
+        .badge-green { background: var(--pira-green-light); color: var(--pira-green); }
+        .badge-orange { background: var(--pira-orange-light); color: #B45309; }
+        .badge-red { background: var(--pira-red-light); color: var(--pira-red); }
+
+        /* Code */
+        code {
+            background: var(--pira-gray-100);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'Consolas', monospace;
+            color: var(--pira-blue-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--pira-blue-dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+        }
+        .footer strong {
+            color: white;
+        }
+
+        /* Responsive */
+        /* Responsive table wrapper */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 16px 0;
+        }
+        .table-wrap table {
+            margin: 0;
+            min-width: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner { flex-direction: column; text-align: center; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .diagram-flow { flex-direction: column; }
+            .diagram-arrow { transform: rotate(90deg); }
+            .section-body { padding: 16px; }
+            .toc { padding: 16px; }
+            .container { padding: 16px 10px; }
+            table { font-size: 0.82rem; }
+            thead th { padding: 8px 10px; font-size: 0.75rem; }
+            tbody td { padding: 8px 10px; }
+        }
+
+        /* Print */
+        @media print {
+            .hero { padding: 20px; }
+            .hero::after { display: none; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+            .toc { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+        .checklist li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 4px;
+            font-size: 1rem;
+        }
+
+        /* Governance zone cards */
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .zone-card {
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .zone-green { background: #D1E7DD; border: 2px solid #198754; }
+        .zone-yellow { background: #FFF3CD; border: 2px solid #FFC107; }
+        .zone-red { background: #F8D7DA; border: 2px solid #DC3545; }
+        .zone-card h4 { margin: 0 0 8px; font-size: 1rem; }
+        .zone-card p { font-size: 0.85rem; margin: 0; }
+
+        @media (max-width: 768px) {
+            .zone-grid { grid-template-columns: 1fr; }
+        }
+
+
+        /* ===== BACK TO TOC ===== */
+        .back-to-toc {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 28px;
+            padding: 10px 20px;
+            background: var(--pira-sky);
+            color: var(--pira-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .back-to-toc:hover {
+            background: var(--pira-blue);
+            color: white;
+            border-color: var(--pira-blue);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="hero-inner">
+        <div class="hero-logo">
+            <svg viewBox="0 0 24 24" width="64" height="64" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4a3 3 0 110 6 3 3 0 010-6zm0 14c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08C16.71 18.72 14.5 20 12 20z"/></svg>
+        </div>
+        <div class="hero-text">
+            <h1>Guia do Microsoft Copilot Cowork</h1>
+            <p>O agente corporativo que executa o trabalho de ponta a ponta no Microsoft 365 — autonomia, contexto e governança em escala</p>
+            <span class="hero-badge">📘 Preparado por Wilson Hsie — Junho 2026</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<nav class="toc" id="toc">
+    <h2>📑 Índice de Conteúdos</h2>
+    <div class="toc-grid">
+        <a href="#s1"><span class="toc-num">1</span> O que é o Copilot Cowork</a>
+        <a href="#s2"><span class="toc-num">2</span> Como funciona — execução autônoma</a>
+        <a href="#s3"><span class="toc-num">3</span> Work IQ e os modelos Claude (Anthropic)</a>
+        <a href="#s4"><span class="toc-num">4</span> Skills nativas e customizadas</a>
+        <a href="#s5"><span class="toc-num">5</span> Controle, aprovações e governança</a>
+        <a href="#s6"><span class="toc-num">6</span> Cowork vs. Copilot vs. Copilot Studio</a>
+        <a href="#s7"><span class="toc-num">7</span> Disponibilidade: Programa Frontier e licenciamento</a>
+        <a href="#s8"><span class="toc-num">8</span> Como habilitar — passo a passo</a>
+        <a href="#s9"><span class="toc-num">9</span> Casos de uso por área</a>
+        <a href="#s10"><span class="toc-num">10</span> FAQ</a>
+        <a href="#s11"><span class="toc-num">11</span> Referências e Links Úteis</a>
+    </div>
+</nav>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+
+    <!-- SECTION 1 -->
+    <div class="section" id="s1">
+        <div class="section-header">
+            <span class="sec-num">01</span>
+            <h2>O que é o Copilot Cowork</h2>
+        </div>
+        <div class="section-body">
+            <p>O <strong>Microsoft Copilot Cowork</strong> é um agente de IA de próxima geração para o Microsoft 365 que vai além do assistente de chat tradicional. Em vez de apenas <em>responder</em> perguntas ou <em>sugerir</em> texto, o Cowork <strong>executa o trabalho de ponta a ponta</strong> — coordenando múltiplas etapas através de Outlook, Teams, Word, Excel, PowerPoint e SharePoint.</p>
+
+            <p>Você descreve o <strong>resultado desejado</strong> em linguagem natural e o Cowork planeja, coordena e executa as ações necessárias, com rastreamento de progresso e aprovação do usuário nas etapas sensíveis. A proposta é a de um <strong>"colega de trabalho digital"</strong>: padronizado, governado e escalável dentro da organização.</p>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Em uma frase</div>
+                <p>O Copilot tradicional ajuda você a <strong>fazer</strong>; o Copilot Cowork <strong>faz por você</strong> — delegando fluxos de trabalho completos a um agente corporativo, com checkpoints de controle.</p>
+            </div>
+
+            <h3>O que muda em relação ao Copilot tradicional</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Dimensão</th>
+                        <th>Copilot (chat / M365)</th>
+                        <th>Copilot Cowork</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Natureza</td>
+                        <td>Assistente generativo (responde, redige, resume)</td>
+                        <td>Agente de execução (age e entrega)</td>
+                    </tr>
+                    <tr>
+                        <td>Escopo da tarefa</td>
+                        <td>Uma etapa por vez, no contexto atual</td>
+                        <td>Fluxos multi-etapas, multi-app</td>
+                    </tr>
+                    <tr>
+                        <td>Persistência</td>
+                        <td>Sessão interativa</td>
+                        <td>Cloud-native, executa em background</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado</td>
+                        <td>Conteúdo / sugestão</td>
+                        <td>Ações concretas (emails, docs, reuniões)</td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section" id="s2">
+        <div class="section-header">
+            <span class="sec-num">02</span>
+            <h2>Como funciona — execução autônoma</h2>
+        </div>
+        <div class="section-body">
+            <p>O Cowork transforma uma instrução de alto nível em um <strong>plano de execução</strong> e o roda passo a passo, mostrando o progresso em um painel visual e pedindo aprovação antes de ações de maior risco.</p>
+
+            <h3>Fluxo típico de uma tarefa</h3>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <div><strong>Você descreve o objetivo</strong><br>Ex.: "Prepare o brief da reunião com o cliente X — reúna os emails recentes, gere um documento de uma página e agende a reunião com os stakeholders."</div>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <div><strong>O Cowork monta o plano</strong><br>Decompõe o objetivo em etapas (buscar contexto → redigir → agendar → notificar) e exibe o plano para você.</div>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <div><strong>Execução com checkpoints</strong><br>Cada etapa é executada; ações sensíveis (enviar email, compartilhar arquivo) pausam para sua aprovação explícita.</div>
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <div><strong>Acompanhamento e ajuste</strong><br>Painel com status de cada etapa; você pode pausar, ajustar ou interromper a qualquer momento.</div>
+                </div>
+                <div class="step">
+                    <span class="step-num">5</span>
+                    <div><strong>Entrega do resultado</strong><br>O agente entrega os artefatos prontos (documento, convites enviados, arquivos organizados) com trilha do que foi feito.</div>
+                </div>
+            </div>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Onde roda</div>
+                <p>O Cowork é <strong>cloud-native</strong> e executa inteiramente dentro da nuvem do Microsoft 365, respeitando identidade do tenant, fronteiras de dados e permissões. Funciona em <strong>desktop (Windows e macOS) e mobile (iOS e Android)</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section" id="s3">
+        <div class="section-header">
+            <span class="sec-num">03</span>
+            <h2>Work IQ e os modelos Claude (Anthropic)</h2>
+        </div>
+        <div class="section-body">
+            <p>Dois pilares dão ao Cowork sua capacidade diferenciada: o <strong>contexto organizacional</strong> via Work IQ e o <strong>raciocínio multi-etapas</strong> dos modelos da Anthropic.</p>
+
+            <h3>Work IQ — o contexto da empresa</h3>
+            <p>O Work IQ dá ao agente acesso governado ao grafo de trabalho da organização — <strong>emails, reuniões, arquivos, chats e pessoas</strong> — sempre dentro das permissões do usuário. É o que permite ao Cowork entender "o cliente X", "a última reunião" ou "o documento do projeto" sem você ter que apontar manualmente cada fonte.</p>
+
+            <h3>Modelos Claude da Anthropic</h3>
+            <p>O Cowork combina o contexto do Microsoft 365 com os modelos <strong>Claude</strong> da Anthropic para planejamento e raciocínio sofisticado em tarefas longas. Essa colaboração multi-modelo é usada também para <strong>avaliar e validar</strong> resultados, aumentando a confiança nas entregas.</p>
+
+            <div class="box box-purple">
+                <div class="box-title">🧠 Por que isso importa</div>
+                <p>Contexto sem raciocínio gera respostas rasas; raciocínio sem contexto gera respostas genéricas. O Cowork une os dois — por isso consegue executar fluxos reais de negócio, e não apenas gerar texto.</p>
+            </div>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Atenção (UE / Reino Unido)</div>
+                <p>O uso da Anthropic como subprocessador precisa ser <strong>habilitado explicitamente</strong> em tenants da UE/Reino Unido por questões de residência de dados. Valide essa configuração com o time de Compliance antes do rollout.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section" id="s4">
+        <div class="section-header">
+            <span class="sec-num">04</span>
+            <h2>Skills nativas e customizadas</h2>
+        </div>
+        <div class="section-body">
+            <p>O Cowork opera por meio de <strong>skills</strong> — capacidades especializadas que o agente aciona conforme a tarefa.</p>
+
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Limite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Skills nativas</strong></td>
+                        <td>13+ capacidades prontas: Word, Excel, Email, Reuniões, Agendamento, Busca, Geração de documentos, Pesquisa multi-modelo, entre outras</td>
+                        <td><span class="badge badge-green">Out-of-the-box</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Skills customizadas</strong></td>
+                        <td>Automações próprias definidas em arquivos <code>SKILL.md</code> armazenados no OneDrive</td>
+                        <td><span class="badge badge-blue">até 20</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plugins / dados externos</strong></td>
+                        <td>Extensão via plugins e conexão a fontes de dados externas</td>
+                        <td><span class="badge badge-orange">Extensível</span></td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <h3>Como criar uma nova skill customizada</h3>
+            <p>Uma skill customizada é um arquivo <code>SKILL.md</code> em Markdown, guardado em uma pasta dedicada no <strong>OneDrive</strong>. Ele descreve, em linguagem natural, <strong>o que a skill faz</strong>, <strong>quando deve ser acionada</strong> e <strong>o passo a passo</strong> que o agente deve seguir.</p>
+
+            <ol class="steps">
+                <li><strong>Mapeie um processo repetitivo</strong><br>Escolha uma rotina bem definida e de valor claro (ex.: preparar brief de reunião, montar status report semanal).</li>
+                <li><strong>Crie a pasta da skill no OneDrive</strong><br>Em uma pasta de skills do usuário, crie uma subpasta com nome curto e descritivo (ex.: <code>brief-reuniao</code>).</li>
+                <li><strong>Escreva o <code>SKILL.md</code></strong><br>Defina nome, descrição/gatilho e as instruções passo a passo. Seja explícito sobre fontes de dados e sobre o resultado esperado.</li>
+                <li><strong>Use linguagem natural e imperativa</strong><br>Escreva como se instruísse um colega: "Busque os emails dos últimos 7 dias com o cliente", "Gere um documento de uma página", "Agende a reunião".</li>
+                <li><strong>Teste com um caso real</strong><br>Acione a skill em uma tarefa de baixo risco e ajuste as instruções conforme o resultado.</li>
+                <li><strong>Padronize e compartilhe</strong><br>Após validar, padronize a skill para o time, respeitando o limite de até 20 skills customizadas.</li>
+            </ol>
+
+            <h3>Exemplo de <code>SKILL.md</code></h3>
+            <div style="position:relative;">
+            <button type="button" onclick="(function(b){var t=document.getElementById('skillmd-exemplo').innerText;navigator.clipboard.writeText(t).then(function(){var o=b.innerHTML;b.innerHTML='&#10003; Copiado';setTimeout(function(){b.innerHTML=o;},2000);});})(this)" style="position:absolute;top:10px;right:10px;z-index:2;background:rgba(255,255,255,0.12);color:#e8f0fe;border:1px solid rgba(255,255,255,0.25);border-radius:6px;padding:5px 12px;font-size:0.78rem;font-family:inherit;cursor:pointer;backdrop-filter:blur(4px);">&#128203; Copiar</button>
+            <pre id="skillmd-exemplo" style="background:#1e1e2e;color:#e8f0fe;padding:18px 20px;border-radius:10px;overflow:auto;font-family:'Consolas',monospace;font-size:0.85rem;line-height:1.6;border:1px solid var(--pira-gray-200);margin:0;">---
+name: Brief de Reunião
+description: Prepara um briefing de uma página antes de uma reunião com cliente,
+  reunindo contexto e agendando o encontro. Acionar quando o usuário pedir
+  "preparar reunião", "brief do cliente" ou "resumo antes da call".
+---
+
+# Brief de Reunião
+
+## Objetivo
+Entregar um documento de uma página com o contexto do cliente e agendar a reunião.
+
+## Passos
+1. Identifique o cliente e os participantes a partir do pedido do usuário.
+2. Reúna os emails e arquivos relevantes dos últimos 14 dias via Work IQ.
+3. Resuma os pontos-chave: status, pendências e próximos passos.
+4. Gere um documento Word de uma página com o resumo.
+5. Proponha um horário e agende a reunião com os participantes.
+6. PARE para aprovação antes de enviar convites ou emails.
+
+## Saída esperada
+- 1 documento Word (brief de uma página)
+- 1 convite de reunião (após aprovação do usuário)</pre>
+            </div>
+
+            <div class="box box-purple">
+                <div class="box-title">🧩 Boas práticas ao escrever skills</div>
+                <p><strong>Seja específico</strong> sobre fontes (quais pastas, quais janelas de tempo) e <strong>resultado esperado</strong>. <strong>Marque pontos de parada</strong> ("PARE para aprovação") antes de ações sensíveis. <strong>Uma skill = um processo</strong>: evite skills genéricas demais. Versione e datela para rastreabilidade.</p>
+            </div>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Dica de adoção</div>
+                <p>Comece com as skills nativas para mostrar valor rápido. As skills customizadas via <code>SKILL.md</code> são o caminho para codificar processos específicos da área (ex.: rotina de fechamento mensal, onboarding de cliente) e padronizá-los entre o time.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section" id="s5">
+        <div class="section-header">
+            <span class="sec-num">05</span>
+            <h2>Controle, aprovações e governança</h2>
+        </div>
+        <div class="section-body">
+            <p>Por executar ações reais, o Cowork foi desenhado com <strong>controle no centro</strong>. A autonomia é sempre acompanhada de pontos de consentimento e trilha de auditoria.</p>
+
+            <h3>Mecanismos de controle</h3>
+            <ol class="steps">
+                <li><strong>Aprovação por nível de risco</strong><br>Ações de risco médio/alto (enviar email, compartilhar arquivo, agendar com terceiros) exigem consentimento explícito antes de executar.</li>
+                <li><strong>Painel de progresso</strong><br>Dashboard visual com checkpoints; pausar, ajustar ou interromper a execução a qualquer momento.</li>
+                <li><strong>Trilhas de auditoria</strong><br>Registro do que o agente fez, quando e com qual permissão — essencial para compliance.</li>
+                <li><strong>Fronteiras de dados do tenant</strong><br>Execução dentro da nuvem do M365, respeitando identidade (Entra), permissões e políticas de dados.</li>
+            </ol>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Enterprise-grade por design</div>
+                <p>Identidade via <strong>Microsoft Entra</strong>, proteção e conformidade via <strong>Microsoft Purview</strong>, e consentimento explícito em cada etapa sensível. A governança não é um add-on — é parte do produto.</p>
+            </div>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Nota sobre licenciamento</div>
+                <p>Os <strong>controles nativos do Cowork</strong> (aprovação por risco, checkpoints, execução dentro do tenant) acompanham o produto para todos os clientes. Já a <strong>profundidade da governança corporativa</strong> — DLP, retenção e auditoria avançada via <strong>Purview</strong>, além de Conditional Access e PIM via <strong>Entra ID P1/P2</strong> — depende do licenciamento do cliente (ex.: E3 vs. E5/ME5 e add-ons). Valide o stack disponível antes de prometer capacidades avançadas.</p>
+            </div>
+
+            <div class="box box-danger">
+                <div class="box-title">🔒 Recomendação de segurança</div>
+                <p>Defina políticas de aprovação e escopo de skills <strong>antes</strong> de liberar para os usuários. Trate todo conteúdo externo (emails, documentos) como dado não confiável — o agente deve segui-lo como contexto, nunca como comando.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section" id="s6">
+        <div class="section-header">
+            <span class="sec-num">06</span>
+            <h2>Cowork vs. Copilot vs. Copilot Studio</h2>
+        </div>
+        <div class="section-body">
+            <p>Os três fazem parte do ecossistema de IA da Microsoft, mas resolvem problemas diferentes. Entender o posicionamento evita confusão na conversa com o cliente.</p>
+
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Solução</th>
+                        <th>O que é</th>
+                        <th>Persona</th>
+                        <th>Quando usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>M365 Copilot</strong></td>
+                        <td>Assistente generativo embutido nos apps</td>
+                        <td>Todo knowledge worker</td>
+                        <td>Acelerar tarefas no contexto atual (redigir, resumir, analisar)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Copilot Cowork</strong></td>
+                        <td>Agente que executa fluxos multi-etapas</td>
+                        <td>Knowledge worker corporativo</td>
+                        <td>Delegar trabalho de ponta a ponta, com governança</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Copilot Studio</strong></td>
+                        <td>Plataforma para <em>construir</em> agentes próprios</td>
+                        <td>Makers, TI, devs</td>
+                        <td>Criar agentes customizados, publicar e governar em escala</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <div class="box box-purple">
+                <div class="box-title">💡 Resumindo as camadas</div>
+                <p><strong>M365 Copilot</strong> é o copiloto dentro do seu app. <strong>Cowork</strong> é o colega digital que executa o trabalho por você. <strong>Copilot Studio</strong> é a fábrica onde você constrói os seus próprios agentes. São <strong>camadas complementares</strong>, não concorrentes — e você pode usá-las em conjunto conforme a sua necessidade.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section" id="s7">
+        <div class="section-header">
+            <span class="sec-num">07</span>
+            <h2>Disponibilidade: Programa Frontier e licenciamento</h2>
+        </div>
+        <div class="section-body">
+            <p>Em <strong>março de 2026</strong>, o Copilot Cowork passou a estar disponível pelo programa de acesso antecipado <strong>Microsoft 365 Frontier</strong>, que permite às organizações testar e moldar novas experiências de IA antes do lançamento amplo.</p>
+
+            <h3>Requisitos de acesso</h3>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Requisito</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Licença</strong></td>
+                        <td>Microsoft 365 Copilot (licença Premium exigida pelo Frontier)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inscrição no Frontier</strong></td>
+                        <td>Organização precisa estar enrolada no Microsoft 365 Frontier</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agentes habilitados</strong></td>
+                        <td>Recurso de agentes ativado no tenant</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Anthropic como subprocessador</strong></td>
+                        <td>Habilitar (obrigatório e explícito na UE/Reino Unido)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acesso</strong></td>
+                        <td>Via Agent Store no app do Microsoft 365 Copilot — em inglês, desktop e mobile</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <div class="box box-warning">
+                <div class="box-title">⚠️ Status de disponibilidade</div>
+                <p>Até <strong>junho de 2026</strong>, a <strong>Disponibilidade Geral (GA) ainda não foi anunciada</strong>. O acesso é via Frontier (early access), e o cronograma de GA depende do feedback dos clientes e da evolução do produto. Confirme sempre o status atual antes de comprometer datas com o cliente.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="section" id="s8">
+        <div class="section-header">
+            <span class="sec-num">08</span>
+            <h2>Como habilitar — passo a passo</h2>
+        </div>
+        <div class="section-body">
+            <h3>Para o administrador</h3>
+            <ol class="steps">
+                <li><strong>Inscrever a organização no Frontier</strong><br>Garanta que o tenant esteja enrolado no programa Microsoft 365 Frontier. Ative em <a href="https://admin.microsoft.com" target="_blank">admin.microsoft.com</a> → <strong>Settings → Copilot → Frontier</strong>. Guia oficial: <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/get-started-frontier?view=o365-worldwide" target="_blank">Get started with the Frontier Program</a> e <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/frontier-it-admins" target="_blank">Frontier para IT Admins</a>.</li>
+                <li><strong>Habilitar o agente Copilot Cowork</strong><br>Nas configurações de admin, ative o Cowork. Na UE/Reino Unido, habilite explicitamente a Anthropic como subprocessador.</li>
+                <li><strong>Atribuir licenças M365 Copilot</strong><br>Assegure que os usuários-piloto tenham a licença adequada.</li>
+                <li><strong>Adicionar o Cowork pela Agent Store</strong><br>Disponibilize o agente via Agent Store no app do M365 Copilot.</li>
+                <li><strong>Definir políticas de governança</strong><br>Configure níveis de aprovação, escopo de skills e políticas de dados (Purview) antes do uso amplo.</li>
+            </ol>
+
+            <h3>Para o usuário</h3>
+            <ol class="steps">
+                <li><strong>Fixar o Cowork</strong><br>Fixe o agente no app do Microsoft 365 Copilot para acesso rápido.</li>
+                <li><strong>Descrever o resultado desejado</strong><br>Comece pelo objetivo, em linguagem natural — não pela sequência de passos.</li>
+                <li><strong>Aprovar nos checkpoints</strong><br>Revise o plano e conceda aprovação nas etapas sensíveis.</li>
+                <li><strong>Acompanhar e ajustar</strong><br>Use o painel para acompanhar, ajustar ou interromper a execução.</li>
+            </ol>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Boa prática de piloto</div>
+                <p>Selecione 1–2 áreas com processos repetitivos e bem definidos (ex.: preparação de reuniões, organização de arquivos de projeto). Meça tempo economizado por tarefa para construir o business case de expansão.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="section" id="s9">
+        <div class="section-header">
+            <span class="sec-num">09</span>
+            <h2>Casos de uso por área</h2>
+        </div>
+        <div class="section-body">
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Área</th>
+                        <th>Caso de uso</th>
+                        <th>O que o Cowork executa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Vendas</strong></td>
+                        <td>Preparação de reunião com cliente</td>
+                        <td>Reúne emails e histórico, gera o brief, agenda e notifica stakeholders</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RH</strong></td>
+                        <td>Onboarding de novo colaborador</td>
+                        <td>Cria checklist, agenda integrações, organiza documentos e envia boas-vindas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Finanças</strong></td>
+                        <td>Consolidação de relatório mensal</td>
+                        <td>Coleta dados de planilhas, monta o relatório e distribui aos responsáveis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Operações / PMO</strong></td>
+                        <td>Status report de projeto</td>
+                        <td>Agrega updates de reuniões e arquivos, redige o resumo e publica no Teams</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jurídico</strong></td>
+                        <td>Organização de documentação</td>
+                        <td>Busca, classifica e arquiva documentos com trilha de auditoria</td>
+                    </tr>
+                </tbody>
+            </table></div>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Princípio de valor</div>
+                <p>O maior ganho aparece em <strong>fluxos repetitivos, multi-etapas e multi-app</strong> — exatamente onde o knowledge worker perde mais tempo com coordenação manual entre ferramentas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="section" id="s10">
+        <div class="section-header">
+            <span class="sec-num">10</span>
+            <h2>FAQ</h2>
+        </div>
+        <div class="section-body">
+            <h3>O Cowork substitui o M365 Copilot?</h3>
+            <p>Não. São camadas complementares: o M365 Copilot acelera tarefas no contexto do app; o Cowork delega fluxos completos a um agente. Muitas organizações usarão os dois.</p>
+
+            <h3>Preciso de licença adicional?</h3>
+            <p>O acesso atual exige licença Microsoft 365 Copilot e inscrição no programa Frontier. Como o produto está em early access, confirme requisitos e custos vigentes antes de propor ao cliente.</p>
+
+            <h3>O agente age sem minha aprovação?</h3>
+            <p>Ações sensíveis (enviar email, compartilhar arquivos, agendar com terceiros) sempre pausam para consentimento explícito. Você mantém controle total e pode interromper a qualquer momento.</p>
+
+            <h3>Meus dados saem do ambiente Microsoft?</h3>
+            <p>A execução roda dentro da nuvem do M365, respeitando identidade e fronteiras de dados do tenant. O uso dos modelos Anthropic exige habilitação explícita do subprocessador na UE/Reino Unido.</p>
+
+            <h3>Já está em GA?</h3>
+            <p>Até junho de 2026, não. O acesso é via Frontier; a Disponibilidade Geral ainda não foi anunciada.</p>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Observação</div>
+                <p>Por ser um produto em evolução, recursos, limites e licenciamento podem mudar. Use as <a href="#s11">referências oficiais</a> como fonte da verdade e valide antes de comprometer escopo com clientes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 11 -->
+    <div class="section" id="s11">
+        <div class="section-header">
+            <span class="sec-num">11</span>
+            <h2>Referências e Links Úteis</h2>
+        </div>
+        <div class="section-body">
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Microsoft 365 Blog — Copilot Cowork now available in Frontier</td>
+                        <td><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/30/copilot-cowork-now-available-in-frontier/" target="_blank">microsoft.com</a></td>
+                    </tr>
+                    <tr>
+                        <td>Powering Frontier Transformation with Copilot and Agents</td>
+                        <td><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/30/powering-frontier-transformation-with-copilot-and-agents/" target="_blank">microsoft.com</a></td>
+                    </tr>
+                    <tr>
+                        <td>Microsoft 365 Copilot — visão geral</td>
+                        <td><a href="https://www.microsoft.com/microsoft-365/copilot" target="_blank">microsoft.com/microsoft-365/copilot</a></td>
+                    </tr>
+                    <tr>
+                        <td>Microsoft Copilot Studio</td>
+                        <td><a href="https://www.microsoft.com/microsoft-copilot/microsoft-copilot-studio" target="_blank">copilot studio</a></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    <p><strong>Microsoft Copilot Cowork</strong> — Guia de Adoção Corporativa</p>
+    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Junho 2026</p>
+    <p style="margin-top: 4px; font-size: 0.8rem;">Este material foi preparado para apoiar clientes na compreensão e adoção do Microsoft Copilot Cowork.</p>
+</div>
+
+</body>
+</html>
