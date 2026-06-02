@@ -14,6 +14,7 @@
       align-items: center;
       justify-content: center;
       color: #fff;
+      padding: 32px;
     }
     .card {
       background: rgba(255,255,255,0.12);
@@ -22,7 +23,7 @@
       padding: 48px 56px;
       text-align: center;
       border: 1px solid rgba(255,255,255,0.2);
-      max-width: 520px;
+      max-width: 560px;
     }
     h1 { font-size: 2rem; font-weight: 600; margin-bottom: 8px; }
     p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 24px; }
@@ -33,16 +34,48 @@
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 500;
+      margin-bottom: 28px;
     }
-    .status { margin-top: 24px; font-size: 0.9rem; opacity: 0.7; }
+    .guides { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+    .guide-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .guide-link:hover { background: rgba(255,255,255,0.24); transform: translateY(-2px); }
+    .guide-ico { font-size: 1.6rem; }
+    .guide-txt b { display: block; font-size: 1.05rem; font-weight: 600; }
+    .guide-txt span { font-size: 0.85rem; opacity: 0.8; }
+    .status { margin-top: 28px; font-size: 0.9rem; opacity: 0.7; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>🚀 Wilson Hsie — Pages</h1>
-    <p>GitHub Pages configurado com sucesso!</p>
+    <p>Guias práticos sobre IA e Microsoft 365</p>
     <span class="badge">Microsoft Brasil — Digital Specialist</span>
-    <div class="status">✅ Site ativo — pronto para receber conteúdo</div>
+    <div class="guides">
+      <a class="guide-link" href="guia-copilot-cowork.html">
+        <span class="guide-ico">🤝</span>
+        <span class="guide-txt"><b>Guia do Microsoft Copilot Cowork</b><span>O colega digital que executa fluxos de trabalho de ponta a ponta</span></span>
+      </a>
+      <a class="guide-link" href="guia-copilot-studio.html">
+        <span class="guide-ico">🧩</span>
+        <span class="guide-txt"><b>Guia do Microsoft Copilot Studio</b><span>Construa, publique e governe os seus próprios agentes</span></span>
+      </a>
+      <a class="guide-link" href="ai-workforce/">
+        <span class="guide-ico">🤖</span>
+        <span class="guide-txt"><b>AI Workforce</b><span>Visão geral da força de trabalho digital</span></span>
+      </a>
+    </div>
+    <div class="status">✅ Site ativo</div>
   </div>
 </body>
 </html>
