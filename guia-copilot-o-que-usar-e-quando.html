@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft 365 Copilot: o que usar e quando?</title>
+<style>
+  :root{
+    --bg:#0E1430; --bg2:#161E45; --edge:#2C3A78; --band:#131B40;
+    --rowA:#172046; --rowB:#1B2552; --white:#FFFFFF; --mute:#AEB8E0; --sub:#8B97C9;
+    --teal:#00B7C3; --blue:#2B88D8; --purp:#8B6FD6; --green:#73B82E; --gold:#E3A008;
+    --link:#7FB2FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 800px at 20% -10%,#1a2350 0%,var(--bg) 55%) fixed;
+    color:var(--white);line-height:1.5;padding:0 0 48px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header.top{background:var(--bg2);border-bottom:1px solid var(--edge);padding:22px 0}
+  .top-inner{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .logo-dot{width:46px;height:46px;border-radius:11px;flex:0 0 auto;
+    background:conic-gradient(from 200deg,#F25022,#7FBA00,#00A4EF,#FFB900,#F25022);
+    display:flex;align-items:center;justify-content:center}
+  .logo-dot::after{content:"";width:20px;height:20px;border-radius:5px;background:var(--bg2)}
+  h1{font-size:clamp(22px,3.4vw,32px);font-weight:800;letter-spacing:.2px}
+  h1 .accent{color:var(--link)}
+  .top-sub{color:var(--mute);font-size:15px;margin-top:4px;max-width:760px}
+  .brand-logo{width:46px;height:46px;border-radius:11px;flex:0 0 auto;object-fit:contain;display:block}
+  .ms-chip{margin-left:auto;background:#fff;border-radius:7px;padding:6px 13px;white-space:nowrap;
+    display:flex;align-items:center}
+  .ms-chip img{height:22px;display:block}
+  .tool-logo{height:15px;vertical-align:-3px;margin-right:4px}
+
+  /* Recommendation banner */
+  .reco{margin:26px 0 8px;border:1px solid var(--gold);border-radius:14px;
+    background:linear-gradient(180deg,rgba(227,160,8,.14),rgba(227,160,8,.05));
+    padding:18px 22px;display:flex;gap:16px;align-items:flex-start}
+  .reco .badge{flex:0 0 auto;font-size:22px;line-height:1.1;margin-top:2px}
+  .reco h2{font-size:17px;color:#F3CE6B;margin-bottom:5px;letter-spacing:.2px}
+  .reco p{color:#EAF1FF;font-size:14.5px}
+  .reco p b{color:#fff}
+
+  section{margin-top:34px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .sec-num{font-size:13px;font-weight:800;color:var(--bg);background:var(--teal);
+    border-radius:20px;padding:3px 11px;letter-spacing:.5px}
+  .sec-head h2{font-size:clamp(18px,2.6vw,24px);font-weight:800}
+  .sec-head .hint{color:var(--mute);font-size:14px}
+
+  /* progression strip */
+  .progress{display:flex;justify-content:space-between;color:var(--mute);
+    font-size:12.5px;font-weight:600;margin:2px 2px 8px}
+  .progress .a{color:#7FE3D2}.progress .b{color:#B7E59A}
+  .spectrum{height:10px;border-radius:6px;margin-bottom:18px;
+    background:linear-gradient(90deg,var(--teal),var(--blue),var(--purp),var(--green))}
+
+  /* table */
+  .tbl-scroll{overflow-x:auto;border-radius:14px;border:1px solid var(--edge)}
+  table{width:100%;border-collapse:collapse;min-width:1160px;background:var(--rowB)}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--edge);vertical-align:middle;font-size:13.5px}
+  thead th{background:var(--band);font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--white);font-weight:700}
+  thead th.tool{text-align:center}
+  .tool-pill{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
+  .tool-pill .n{font-weight:700;font-size:13px}
+  .tool-pill .num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff}
+  th.tool.t1{border-top:3px solid var(--teal)} th.tool.t2{border-top:3px solid var(--blue)}
+  th.tool.t3{border-top:3px solid var(--purp)} th.tool.t4{border-top:3px solid var(--green)}
+  tbody tr:nth-child(odd){background:var(--rowA)}
+  td.task{font-weight:600;color:#fff;width:16%}
+  td.cell{text-align:center;font-size:16px}
+  td.why{color:var(--mute);font-size:12.5px;width:18%}
+  .best{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;border-radius:8px;padding:4px 10px}
+  .best.t1{background:var(--teal)}.best.t2{background:var(--blue)}.best.t3{background:var(--purp)}.best.t4{background:var(--green)}
+  .ok{color:var(--mute);font-weight:700}.no{color:#5A6699}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--mute);font-size:13px}
+  .legend b{color:#fff}
+
+  .goldrule{margin-top:16px;border:1px solid var(--edge);background:var(--band);border-radius:12px;padding:16px 20px}
+  .goldrule .gr-title{display:inline-flex;align-items:center;gap:6px;color:#0E1430;background:var(--green);font-weight:800;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;border-radius:7px;padding:4px 11px;margin-right:9px}
+  .goldrule .gr-title::before{content:"📌";font-size:12px}
+  .goldrule p{font-size:14px;color:#EAF1FF;margin-top:10px}
+  .goldrule p:first-child{margin-top:0}
+  .goldrule.rule{position:relative;border-color:var(--green);padding-left:24px;background:linear-gradient(180deg,rgba(115,184,46,.18),rgba(115,184,46,.04));box-shadow:0 8px 22px rgba(0,0,0,.22),0 0 0 1px rgba(115,184,46,.20)}
+  .goldrule.rule::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,var(--green),var(--teal))}
+  .goldrule.rule .big{font-size:15px;color:#fff}
+  .k-teal{color:var(--teal);font-weight:700}.k-blue{color:var(--blue);font-weight:700}
+  .k-purp{color:var(--purp);font-weight:700}.k-green{color:var(--green);font-weight:700}
+
+  /* two columns */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  .panel{background:var(--rowB);border:1px solid var(--edge);border-radius:14px;overflow:hidden}
+  .panel .cap{height:5px}
+  .panel .pad{padding:18px 20px}
+  .panel h3{font-size:19px;font-weight:800}
+  .panel .lbl{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:6px 0 12px}
+  .opt{display:flex;align-items:center;gap:12px;border:1px solid var(--edge);background:var(--rowA);border-radius:10px;padding:11px 13px;margin-bottom:9px}
+  .opt.on{border-color:var(--teal);background:#15315C}
+  .opt .tick{width:22px;height:22px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .opt.on .tick{color:var(--teal)}
+  .opt .ring{width:14px;height:14px;border:1.5px solid var(--sub);border-radius:50%}
+  .opt .n{font-weight:700;font-size:14.5px}
+  .opt .d{color:var(--mute);font-size:12.5px;margin-top:1px}
+  .mode{display:flex;gap:12px;border:1px solid var(--edge);background:var(--rowA);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .mode .bar{width:6px;border-radius:4px;flex:0 0 auto}
+  .mode .n{font-weight:700;font-size:14.5px}.mode .d{color:var(--mute);font-size:12.5px;margin-top:2px}
+  .note{color:var(--sub);font-style:italic;font-size:12.5px;margin-top:6px}
+
+  .spec{margin-top:18px;background:var(--bg2);border:1px solid var(--edge);border-radius:14px;padding:18px 20px}
+  .spec .h{font-size:15.5px;margin-bottom:14px}
+  .spec .h b{color:var(--purp)}
+  .spec .h span{color:var(--mute);font-weight:400;font-size:13.5px}
+  .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.spec-grid{grid-template-columns:1fr}}
+  .spec-card{background:var(--rowA);border:1px solid var(--edge);border-radius:11px;padding:14px 16px;border-left:5px solid var(--purp)}
+  .spec-card.teal{border-left-color:var(--teal)}
+  .spec-card .t{font-weight:800;font-size:15.5px;margin-bottom:5px}
+  .spec-card .x{color:var(--mute);font-size:13px}
+  .spec-card .x b{color:#fff}
+
+  /* agents grid */
+  .status-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.status-cols{grid-template-columns:1fr}}
+  .status-head{border-radius:10px;padding:11px 16px;font-weight:800;font-size:13.5px;letter-spacing:.5px;margin-bottom:12px}
+  .status-head.avail{background:#13351F;border:1px solid var(--green);color:#9BE27C}
+  .status-head.front{background:#3A2E0C;border:1px solid var(--gold);color:#F3CE6B}
+  .agent{display:flex;gap:14px;background:var(--rowB);border:1px solid var(--edge);border-radius:13px;padding:14px;margin-bottom:13px;border-left:5px solid var(--purp)}
+  .agent .ic{width:46px;height:46px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:21px}
+  .agent .nm{font-weight:800;font-size:16px}
+  .agent{min-height:96px}
+  .agent .wt{color:#EAF1FF;font-size:12.8px;margin:4px 0 7px;min-height:38px}
+  .agent .wh{font-size:12px;color:var(--mute)}.agent .wh b{color:var(--sub)}
+
+  footer.btm{margin-top:36px;border-top:1px solid var(--edge);padding-top:16px;
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-end}
+  .src{font-size:11.5px;color:var(--sub);font-style:italic;max-width:760px}
+  .src a{color:var(--link);font-style:normal;text-decoration:none;word-break:break-all}
+  .src a:hover{text-decoration:underline}
+  .src .line{margin-bottom:4px}
+  .by{font-size:13px;color:var(--mute);white-space:nowrap}.by b{color:var(--sub);font-style:normal}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <img class="brand-logo" alt="Microsoft 365 Copilot" src="data:image/png;base64,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">
+    <div>
+      <h1>Microsoft 365 Copilot: <span class="accent">o que usar e quando?</span></h1>
+      <div class="top-sub">A mesma tarefa normalmente funciona em várias ferramentas. Este guia indica qual é a mais adequada e por quê.</div>
+    </div>
+    <div class="ms-chip"><img alt="Microsoft" src="data:image/png;base64,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"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- Recommendation notice -->
+  <div class="reco">
+    <div class="badge">💡</div>
+    <div>
+      <h2>Este guia é uma recomendação e orientação</h2>
+      <p>Quase todas as tarefas podem ser resolvidas com mais de uma ferramenta. Aqui sugerimos a opção mais conveniente e explicamos o motivo, mas <b>a decisão final depende do seu contexto, das suas permissões e da sua forma de trabalhar</b>. Use como ponto de partida e adapte a cada situação.</p>
+    </div>
+  </div>
+
+  <!-- Section 1: matrix -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">1</span>
+      <h2>Qual ferramenta devo usar para cada tarefa?</h2>
+      <span class="hint">Do mais simples e rápido ao mais poderoso e automatizado.</span>
+    </div>
+
+    <div class="progress"><span class="a">Mais simples e rápido</span><span class="b">Mais poderoso e automatizado</span></div>
+    <div class="spectrum"></div>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Tarefa ou necessidade</th>
+            <th class="tool t1"><span class="tool-pill"><span class="num" style="background:#00B7C3">1</span><span class="n">Copilot Chat</span></span></th>
+            <th class="tool t2"><span class="tool-pill"><span class="num" style="background:#2B88D8">2</span><span class="n">No aplicativo</span><span style="font-size:9.5px;font-weight:600;color:var(--mute);letter-spacing:.2px;text-transform:none">Dentro do app do Office 365</span></span></th>
+            <th class="tool" style="border-top:3px solid #E3A008"><span class="tool-pill"><span class="num" style="background:#E3A008">3</span><span class="n">Notebooks</span></span></th>
+            <th class="tool" style="border-top:3px solid #8B6FD6"><span class="tool-pill"><span class="num" style="background:#8B6FD6">4</span><span class="n">Agente · Agent Builder</span></span></th>
+            <th class="tool" style="border-top:3px solid #B146C2"><span class="tool-pill"><span class="num" style="background:#B146C2">5</span><span class="n">Agente da Microsoft</span></span></th>
+            <th class="tool t4"><span class="tool-pill"><span class="num" style="background:#73B82E">6</span><span class="n"><img class="tool-logo" alt="" src="data:image/png;base64,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">Copilot Cowork</span><span style="font-size:9px;font-weight:700;letter-spacing:.4px;color:#73B82E">GA</span></span></th>
+            <th class="tool" style="border-top:3px solid #E3508F"><span class="tool-pill"><span class="num" style="background:#E3508F">7</span><span class="n">Scout · Autopilot</span><span style="font-size:9px;font-weight:700;letter-spacing:.4px;color:#F0A6C6">FRONTIER</span></span></th>
+            <th>Quando escolher cada uma?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="task">Brainstorming de ideias e consultas rápidas</td>
+            <td class="cell"><span class="best t1">★ Melhor</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="why">Todas as ferramentas servem — o Chat é o mais rápido para brainstorming aberto e consultas rápidas.</td>
+          </tr>
+          <tr>
+            <td class="task">Redigir um e-mail ou resumir uma conversa</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t2">★ Melhor</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Melhor no Outlook, sobre o thread real. O Chat serve para notas rápidas avulsas. Scout e Cowork te notificam.</td>
+          </tr>
+          <tr>
+            <td class="task">Sintetizar uma reunião</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t2">★ Melhor</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">No aplicativo, usa a reunião real do Teams. O Chat só se você trouxer a transcrição. Scout e Cowork a encontram a partir do seu calendário.</td>
+          </tr>
+          <tr>
+            <td class="task">Criar e editar seu Excel, Word ou PowerPoint</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t2">★ Melhor</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">No aplicativo, para um único arquivo. Use o Cowork se precisar de vários artefatos ao mesmo tempo. O Scout também consegue.</td>
+          </tr>
+          <tr>
+            <td class="task">Pesquisa aprofundada, relatórios e acompanhamento de ações</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t4">★ Melhor</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">O Cowork executa o relatório completo — relatório + fluxo de ações de ponta a ponta.</td>
+          </tr>
+          <tr>
+            <td class="task">Briefing diário</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best" style="background:#E3508F">★ Melhor</span></td>
+            <td class="why">O Chat te dá um briefing rápido e reativo, sob demanda. O Scout o orquestra de forma proativa, antes de você pedir.</td>
+          </tr>
+          <tr>
+            <td class="task">Gerenciar e coordenar meu dia</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best" style="background:#E3508F">★ Melhor</span></td>
+            <td class="why">O Scout orquestra o seu dia de forma proativa, antecipando-se à sua caixa de entrada e ao calendário. O Cowork executa sob demanda.</td>
+          </tr>
+          <tr>
+            <td class="task">Automatizar ações dentro de apps do M365 quando uma condição é atendida (ex.: e-mail aprovado → tarefa no Planner → aviso no Teams)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best" style="background:#B146C2">★ Melhor</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Workflows (<span style="color:#F3CE6B;font-weight:700">Frontier</span>) automatiza cadeias de ações <b>dentro do ecossistema M365</b> (Outlook, Planner, Teams, SharePoint…) sem que ninguém as dispare a cada vez. O Scout pode monitorar e avisar, mas o Workflows executa.</td>
+          </tr>
+          <tr>
+            <td class="task">Entregas M365 com múltiplos artefatos em um único fluxo</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t4">★ Melhor</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">O Cowork constrói Word + Excel + PowerPoint a partir do seu conteúdo M365 em um único fluxo.</td>
+          </tr>
+          <tr>
+            <td class="task">Entregas e artefatos multissistema</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best" style="background:#E3508F">★ Melhor</span></td>
+            <td class="why">Comandos multissistema através de sistemas corporativos, p.ex., servidores MCP, scripts, GitHub, APIs internas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <span><b>★</b> Melhor opção</span>
+      <span><b>✓</b> Também serve</span>
+      <span><span class="no">–</span> Não recomendado</span>
+    </div>
+
+    <div class="goldrule rule">
+      <p><span class="gr-title">Regra prática</span> <span class="big"><b>um aplicativo</b> para UM arquivo · <b>um agente</b> para UMA tarefa repetida · <b>Copilot Cowork</b> para TODO um processo.</span></p>
+      <p><span class="k-teal">Copilot Chat</span> é a porta de entrada: a partir do chat você menciona agentes (@) e até pode programar instruções que se repetem sozinhas.</p>
+      <p><span class="k-blue">No aplicativo</span> significa dentro do documento aberto, em modo de edição. <span class="k-purp">Agente da Microsoft</span>: já pronto para usar (Researcher, Analyst, Facilitator…). <span class="k-purp">Agente · Agent Builder</span>: você cria para uma tarefa repetida.</p>
+      <p><span style="color:#E3A008;font-weight:700">Notebooks</span> se destaca quando você junta várias fontes (arquivos, notas, links) em um mesmo caderno e quer perguntar ou criar sempre com esse contexto fixo; para algo de um único arquivo, melhor no aplicativo.</p>
+      <p><span style="color:#E3508F;font-weight:700">Scout · Autopilot</span> trabalha sozinho e de forma contínua em segundo plano: use-o para acompanhamento permanente que age por você. Para um processo que você dispara de ponta a ponta, use o Copilot Cowork.</p>
+      <p><span class="k-green">Copilot Cowork</span> já está disponível de forma geral (<b>GA</b>). <span style="color:#E3508F;font-weight:700">Scout · Autopilot</span> segue em Frontier (acesso antecipado) e pode mudar.</p>
+    </div>
+  </section>
+
+  <!-- Section: validate before building your own agent -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num" style="background:var(--gold);color:var(--bg)">✓</span>
+      <h2>Antes de criar seu próprio agente, valide nesta ordem</h2>
+      <span class="hint">Criar um agente é o último recurso, não o primeiro.</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px">
+      <div class="panel">
+        <div class="cap" style="background:var(--teal)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--teal)">Passo 1 · o mais simples</div>
+          <h3>Um prompt salvo ou programado?</h3>
+          <p style="color:var(--mute);font-size:13px;margin-top:8px">Se uma boa instrução repetível resolve a tarefa, use-a. Você pode salvá-la e reutilizá-la, ou programá-la para que execute sozinha. Não precisa criar nada.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="cap" style="background:var(--purp)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--purp)">Passo 2 · reutilize</div>
+          <h3>Já existe um agente da Microsoft?</h3>
+          <p style="color:var(--mute);font-size:13px;margin-top:8px">Revise os agentes prontos para usar (Researcher, Analyst, Facilitator, Forms, Project Manager…). Se um deles cobre a tarefa, use-o como está.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="cap" style="background:var(--green)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--green)">Passo 3 · último recurso</div>
+          <h3>Só então, crie com o Agent Builder</h3>
+          <p style="color:var(--mute);font-size:13px;margin-top:8px">Se nenhum prompt nem agente da Microsoft resolve a tarefa, crie o seu próprio agente com o Agent Builder para repetir o processo com o seu critério.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="goldrule rule" style="margin-top:16px">
+      <p><span class="gr-title">Regra prática</span> <span class="big"><span class="k-teal">Prompt salvo ou programado</span> → <span class="k-purp">Agente da Microsoft</span> → (somente se nada se aplicar) <span class="k-green">seu próprio agente com o Agent Builder</span>.</span></p>
+    </div>
+  </section>
+
+  <!-- Section 2: models -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num" style="background:var(--blue)">2</span>
+      <h2>Qual modelo devo usar? Onde e como escolher</h2>
+      <span class="hint">No chat você escolhe o modelo; dentro dos seus agentes você escolhe o modo de resposta.</span>
+    </div>
+
+    <div class="goldrule" style="margin-bottom:18px">
+      <p>Por padrão tudo está em <span class="k-blue">Auto</span>: o Copilot escolhe por você. Mude apenas se tiver uma preferência clara.</p>
+    </div>
+
+    <div class="cols">
+      <!-- chat model picker -->
+      <div class="panel">
+        <div class="cap" style="background:var(--teal)"></div>
+        <div class="pad">
+          <h3>No chat do Copilot</h3>
+          <div class="lbl" style="color:var(--teal)">Modo de resposta</div>
+          <div class="opt on"><div class="tick">✓</div><div><div class="n">Auto</div><div class="d">Decide quanto tempo pensar conforme a tarefa · padrão</div></div></div>
+          <div class="opt"><div class="tick"><div class="ring"></div></div><div><div class="n">Quick Response</div><div class="d">Responde imediatamente</div></div></div>
+          <div class="opt"><div class="tick"><div class="ring"></div></div><div><div class="n">Think Deeper</div><div class="d">Pensa mais tempo para respostas melhores</div></div></div>
+          <div class="opt"><div class="tick"><div class="ring"></div></div><div><div class="n">Deep Work</div><div class="d">Usa o máximo de tempo possível e ferramentas premium</div></div></div>
+          <div class="lbl" style="color:var(--teal);margin-top:12px">Modelo específico</div>
+          <div class="opt"><div class="tick"><div class="ring"></div></div><div><div class="n">Opus 4.8</div><div class="d">Claude · o mais capaz para raciocínio complexo</div></div></div>
+          <div class="opt"><div class="tick"><div class="ring"></div></div><div><div class="n">GPT 5.5</div><div class="d">OpenAI · disponível em Quick Response ou Think Deeper</div></div></div>
+        </div>
+      </div>
+
+      <!-- agent modes -->
+      <div class="panel">
+        <div class="cap" style="background:var(--green)"></div>
+        <div class="pad">
+          <h3>Nos seus agentes</h3>
+          <div class="lbl" style="color:var(--green)">Modo de resposta · Agent Builder</div>
+          <div class="mode"><div class="bar" style="background:var(--blue)"></div><div><div class="n">Auto</div><div class="d">Padrão · equilibra velocidade e profundidade</div></div></div>
+          <div class="mode"><div class="bar" style="background:var(--teal)"></div><div><div class="n">Resposta rápida</div><div class="d">Responde curto e na hora; ideal para perguntas simples</div></div></div>
+          <div class="mode"><div class="bar" style="background:var(--purp)"></div><div><div class="n">Pensar mais</div><div class="d">Analisa a fundo antes de responder; ideal para tarefas complexas</div></div></div>
+          <p class="note">Define-se ao criar o agente e quem o usa pode mudá-lo. Com @menção não se aplica o modo padrão.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- specialized agents with own model -->
+    <div class="spec">
+      <div class="h"><b>Agentes especializados</b> <span>— trazem o próprio modelo de raciocínio; no Researcher você escolhe o modelo e, no Frontier, o modo (Critique ou Council).</span></div>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="t">Researcher</div>
+          <div class="x">Você escolhe o modelo de raciocínio: <b>OpenAI Deep Research</b> (padrão) ou <b>Claude</b> (Sonnet / Opus), se o seu administrador habilitar a opção.</div>
+        </div>
+        <div class="spec-card teal">
+          <div class="t">Analyst</div>
+          <div class="x">Modelo otimizado para analítica. <b>Executa Python</b> ao vivo sobre os seus dados e você pode ver o código que roda.</div>
+        </div>
+        <div class="spec-card" style="border-left-color:#E3508F">
+          <div class="t">Modo Critique <span style="font-size:9px;font-weight:700;letter-spacing:.4px;color:#F0A6C6">FRONTIER</span></div>
+          <div class="x">No Researcher: um modelo redige e outro <b>revisa e refina</b> o relatório (fontes confiáveis, completude e citações rigorosas). É o modo padrão com Auto. Ideal quando você precisa de um único relatório confiável, pronto para compartilhar.</div>
+        </div>
+        <div class="spec-card" style="border-left-color:#E3A008">
+          <div class="t">Modo Council <span style="font-size:9px;font-weight:700;letter-spacing:.4px;color:#F3CE6B">FRONTIER</span></div>
+          <div class="x">No Researcher: vários modelos (GPT e Claude) respondem <b>em paralelo</b> e um terceiro os compara, mostrando onde coincidem, onde divergem e o que cada um agrega. Ideal para contrastar perspectivas antes de decidir.</div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:14px"><b style="color:#fff">Computer use</b> — opção que permite ao agente usar o navegador e apps como você (clicar, navegar, preencher formulários) para tarefas que não se resolvem só conversando; sempre dentro das suas permissões.</p>
+    </div>
+
+    <div class="goldrule rule" style="margin-top:16px">
+      <p><span class="gr-title">Regra prática</span> <span class="big"><b>Researcher</b>: deixe em <span class="k-blue">Auto</span> (usa <b style="color:#F0A6C6">Critique</b>) quando quiser um único relatório confiável e pronto para compartilhar; mude para <b style="color:#F3CE6B">Council</b> quando quiser contrastar várias perspectivas (GPT e Claude) antes de decidir.</span></p>
+    </div>
+
+    <div class="goldrule rule" style="margin-top:16px">
+      <p><span class="gr-title">Regra prática</span> <span class="big">No chat, deixe em <span class="k-blue">Auto</span>; mude para <b>Think Deeper</b> em tarefas que exigem análise ou para <b>Deep Work</b> quando precisar de ferramentas premium. Escolha um modelo específico (Opus 4.8 ou GPT 5.5) apenas se tiver uma preferência clara.</span></p>
+    </div>
+  </section>
+
+  <!-- Section 3: agents -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num" style="background:var(--purp)">3</span>
+      <h2>Agentes da Microsoft: quando usar cada um</h2>
+      <span class="hint">Especialistas prontos para usar. São chamados do chat com @ ou pelo aplicativo.</span>
+    </div>
+
+    <div class="status-cols">
+      <div>
+        <div class="status-head avail">Disponíveis agora</div>
+
+        <div class="agent" style="border-left-color:var(--purp)">
+          <div class="ic" style="background:var(--purp)">🔍</div>
+          <div>
+            <div class="nm">Researcher</div>
+            <div class="wt">Investigação de vários passos: raciocina sobre os seus dados e a web para descobrir informações-chave e criar relatórios completos.</div>
+            <div class="wh"><b>Onde:</b> Copilot Chat</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--teal)">
+          <div class="ic" style="background:var(--teal)">📊</div>
+          <div>
+            <div class="nm">Analyst</div>
+            <div class="wt">De dados brutos a conclusões: usa um modelo de analítica e executa Python sobre as suas planilhas.</div>
+            <div class="wh"><b>Onde:</b> Copilot Chat</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--blue)">
+          <div class="ic" style="background:var(--blue)">👥</div>
+          <div>
+            <div class="nm">Facilitator</div>
+            <div class="wt">Acompanha você no Teams: toma notas ao vivo, responde dúvidas e mantém a reunião em ordem.</div>
+            <div class="wh"><b>Onde:</b> Microsoft Teams</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--green)">
+          <div class="ic" style="background:var(--green)">📝</div>
+          <div>
+            <div class="nm">Forms</div>
+            <div class="wt">Automatiza pesquisas e formulários: criação, distribuição e análise das respostas.</div>
+            <div class="wh"><b>Onde:</b> Microsoft Forms</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--gold)">
+          <div class="ic" style="background:var(--gold)">🎓</div>
+          <div>
+            <div class="nm">Learning</div>
+            <div class="wt">Capacitação personalizada em IA e outras áreas para elevar o seu nível.</div>
+            <div class="wh"><b>Onde:</b> Copilot Chat</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--link)">
+          <div class="ic" style="background:var(--link)">✍️</div>
+          <div>
+            <div class="nm">Prompt Coach</div>
+            <div class="wt">Ajuda você a escrever prompts melhores: sugere melhorias, explica o que os torna mais eficazes e te orienta a extrair o máximo do Copilot.</div>
+            <div class="wh"><b>Onde:</b> Copilot Chat</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="status-head front">Frontier · acesso antecipado</div>
+
+        <div class="agent" style="border-left-color:var(--green)">
+          <div class="ic" style="background:var(--green)">✅</div>
+          <div>
+            <div class="nm">Planner Agent</div>
+            <div class="wt">Automatiza a gestão de projetos no Planner: monta o plano, informa o status e executa tarefas.</div>
+            <div class="wh"><b>Onde:</b> Planner · Teams</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--blue)">
+          <div class="ic" style="background:var(--blue)">🧩</div>
+          <div>
+            <div class="nm">App Builder</div>
+            <div class="wt">Transforma a sua ideia em um aplicativo funcional, sem escrever código.</div>
+            <div class="wh"><b>Onde:</b> Copilot Chat</div>
+          </div>
+        </div>
+
+        <div class="agent" style="border-left-color:var(--teal)">
+          <div class="ic" style="background:var(--teal)">🔀</div>
+          <div>
+            <div class="nm">Workflows</div>
+            <div class="wt">Cria fluxos de agentes com linguagem natural, sem código.</div>
+            <div class="wh"><b>Onde:</b> Copilot Chat</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="btm">
+    <div class="src">
+      <div class="line">Fonte oficial: Microsoft Learn — “Decide which Copilot is right for you”. <a href="https://learn.microsoft.com/microsoft-365/copilot/which-copilot-for-your-organization">learn.microsoft.com/microsoft-365/copilot/which-copilot-for-your-organization</a></div>
+      <div class="line">Catálogo de agentes: Microsoft 365 Copilot — “AI Agents for Individuals and Businesses”. <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/agents#agent-use-cases">microsoft.com/microsoft-365-copilot/agents</a></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
