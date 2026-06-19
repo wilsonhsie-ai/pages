@@ -532,7 +532,7 @@
         <div class="hero-text">
             <h1>Guia de Adoção do Microsoft Copilot Studio</h1>
             <p>Procedimentos, governança e melhores práticas para a jornada de agentes inteligentes na sua organização</p>
-            <span class="hero-badge">📘 Preparado por Wilson Hsie — Abril 2026</span>
+            <span class="hero-badge">📘 Preparado por Wilson Hsie — Junho 2026</span>
         </div>    </div>
 </div>
 
@@ -1371,6 +1371,68 @@
                     </div>
                 </div>
                 <p style="margin-top: 20px; font-size: 0.85rem; color: var(--pira-gray-600);">Todos os departamentos (RH, TI, Comercial, Suprimentos) compartilham os mesmos ambientes.<br>Rateio por agente via analytics + tags no Azure.</p>
+            </div>
+
+            <h3>Como Publicar um Agente de DEV para PROD (ALM)</h3>
+            <p>Um agente criado e validado no ambiente de <strong>desenvolvimento</strong> não deve ser recriado manualmente em produção. A promoção é feita por <strong>ALM (Application Lifecycle Management)</strong> usando <strong>Solutions</strong> do Power Platform, o que preserva tópicos, conhecimento, ações, conectores e configurações. Há duas formas: a manual (Solutions) e a automatizada (Power Platform Pipelines).</p>
+
+            <div class="box box-info">
+                <div class="box-title">📦 Pré-requisito: o agente precisa estar em uma Solution</div>
+                <p>No ambiente DEV, crie (ou abra) uma <strong>Solution não-gerenciada</strong> com um <em>publisher</em> e prefixo próprios (ex.: <code>RH-Agentes</code>) e adicione o agente a ela. Inclua as dependências: <strong>connection references</strong> (conectores), <strong>environment variables</strong> (URLs, IDs de fontes de conhecimento) e quaisquer fluxos/tabelas Dataverse associados. Evite valores fixos (hardcoded) — use environment variables para que cada ambiente aponte para seus próprios recursos.</p>
+            </div>
+
+            <h4 style="margin-top:22px;">Opção A — Manual (Export/Import de Solution Gerenciada)</h4>
+            <ol class="steps">
+                <li>
+                    <strong>Exportar como Managed em DEV</strong><br>
+                    No <a href="https://make.powerapps.com" target="_blank">make.powerapps.com</a> (ambiente DEV) → <strong>Solutions</strong> → selecione a solution → <strong>Export</strong> → escolha <strong>Managed</strong>. Incremente a versão antes de exportar.
+                </li>
+                <li>
+                    <strong>Importar em PROD</strong><br>
+                    Troque para o ambiente PROD → <strong>Solutions → Import solution</strong> → selecione o arquivo <code>.zip</code> gerado.
+                </li>
+                <li>
+                    <strong>Reconfigurar conexões e variáveis</strong><br>
+                    Durante o import, informe as <strong>connection references</strong> de PROD (contas/credenciais de serviço de produção) e os valores das <strong>environment variables</strong> apontando para os recursos de produção (ex.: site SharePoint, índice do Azure AI Foundry).
+                </li>
+                <li>
+                    <strong>Publicar o agente em PROD</strong><br>
+                    Abra o agente importado no Copilot Studio (ambiente PROD) e clique em <strong>Publish</strong>. A publicação no ambiente de origem (DEV) <em>não</em> publica automaticamente em PROD.
+                </li>
+                <li>
+                    <strong>Reativar canais e autenticação</strong><br>
+                    Configurações de canais (Teams, web, etc.) e de autenticação <strong>não migram</strong> pela solution. Reconfigure-os no ambiente PROD após a publicação.
+                </li>
+            </ol>
+
+            <h4 style="margin-top:22px;">Opção B — Power Platform Pipelines (Recomendado)</h4>
+            <p>Os <strong>Pipelines</strong> automatizam o export/import gerenciado entre ambientes, com governança, aprovações e histórico de implantações — sem manipular arquivos <code>.zip</code> manualmente.</p>
+            <ol class="steps">
+                <li>
+                    <strong>Configurar o pipeline (uma vez)</strong><br>
+                    No <strong>Power Platform Admin Center</strong>, instale o app <strong>Power Platform Pipelines</strong> em um ambiente <em>host</em> e defina os <em>stages</em>: <strong>DEV → (Test) → PROD</strong>, associando cada stage ao seu ambiente.
+                </li>
+                <li>
+                    <strong>Acionar a implantação a partir de DEV</strong><br>
+                    Em <strong>Solutions</strong>, abra a solution do agente e clique em <strong>Deploy → escolha o stage de destino (PROD)</strong>. O pipeline exporta como gerenciada e importa no destino automaticamente.
+                </li>
+                <li>
+                    <strong>Mapear conexões e variáveis no deploy</strong><br>
+                    O assistente solicita as <strong>connection references</strong> e <strong>environment variables</strong> do ambiente de destino antes de concluir.
+                </li>
+                <li>
+                    <strong>Aprovar (se houver gate)</strong><br>
+                    Se o stage de PROD exigir aprovação, um aprovador designado valida a implantação antes que ela seja aplicada — útil para governança e segregação de funções.
+                </li>
+                <li>
+                    <strong>Publicar e validar</strong><br>
+                    Após a implantação, publique o agente em PROD e execute um teste de fumaça (smoke test) nos principais tópicos antes de liberar aos usuários.
+                </li>
+            </ol>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Boas práticas de promoção</div>
+                <p><strong>Sempre gerenciada em PROD:</strong> importe solutions como <em>Managed</em> em produção — isso impede edições diretas no ambiente e força que toda mudança passe por DEV. <strong>Versione</strong> a solution a cada release e use <strong>environment variables</strong> para todos os parâmetros que mudam entre ambientes. <strong>Nunca</strong> edite o agente diretamente em PROD; corrija em DEV e promova novamente.</p>
             </div>
 
             <h3>Se no futuro quiser separar por departamento</h3>
@@ -2980,7 +3042,7 @@
 <!-- ===== FOOTER ===== -->
 <div class="footer">
     <p><strong>Microsoft Copilot Studio</strong> — Guia de Adoção Empresarial</p>
-    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Abril 2026</p>
+    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Junho 2026</p>
     <p style="margin-top: 4px; font-size: 0.8rem;">Este material foi preparado para apoiar clientes na adoção do Microsoft Copilot Studio.</p>
 </div>
 
