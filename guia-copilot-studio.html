@@ -760,6 +760,44 @@
                     </tr>
                 </tbody>
             </table></div>
+
+            <h3>🛠️ Troubleshooting: acesso via Security Group não funciona</h3>
+            <div class="box box-danger">
+                <div class="box-title">⚠️ Sintoma</div>
+                <p>O ambiente <strong>só funciona quando o usuário é adicionado manualmente</strong> em <em>Settings → Users + permissions → <strong>Users</strong></em>. Ao tentar dar acesso via <strong>Security Group do Entra ID</strong>, nada acontece — o usuário não é provisionado.</p>
+            </div>
+
+            <p><strong>Causa raiz:</strong> associar um Security Group <em>nas configurações do ambiente</em> (o <em>environment security group</em>) faz <strong>apenas uma coisa</strong>: restringe <strong>quem <em>pode</em> ser membro</strong> do ambiente. Isso <strong>não provisiona o usuário</strong> e <strong>não atribui Security Role</strong>. Por isso adicionar direto em <em>Users</em> funciona — esse caminho provisiona o usuário <em>e</em> concede um papel. Para o acesso via grupo funcionar, é preciso o componente que concede o papel: o <strong>Dataverse Group Team</strong> vinculado ao grupo do Entra <strong>com uma Security Role atribuída</strong> (exatamente os passos 2 e 3 do método recomendado acima).</p>
+
+            <div class="box box-warning">
+                <div class="box-title">🔎 Checklist de diagnóstico (pegadinhas mais comuns)</div>
+                <ul class="checklist">
+                    <li><strong>Falta o Group Team + Role.</strong> Confirme que existe um <em>Team</em> do tipo <code>Microsoft Entra ID Security Group</code> em <em>Users + permissions → Teams</em> <strong>com uma Security Role atribuída</strong> — não apenas o grupo associado ao ambiente.</li>
+                    <li><strong>Grupos aninhados (nested) não são provisionados.</strong> O Microsoft Learn é explícito: <em>"Members of a nested security group… aren't pre-provisioned or automatically added to the environment."</em> Se os usuários estão no grupo por meio de outro grupo-membro, crie um <strong>Group Team específico para o grupo aninhado</strong>.</li>
+                    <li><strong>Membership Type é um filtro pass-through.</strong> Se o Group Team está como <code>Members</code> e o usuário é <code>Guest</code>, ele <strong>não flui</strong> para o team e não herda o papel. Verifique Members vs. Guests vs. Owners.</li>
+                    <li><strong>Licença Dataverse ausente ou não sincronizada.</strong> Sem licença válida o usuário não é provisionado mesmo estando no grupo. Reatribua a licença e force o sync (re-adicionar o usuário ao ambiente dispara a sincronização).</li>
+                    <li><strong>Tipo de grupo incorreto.</strong> Deve ser <strong>Security group</strong> (não Distribution list).</li>
+                </ul>
+            </div>
+
+            <div class="box box-success">
+                <div class="box-title">✅ Comportamento esperado após a correção</div>
+                <p>Com o <strong>Group Team + Security Role</strong> configurados, o acesso passa a ser <strong>just-in-time no primeiro sign-in</strong>, baseado na membership do grupo do Entra — sem necessidade de adicionar manualmente em <em>Users</em>. Ao remover o usuário do grupo, o acesso é revogado no próximo login.</p>
+            </div>
+
+            <div class="box box-info">
+                <div class="box-title">📐 Resumo da arquitetura de acesso</div>
+                <div class="table-wrap"><table>
+                    <thead><tr><th>Camada</th><th>Função</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Environment security group</strong> (config. do ambiente)</td><td>Restringe <strong>quem pode</strong> ser membro — <em>não</em> concede acesso</td></tr>
+                        <tr><td><strong>Dataverse Group Team + Security Role</strong></td><td><strong>Concede</strong> acesso/privilégios via grupo do Entra (JIT no login)</td></tr>
+                    </tbody>
+                </table></div>
+            </div>
+
+            <p style="font-size:.9em;opacity:.8">Referências: <a href="https://learn.microsoft.com/power-platform/admin/control-user-access" target="_blank">Control user access to environments with security groups</a> · <a href="https://learn.microsoft.com/power-platform/admin/manage-group-teams" target="_blank">Manage group teams</a> · <a href="https://learn.microsoft.com/power-platform/admin/troubleshoot-user-access" target="_blank">Troubleshoot user access problems</a></p>
+
             <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
         </div>
     </div>
