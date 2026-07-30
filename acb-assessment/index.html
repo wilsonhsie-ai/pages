@@ -644,7 +644,7 @@ function ring(pct){
 
 /* ---------- SVG: radar ---------- */
 function radar(){
-  const cx=175, cy=165, R=110, n=DIMS.length;
+  const cx=280, cy=170, R=110, n=DIMS.length;
   const pt=(i,rad)=>{
     const a = -Math.PI/2 + i*2*Math.PI/n;
     return [cx+Math.cos(a)*rad, cy+Math.sin(a)*rad];
@@ -671,7 +671,8 @@ function radar(){
     g += `<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anchor}" font-size="12.5"
       font-weight="600" fill="var(--cp-text-muted)" font-family="Segoe UI, sans-serif">${esc(d.name)}</text>`;
   });
-  return `<svg width="350" height="330" viewBox="0 0 350 330" role="img"
+  return `<svg viewBox="0 0 560 340" width="560" height="340"
+    style="width:100%;max-width:560px;height:auto" role="img"
     aria-label="Gráfico radar com a pontuação das cinco dimensões">${g}</svg>`;
 }
 
