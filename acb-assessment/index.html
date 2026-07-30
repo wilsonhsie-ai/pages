@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assessment de Maturidade em Governança de IA — Fórum ACB 2026</title>
+<meta name="description" content="Diagnóstico rápido de maturidade em governança de Inteligência Artificial para conselheiros de administração. 3º Fórum de Governança — Associação de Conselheiros do Brasil.">
+<meta name="robots" content="noindex">
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("scoutTheme");
+    const theme = param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+:root{
+  color-scheme: light;
+  --cp-bg:#f4f6fb;
+  --cp-bg-elevated:#ffffff;
+  --cp-surface:#ffffff;
+  --cp-surface-soft:#f4f6fb;
+  --cp-border:#d5dcec;
+  --cp-border-strong:#8193be;
+  --cp-text:#0b1220;
+  --cp-text-muted:#6b7280;
+  --cp-text-soft:#26386b;
+  --cp-accent:#012c8f;
+  --cp-accent-hover:#011f66;
+  --cp-accent-soft:rgba(1,44,143,.08);
+  --cp-accent-fg:#ffffff;
+  --cp-gold:#ffcb09;
+  --cp-gold-fg:#0b1220;
+  --cp-success:#16a34a;
+  --cp-danger:#dc2626;
+  --cp-warning:#f0a500;
+  --cp-link:#012c8f;
+  --cp-shadow:0 0 2px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.14);
+  --cp-shadow-lg:0 18px 48px rgba(11,18,32,.12);
+  --cp-overlay:rgba(255,255,255,.8);
+  --cp-panel:rgba(255,255,255,.86);
+  --cp-panel-strong:rgba(255,255,255,.96);
+  --cp-sheen:rgba(255,255,255,.55);
+  --cp-highlight:rgba(1,44,143,.12);
+  --cp-track:#e3e8f4;
+}
+html[data-theme="dark"]{
+  color-scheme: dark;
+  --cp-bg:#010e22;
+  --cp-bg-elevated:#0b1220;
+  --cp-surface:#0b1220;
+  --cp-surface-soft:#14203c;
+  --cp-border:#26386b;
+  --cp-border-strong:#8193be;
+  --cp-text:#e9eef8;
+  --cp-text-muted:#a9b6d8;
+  --cp-text-soft:#c3cee8;
+  --cp-accent:#ffcb09;
+  --cp-accent-hover:#e6b708;
+  --cp-accent-soft:rgba(255,203,9,.12);
+  --cp-accent-fg:#0b1220;
+  --cp-gold:#ffcb09;
+  --cp-gold-fg:#0b1220;
+  --cp-success:#4ade80;
+  --cp-danger:#f87171;
+  --cp-warning:#fbbf24;
+  --cp-link:#ffcb09;
+  --cp-shadow:0 0 2px rgba(0,0,0,.3), 0 1px 2px rgba(0,0,0,.35);
+  --cp-shadow-lg:0 18px 48px rgba(0,0,0,.4);
+  --cp-overlay:rgba(11,18,32,.88);
+  --cp-panel:rgba(11,18,32,.72);
+  --cp-panel-strong:rgba(11,18,32,.96);
+  --cp-sheen:rgba(255,255,255,.04);
+  --cp-highlight:rgba(255,203,9,.12);
+  --cp-track:#14203c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--cp-bg);
+  color:var(--cp-text);
+  font-family:"Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:880px;margin:0 auto;padding:24px 20px 72px}
+.card{
+  background:var(--cp-surface);
+  border:1px solid var(--cp-border);
+  border-radius:16px;
+  box-shadow:var(--cp-shadow);
+  padding:28px;
+}
+h1,h2,h3{line-height:1.25;margin:0}
+h1{font-size:1.85rem;font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.3rem;font-weight:700}
+h3{font-size:1.02rem;font-weight:700}
+p{margin:.6rem 0}
+.kicker{
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cp-accent);margin-bottom:.5rem;
+}
+.muted{color:var(--cp-text-muted)}
+.small{font-size:.85rem}
+.tiny{font-size:.78rem}
+
+/* ---------- brand header ---------- */
+.brandbar{
+  background:var(--cp-bg-elevated);
+  border-bottom:1px solid var(--cp-border);
+}
+.brandbar-in{
+  max-width:880px;margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.acb-mark{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:700;letter-spacing:.06em;font-size:.9rem;
+}
+.acb-mark .sq{
+  width:26px;height:26px;border-radius:6px;background:var(--cp-gold);
+  display:inline-block;position:relative;flex:none;
+}
+.acb-mark .sq::after{
+  content:"";position:absolute;left:6px;top:11px;width:14px;height:4px;
+  background:var(--cp-gold-fg);border-radius:2px;
+}
+.acb-div{width:1px;height:22px;background:var(--cp-border)}
+.acb-year{color:var(--cp-gold);font-weight:700}
+.brand-note{margin-left:auto;font-size:.78rem;color:var(--cp-text-muted)}
+
+/* ---------- buttons ---------- */
+.btn{
+  appearance:none;border:1px solid transparent;cursor:pointer;
+  font-family:inherit;font-size:.95rem;font-weight:600;
+  padding:.72rem 1.35rem;border-radius:.625rem;
+  transition:background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+.btn-primary{background:var(--cp-accent);color:var(--cp-accent-fg)}
+.btn-primary:hover{background:var(--cp-accent-hover)}
+.btn-ghost{background:transparent;color:var(--cp-text);border-color:var(--cp-border-strong)}
+.btn-ghost:hover{background:var(--cp-accent-soft)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
+
+/* ---------- intro ---------- */
+.lead{font-size:1.05rem;color:var(--cp-text-soft)}
+.pill{
+  display:inline-block;background:var(--cp-accent-soft);color:var(--cp-accent);
+  border-radius:999px;padding:.28rem .8rem;font-size:.78rem;font-weight:700;
+}
+.dimlist{list-style:none;padding:0;margin:18px 0 0}
+.dimlist li{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:11px 0;border-top:1px solid var(--cp-border);
+}
+.dimlist li:first-child{border-top:none}
+.dimnum{
+  flex:none;width:26px;height:26px;border-radius:999px;
+  background:var(--cp-accent);color:var(--cp-accent-fg);
+  font-size:.78rem;font-weight:700;display:grid;place-items:center;margin-top:2px;
+}
+.privacy{
+  margin-top:22px;padding:14px 16px;border-radius:.625rem;
+  background:var(--cp-surface-soft);border:1px solid var(--cp-border);
+  font-size:.85rem;color:var(--cp-text-muted);
+}
+.privacy b{color:var(--cp-text)}
+
+/* ---------- progress ---------- */
+.progress-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.track{height:6px;background:var(--cp-track);border-radius:999px;overflow:hidden}
+.bar{height:100%;background:var(--cp-accent);width:0;transition:width .3s ease;border-radius:999px}
+
+/* ---------- questions ---------- */
+.q{padding:22px 0;border-top:1px solid var(--cp-border)}
+.q:first-of-type{border-top:none;padding-top:6px}
+.qtext{font-weight:600;margin-bottom:12px}
+.opts{display:grid;gap:8px}
+.opt{
+  display:flex;gap:11px;align-items:flex-start;cursor:pointer;
+  border:1px solid var(--cp-border);border-radius:.625rem;
+  padding:11px 13px;background:var(--cp-surface);
+  transition:border-color .15s ease, background .15s ease;
+}
+.opt:hover{border-color:var(--cp-border-strong);background:var(--cp-accent-soft)}
+.opt input{margin:3px 0 0;accent-color:var(--cp-accent);flex:none}
+.opt.sel{border-color:var(--cp-accent);background:var(--cp-accent-soft)}
+.opt span{font-size:.93rem}
+.err{color:var(--cp-danger);font-size:.85rem;margin-top:14px;display:none}
+.err.show{display:block}
+
+/* ---------- results ---------- */
+.score-hero{
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+  background:var(--cp-bg-elevated);border:1px solid var(--cp-border);
+  border-radius:16px;padding:24px;margin-bottom:22px;
+}
+.score-ring{flex:none}
+.level-badge{
+  display:inline-block;padding:.3rem .85rem;border-radius:999px;
+  font-size:.8rem;font-weight:700;background:var(--cp-gold);color:var(--cp-gold-fg);
+}
+.radar-wrap{display:grid;place-items:center;padding:8px 0 4px}
+.dimcard{
+  border:1px solid var(--cp-border);border-radius:.625rem;
+  padding:18px;margin-top:14px;background:var(--cp-surface);
+}
+.dimhead{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.dimscore{font-weight:700;color:var(--cp-accent);white-space:nowrap}
+.minibar{height:5px;background:var(--cp-track);border-radius:999px;margin:10px 0 12px;overflow:hidden}
+.minibar>i{display:block;height:100%;background:var(--cp-accent);border-radius:999px}
+.steps{margin:10px 0 0;padding-left:20px}
+.steps li{margin:5px 0;font-size:.92rem}
+.boardq{
+  border-left:3px solid var(--cp-gold);padding:10px 0 10px 14px;margin:12px 0;
+  font-style:italic;color:var(--cp-text-soft);
+}
+.section-gap{margin-top:30px}
+.cta{
+  background:var(--cp-bg-elevated);border:1px solid var(--cp-border);
+  border-radius:16px;padding:22px;margin-top:26px;
+}
+footer{margin-top:34px;text-align:center;font-size:.78rem;color:var(--cp-text-muted)}
+.hidden{display:none}
+
+@media (max-width:640px){
+  .wrap{padding:18px 14px 56px}
+  .card{padding:20px}
+  h1{font-size:1.45rem}
+  .score-hero{gap:18px;padding:18px}
+}
+@media print{
+  .no-print{display:none !important}
+  body{background:#fff}
+  .card,.cta,.score-hero,.dimcard{box-shadow:none;border-color:#ccc}
+  .wrap{max-width:100%;padding:0}
+}
+</style>
+</head>
+<body>
+
+<div class="brandbar no-print">
+  <div class="brandbar-in">
+    <span class="acb-mark"><span class="sq"></span> FÓRUM ACB</span>
+    <span class="acb-div"></span>
+    <span class="acb-year">2026</span>
+    <span class="brand-note">3º Fórum de Governança</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro" class="card">
+    <div class="kicker">Assessment de maturidade</div>
+    <h1>Sua empresa está usando IA — ou colhendo resultado com IA?</h1>
+    <p class="lead">Um diagnóstico rápido, na ótica do conselho de administração. Ao final, você recebe o seu estado atual e os próximos passos recomendados para cada dimensão.</p>
+
+    <p><span class="pill">15 perguntas</span> &nbsp; <span class="pill">≈ 4 minutos</span> &nbsp; <span class="pill">Resultado na hora</span></p>
+
+    <h3 style="margin-top:22px">As 5 dimensões avaliadas</h3>
+    <ul class="dimlist" id="introDims"></ul>
+
+    <div class="privacy">
+      <b>Privacidade.</b> Este questionário é <b>100% anônimo</b>. Nenhuma resposta é enviada, coletada ou armazenada — todo o cálculo acontece dentro do seu navegador. Não pedimos nome, e-mail ou empresa. Ao fechar a página, os dados desaparecem.
+    </div>
+
+    <div class="btnrow">
+      <button class="btn btn-primary" id="startBtn">Começar o assessment</button>
+      <span class="tiny muted">Responda pensando na sua organização hoje, não no plano futuro.</span>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="quiz" class="card hidden">
+    <div class="progress-head">
+      <div class="kicker" id="stepKicker" style="margin:0">Dimensão 1 de 5</div>
+      <div class="tiny muted" id="stepCount">0 de 15 respondidas</div>
+    </div>
+    <div class="track"><div class="bar" id="bar"></div></div>
+
+    <h2 id="stepTitle" style="margin-top:20px">—</h2>
+    <p class="muted small" id="stepDesc">—</p>
+
+    <div id="questions"></div>
+
+    <div class="err" id="err">Por gentileza, responda todas as perguntas desta etapa para continuar.</div>
+
+    <div class="btnrow">
+      <button class="btn btn-ghost" id="prevBtn">Voltar</button>
+      <button class="btn btn-primary" id="nextBtn">Continuar</button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section id="result" class="hidden">
+    <div class="card">
+      <div class="kicker">Seu resultado</div>
+      <h1 id="resTitle">—</h1>
+      <p class="lead" id="resSummary">—</p>
+
+      <div class="score-hero">
+        <div class="score-ring" id="ring"></div>
+        <div style="flex:1;min-width:220px">
+          <span class="level-badge" id="resBadge">—</span>
+          <p class="small" style="margin-top:10px" id="resLevelDesc">—</p>
+        </div>
+      </div>
+
+      <h2>Onde você está, dimensão a dimensão</h2>
+      <div class="radar-wrap" id="radar"></div>
+      <div id="dims"></div>
+    </div>
+
+    <div class="card section-gap">
+      <div class="kicker">Prioridade</div>
+      <h2>Por onde começar</h2>
+      <p class="muted small">Suas duas dimensões mais frágeis — é onde o conselho gera mais impacto no próximo trimestre.</p>
+      <div id="priority"></div>
+    </div>
+
+    <div class="card section-gap">
+      <div class="kicker">Leve para a próxima reunião</div>
+      <h2>5 perguntas de governança de IA para o seu conselho</h2>
+      <div id="boardqs"></div>
+    </div>
+
+    <div class="cta no-print">
+      <h3>Guarde o seu resultado</h3>
+      <p class="small muted">Nada fica salvo automaticamente. Use os botões abaixo para levar o diagnóstico com você.</p>
+      <div class="btnrow">
+        <button class="btn btn-primary" id="printBtn">Salvar em PDF / imprimir</button>
+        <button class="btn btn-ghost" id="copyBtn">Copiar resumo</button>
+        <button class="btn btn-ghost" id="againBtn">Refazer</button>
+      </div>
+    </div>
+
+    <footer>
+      3º Fórum de Governança · Associação de Conselheiros do Brasil · 19 de agosto de 2026<br>
+      Conteúdo por Wilson Hsie — AI Workforce Solution Specialist, Microsoft Brasil
+    </footer>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   MODELO DO ASSESSMENT
+   ============================================================ */
+const DIMS = [
+  {
+    id:"valor",
+    name:"Valor",
+    short:"Onde a IA gera valor real",
+    desc:"Se o conselho não vê o retorno em números, a empresa provavelmente está 'usando por usar'.",
+    boardq:"Já sabemos, com dados, onde a IA gera valor real na nossa operação — ou ainda estamos “usando por usar”?",
+    qs:[
+      {t:"O conselho recebe informação sobre o retorno das iniciativas de IA?",
+       o:["Não. IA não é pauta do conselho.",
+          "Recebemos relatos qualitativos, sem números.",
+          "Recebemos métricas de alguns projetos, sem padrão.",
+          "Há KPI de valor padronizado, reportado periodicamente."]},
+      {t:"Como os casos de uso de IA foram escolhidos?",
+       o:["Iniciativas dispersas, por interesse de cada área.",
+          "A partir de oportunidades sugeridas por fornecedores.",
+          "Priorização dentro de cada área, sem visão corporativa.",
+          "Priorização corporativa por valor e volume, aprovada pela gestão."]},
+      {t:"Se perguntarem “o que mudou no nosso resultado por causa da IA?”, a empresa consegue responder?",
+       o:["Não conseguiríamos responder.",
+          "Apenas com exemplos pontuais e anedóticos.",
+          "Em alguns processos, com dados parciais.",
+          "Sim, com linha de base registrada e ganho medido."]}
+    ],
+    recs:[
+      ["Escolher 1–2 processos de alto valor e alto volume para um piloto com meta de negócio.",
+       "Definir o KPI de valor (tempo, custo ou receita) ANTES de iniciar.",
+       "Registrar a linha de base atual — sem baseline não há ganho comprovável."],
+      ["Padronizar como o retorno é medido entre as iniciativas.",
+       "Levar ao conselho um relatório único de valor, e não relatos soltos por área.",
+       "Descontinuar pilotos que seguem sem KPI definido."],
+      ["Consolidar os indicadores em um painel corporativo revisado trimestralmente.",
+       "Ligar o ganho de IA ao orçamento e ao planejamento das áreas.",
+       "Expandir do piloto ao processo ponta a ponta onde o ganho já está comprovado."],
+      ["Manter o KPI de valor como item recorrente da pauta do conselho.",
+       "Auditar periodicamente a qualidade dos números reportados.",
+       "Usar o ganho comprovado para financiar a próxima onda de casos de uso."]
+    ]
+  },
+  {
+    id:"maturidade",
+    name:"Maturidade",
+    short:"Frente às empresas de fronteira",
+    desc:"A comparação relevante não é com o seu passado — é com quem já colhe resultado no seu setor.",
+    boardq:"Como está nossa maturidade frente às empresas de fronteira do nosso setor?",
+    qs:[
+      {t:"Como a empresa se compara às líderes do seu setor no uso de IA?",
+       o:["Não sabemos; nunca nos comparamos.",
+          "Percebemos que estamos atrás.",
+          "Estamos na média do setor.",
+          "Estamos entre as referências — e medimos isso."]},
+      {t:"Em que estágio está o uso de IA na operação?",
+       o:["Uso individual e informal, sem controle.",
+          "IA como assistente, tarefa a tarefa.",
+          "Times combinam pessoas e agentes em processos definidos.",
+          "Processos ponta a ponta operados por agentes, com supervisão humana."]},
+      {t:"Os dados e sistemas estão prontos para IA em escala?",
+       o:["Dados fragmentados e sem governança.",
+          "Iniciamos a organização das bases.",
+          "Bases principais organizadas e acessíveis.",
+          "Dados, integrações e permissões prontos para escalar."]}
+    ],
+    recs:[
+      ["Fazer um diagnóstico de prontidão de dados, segurança e licenças.",
+       "Comparar-se com 2–3 referências declaradas do seu setor.",
+       "Mapear o uso informal de IA que já acontece hoje sem controle."],
+      ["Sair do uso individual para processos definidos, com dono nomeado.",
+       "Organizar as bases críticas do caso de uso prioritário.",
+       "Estabelecer um ciclo de avaliação de maturidade semestral."],
+      ["Levar os times-piloto de “humano + agentes” para outras áreas.",
+       "Tratar dados, integrações e permissões como pré-requisito de escala.",
+       "Definir metas de maturidade por área para os próximos 12 meses."],
+      ["Sustentar a posição com revisão contínua de arquitetura e dados.",
+       "Usar a maturidade como diferencial competitivo declarado ao mercado.",
+       "Monitorar os movimentos da fronteira do setor para não perder a dianteira."]
+    ]
+  },
+  {
+    id:"risco",
+    name:"Risco e governança",
+    short:"Prontidão para escalar com segurança",
+    desc:"Supervisão de risco é metade do trabalho do conselho — não um apêndice ao fim da jornada.",
+    boardq:"Temos governança, gestão de risco e segurança de dados para usar IA em escala?",
+    qs:[
+      {t:"Existe uma política formal de uso de IA aprovada?",
+       o:["Não existe.",
+          "Em discussão, ou apenas orientações informais.",
+          "Política aprovada, com aplicação parcial.",
+          "Política aprovada, monitorada e revisada periodicamente."]},
+      {t:"Quem responde pelo risco de IA na estrutura de governança?",
+       o:["Ninguém definido.",
+          "A área de TI, informalmente.",
+          "Comitê executivo, com reporte eventual ao conselho.",
+          "Responsabilidade formal, com reporte recorrente ao conselho ou comitê de auditoria."]},
+      {t:"A empresa avaliou sua exposição a LGPD, cibersegurança, propriedade intelectual e ao Marco Legal da IA?",
+       o:["Não avaliamos.",
+          "Avaliação inicial, restrita à LGPD.",
+          "Avaliamos parte dos temas.",
+          "Avaliação completa, com plano de adequação e revisão de fornecedores."]}
+    ],
+    recs:[
+      ["Aprovar uma política de uso de IA — este é o item mais urgente.",
+       "Definir formalmente quem responde pelo risco de IA.",
+       "Levantar a exposição inicial a LGPD e cibersegurança no uso de IA."],
+      ["Levar a política aprovada à aplicação efetiva, com monitoramento.",
+       "Estender a avaliação a propriedade intelectual e risco de terceiros.",
+       "Acompanhar o Marco Legal da IA (PL 2338/2023) e preparar a adequação."],
+      ["Estabelecer reporte recorrente de risco de IA ao conselho ou comitê de auditoria.",
+       "Incluir cláusulas específicas de IA nos contratos com fornecedores.",
+       "Testar a resposta a incidentes que envolvam agentes."],
+      ["Revisar a política a cada mudança regulatória relevante.",
+       "Submeter os controles de IA a auditoria independente.",
+       "Tratar a supervisão de risco de IA como pauta permanente, não pontual."]
+    ]
+  },
+  {
+    id:"lideranca",
+    name:"Liderança e pessoas",
+    short:"Preparo para coordenar agentes",
+    desc:"A vantagem competitiva não é a ferramenta — é a capacidade das pessoas de orquestrá-la.",
+    boardq:"Estamos preparando nossas lideranças para coordenar agentes — não apenas pessoas?",
+    qs:[
+      {t:"Existe capacitação estruturada em IA para as lideranças?",
+       o:["Não há.",
+          "Ações pontuais e voluntárias.",
+          "Trilha para alguns times ou áreas.",
+          "Trilha corporativa para líderes, com metas de adoção."]},
+      {t:"Os líderes já coordenam agentes digitais, e não apenas pessoas?",
+       o:["Não, e o tema não é discutido.",
+          "Alguns experimentam individualmente.",
+          "Times-piloto já operam com agentes.",
+          "Coordenar agentes já faz parte do papel do líder."]},
+      {t:"O desenho de cargos e processos foi revisto por causa da IA?",
+       o:["Não.",
+          "Discussão inicial dentro do RH.",
+          "Revisão feita em algumas áreas.",
+          "Revisão estruturada de processos, papéis e metas."]}
+    ],
+    recs:[
+      ["Iniciar a capacitação das lideranças antes de ampliar ferramentas.",
+       "Incluir “coordenar agentes” na descrição do papel do líder.",
+       "Identificar líderes patrocinadores para os primeiros pilotos."],
+      ["Transformar ações voluntárias em trilha estruturada.",
+       "Definir metas de adoção por liderança, não apenas por usuário.",
+       "Formar um grupo de líderes-piloto operando com agentes."],
+      ["Levar a trilha de líderes de agentes para toda a organização.",
+       "Rever desenho de cargos, papéis e metas impactados por agentes.",
+       "Reconhecer e promover quem entrega resultado com agentes."],
+      ["Manter atualização contínua diante da evolução dos modelos.",
+       "Usar a competência instalada como atrativo de talentos.",
+       "Medir a qualidade da supervisão humana, e não só a produtividade."]
+    ]
+  },
+  {
+    id:"plano",
+    name:"Estratégia e plano",
+    short:"O plano de 12–24 meses",
+    desc:"Toda decisão de não agir também tem custo — ele só costuma não estar calculado.",
+    boardq:"Qual é o nosso plano de 12–24 meses — e quanto custa NÃO agir?",
+    qs:[
+      {t:"Existe um plano de IA de 12–24 meses aprovado?",
+       o:["Não existe plano.",
+          "Há intenções, sem plano formal.",
+          "Plano aprovado para algumas áreas.",
+          "Plano corporativo aprovado, com orçamento e marcos."]},
+      {t:"A empresa calculou o custo de NÃO agir?",
+       o:["Nunca discutimos isso.",
+          "Discussão apenas qualitativa.",
+          "Estimativa parcial, em alguns cenários.",
+          "Cenários quantificados de perda de competitividade."]},
+      {t:"Com que frequência a IA entra na pauta do conselho?",
+       o:["Nunca.",
+          "Somente quando alguém traz o tema.",
+          "Esporadicamente, uma ou duas vezes por ano.",
+          "Pauta recorrente, acompanhada por indicadores."]}
+    ],
+    recs:[
+      ["Construir um plano de 12–24 meses com escopo, orçamento e marcos.",
+       "Quantificar o custo de NÃO agir em pelo menos um cenário.",
+       "Colocar IA na pauta formal do conselho."],
+      ["Converter intenções em plano aprovado, com responsáveis e prazos.",
+       "Modelar cenários de perda de competitividade.",
+       "Definir a periodicidade do reporte de IA ao conselho."],
+      ["Integrar o plano de IA ao planejamento estratégico e ao orçamento.",
+       "Revisar o plano semestralmente frente ao movimento do setor.",
+       "Vincular remuneração variável a marcos de transformação."],
+      ["Manter IA como pauta recorrente, com indicadores, no conselho.",
+       "Antecipar efeitos de segunda ordem no consumo e no modelo de negócio.",
+       "Revisar o plano diante de mudanças regulatórias e tecnológicas."]
+    ]
+  }
+];
+
+const LEVELS = [
+  {min:0,  max:25,  name:"Exploratória",
+   desc:"A IA ainda acontece de forma dispersa e sem governança. O conselho tem pouca visibilidade e o risco corre solto. O ganho rápido está em escolher foco e estabelecer as regras do jogo.",
+   summary:"Sua organização está no início da jornada: há uso de IA, mas ainda sem direção, medição ou governança formal."},
+  {min:26, max:50, name:"Estruturando",
+   desc:"Já existem iniciativas e alguma organização, mas a prática ainda é fragmentada entre áreas. O desafio agora é padronizar medição, formalizar responsabilidades e priorizar corporativamente.",
+   summary:"Sua organização já saiu do improviso, mas ainda opera por iniciativas isoladas — falta consolidar governança e medição."},
+  {min:51, max:75, name:"Escalando",
+   desc:"A empresa já combina pessoas e agentes em processos definidos e mede parte do valor. O passo seguinte é escalar com segurança e transformar a competência em vantagem sustentada.",
+   summary:"Sua organização já opera com IA de forma estruturada e está pronta para escalar — com atenção a risco e liderança."},
+  {min:76, max:100, name:"Empresa de fronteira",
+   desc:"A organização já colhe resultado mensurável com IA, com governança e liderança preparadas. O risco agora é a acomodação: manter a dianteira exige revisão contínua.",
+   summary:"Sua organização está entre as que já colhem resultado com IA — o desafio passa a ser sustentar a liderança."}
+];
+
+const answers = {};
+let step = 0;
+const TOTAL_Q = DIMS.reduce((a,d)=>a+d.qs.length,0);
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const levelOf = pct => LEVELS.find(l => pct >= l.min && pct <= l.max) || LEVELS[0];
+const answeredCount = () => Object.keys(answers).length;
+
+function dimPct(d){
+  const max = d.qs.length * 3;
+  let sum = 0;
+  d.qs.forEach((q,i) => { const k = d.id+"_"+i; if(answers[k] !== undefined) sum += answers[k]; });
+  return Math.round((sum/max)*100);
+}
+function overallPct(){
+  return Math.round(DIMS.reduce((a,d)=>a+dimPct(d),0)/DIMS.length);
+}
+
+/* ---------- intro ---------- */
+$("#introDims").innerHTML = DIMS.map((d,i)=>`
+  <li><span class="dimnum">${i+1}</span>
+    <div><b>${esc(d.name)}</b> — <span class="muted">${esc(d.short)}</span></div>
+  </li>`).join("");
+
+/* ---------- quiz render ---------- */
+function renderStep(){
+  const d = DIMS[step];
+  $("#stepKicker").textContent = `Dimensão ${step+1} de ${DIMS.length} · ${d.name}`;
+  $("#stepTitle").textContent = d.short;
+  $("#stepDesc").textContent = d.desc;
+  $("#stepCount").textContent = `${answeredCount()} de ${TOTAL_Q} respondidas`;
+  $("#bar").style.width = (answeredCount()/TOTAL_Q*100) + "%";
+
+  $("#questions").innerHTML = d.qs.map((q,qi)=>{
+    const key = d.id+"_"+qi;
+    return `<div class="q">
+      <div class="qtext">${qi+1}. ${esc(q.t)}</div>
+      <div class="opts">
+        ${q.o.map((opt,oi)=>`
+          <label class="opt ${answers[key]===oi?'sel':''}" data-key="${key}" data-val="${oi}">
+            <input type="radio" name="${key}" value="${oi}" ${answers[key]===oi?'checked':''}>
+            <span>${esc(opt)}</span>
+          </label>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+
+  $("#questions").querySelectorAll(".opt").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const key = el.dataset.key;
+      answers[key] = Number(el.dataset.val);
+      el.parentElement.querySelectorAll(".opt").forEach(s=>s.classList.remove("sel"));
+      el.classList.add("sel");
+      el.querySelector("input").checked = true;
+      $("#err").classList.remove("show");
+      $("#stepCount").textContent = `${answeredCount()} de ${TOTAL_Q} respondidas`;
+      $("#bar").style.width = (answeredCount()/TOTAL_Q*100) + "%";
+    });
+  });
+
+  $("#prevBtn").style.visibility = step === 0 ? "hidden" : "visible";
+  $("#nextBtn").textContent = step === DIMS.length-1 ? "Ver meu resultado" : "Continuar";
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function stepComplete(){
+  return DIMS[step].qs.every((q,i)=> answers[DIMS[step].id+"_"+i] !== undefined);
+}
+
+/* ---------- SVG: ring ---------- */
+function ring(pct){
+  const r=52, c=2*Math.PI*r, off=c*(1-pct/100);
+  return `<svg width="132" height="132" viewBox="0 0 132 132" role="img" aria-label="Pontuação ${pct} de 100">
+    <circle cx="66" cy="66" r="${r}" fill="none" stroke="var(--cp-track)" stroke-width="11"/>
+    <circle cx="66" cy="66" r="${r}" fill="none" stroke="var(--cp-accent)" stroke-width="11"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"
+      transform="rotate(-90 66 66)"/>
+    <text x="66" y="62" text-anchor="middle" font-size="30" font-weight="700"
+      fill="var(--cp-text)" font-family="Segoe UI, sans-serif">${pct}</text>
+    <text x="66" y="83" text-anchor="middle" font-size="12"
+      fill="var(--cp-text-muted)" font-family="Segoe UI, sans-serif">de 100</text>
+  </svg>`;
+}
+
+/* ---------- SVG: radar ---------- */
+function radar(){
+  const cx=175, cy=165, R=110, n=DIMS.length;
+  const pt=(i,rad)=>{
+    const a = -Math.PI/2 + i*2*Math.PI/n;
+    return [cx+Math.cos(a)*rad, cy+Math.sin(a)*rad];
+  };
+  let g="";
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const p = DIMS.map((_,i)=>pt(i,R*f).map(v=>v.toFixed(1)).join(",")).join(" ");
+    g += `<polygon points="${p}" fill="none" stroke="var(--cp-border)" stroke-width="1"/>`;
+  });
+  DIMS.forEach((_,i)=>{
+    const [x,y]=pt(i,R);
+    g += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--cp-border)" stroke-width="1"/>`;
+  });
+  const poly = DIMS.map((d,i)=>pt(i, R*Math.max(dimPct(d),3)/100).map(v=>v.toFixed(1)).join(",")).join(" ");
+  g += `<polygon points="${poly}" fill="var(--cp-highlight)" stroke="var(--cp-accent)" stroke-width="2.5"/>`;
+  DIMS.forEach((d,i)=>{
+    const [x,y]=pt(i, R*Math.max(dimPct(d),3)/100);
+    g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="var(--cp-accent)"/>`;
+  });
+  DIMS.forEach((d,i)=>{
+    const [x,y]=pt(i,R+26);
+    let anchor="middle";
+    if(x>cx+12) anchor="start"; else if(x<cx-12) anchor="end";
+    g += `<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anchor}" font-size="12.5"
+      font-weight="600" fill="var(--cp-text-muted)" font-family="Segoe UI, sans-serif">${esc(d.name)}</text>`;
+  });
+  return `<svg width="350" height="330" viewBox="0 0 350 330" role="img"
+    aria-label="Gráfico radar com a pontuação das cinco dimensões">${g}</svg>`;
+}
+
+/* ---------- results ---------- */
+function renderResult(){
+  const pct = overallPct();
+  const lv = levelOf(pct);
+  const lvIdx = LEVELS.indexOf(lv);
+
+  $("#resTitle").textContent = `Nível ${lvIdx+1} de 4 — ${lv.name}`;
+  $("#resSummary").textContent = lv.summary;
+  $("#ring").innerHTML = ring(pct);
+  $("#resBadge").textContent = lv.name;
+  $("#resLevelDesc").textContent = lv.desc;
+  $("#radar").innerHTML = radar();
+
+  $("#dims").innerHTML = DIMS.map(d=>{
+    const p = dimPct(d), l = levelOf(p), li = LEVELS.indexOf(l);
+    return `<div class="dimcard">
+      <div class="dimhead">
+        <h3>${esc(d.name)}</h3>
+        <span class="dimscore">${p}/100 · ${esc(l.name)}</span>
+      </div>
+      <div class="minibar"><i style="width:${Math.max(p,2)}%"></i></div>
+      <p class="small muted" style="margin:0">${esc(d.desc)}</p>
+      <p class="small" style="margin:.7rem 0 0"><b>Próximos passos</b></p>
+      <ul class="steps">${d.recs[li].map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
+    </div>`;
+  }).join("");
+
+  const weakest = [...DIMS].sort((a,b)=>dimPct(a)-dimPct(b)).slice(0,2);
+  $("#priority").innerHTML = weakest.map((d,i)=>{
+    const p=dimPct(d), li=LEVELS.indexOf(levelOf(p));
+    return `<div class="dimcard">
+      <div class="dimhead">
+        <h3>${i+1}º · ${esc(d.name)}</h3>
+        <span class="dimscore">${p}/100</span>
+      </div>
+      <div class="boardq">${esc(d.boardq)}</div>
+      <ul class="steps">${d.recs[li].map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
+    </div>`;
+  }).join("");
+
+  $("#boardqs").innerHTML = DIMS.map((d,i)=>
+    `<div class="boardq"><b>${i+1}.</b> ${esc(d.boardq)}
+      <div class="tiny muted" style="font-style:normal;margin-top:4px">
+        ${esc(d.name)} — sua pontuação: ${dimPct(d)}/100
+      </div>
+    </div>`).join("");
+
+  $("#quiz").classList.add("hidden");
+  $("#result").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function summaryText(){
+  const pct=overallPct(), lv=levelOf(pct);
+  let t = `ASSESSMENT DE MATURIDADE EM GOVERNANÇA DE IA\n`;
+  t += `3º Fórum de Governança — ACBrasil, 19/ago/2026\n\n`;
+  t += `RESULTADO GERAL: ${pct}/100 — Nível ${LEVELS.indexOf(lv)+1} de 4 (${lv.name})\n${lv.summary}\n\n`;
+  DIMS.forEach(d=>{
+    const p=dimPct(d), li=LEVELS.indexOf(levelOf(p));
+    t += `— ${d.name.toUpperCase()}: ${p}/100 (${LEVELS[li].name})\n`;
+    d.recs[li].forEach(r=> t += `   • ${r}\n`);
+    t += `\n`;
+  });
+  t += `PERGUNTAS PARA LEVAR AO CONSELHO\n`;
+  DIMS.forEach((d,i)=> t += `${i+1}. ${d.boardq}\n`);
+  return t;
+}
+
+/* ---------- events ---------- */
+$("#startBtn").addEventListener("click", ()=>{
+  $("#intro").classList.add("hidden");
+  $("#quiz").classList.remove("hidden");
+  step = 0; renderStep();
+});
+$("#nextBtn").addEventListener("click", ()=>{
+  if(!stepComplete()){ $("#err").classList.add("show"); return; }
+  if(step === DIMS.length-1){ renderResult(); return; }
+  step++; renderStep();
+});
+$("#prevBtn").addEventListener("click", ()=>{
+  if(step>0){ step--; renderStep(); }
+});
+$("#printBtn").addEventListener("click", ()=> window.print());
+$("#againBtn").addEventListener("click", ()=>{
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  $("#result").classList.add("hidden");
+  $("#intro").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+$("#copyBtn").addEventListener("click", async ()=>{
+  const btn=$("#copyBtn"), old=btn.textContent;
+  try{
+    await navigator.clipboard.writeText(summaryText());
+    btn.textContent="Copiado!";
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=summaryText(); document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); btn.textContent="Copiado!"; }
+    catch(_){ btn.textContent="Não foi possível copiar"; }
+    document.body.removeChild(ta);
+  }
+  setTimeout(()=>btn.textContent=old, 2000);
+});
+</script>
+</body>
+</html>
