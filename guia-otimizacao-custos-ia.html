@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Otimização de Custos de IA</title>    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pira-blue-dark: #002E6E;
+            --pira-blue: #0046A8;
+            --pira-blue-light: #3373C4;
+            --pira-sky: #E8F0FE;
+            --pira-white: #FFFFFF;
+            --pira-gray-50: #F8F9FA;
+            --pira-gray-100: #F1F3F5;
+            --pira-gray-200: #E9ECEF;
+            --pira-gray-600: #6C757D;
+            --pira-gray-800: #343A40;
+            --pira-green: #198754;
+            --pira-green-light: #D1E7DD;
+            --pira-orange: #FD7E14;
+            --pira-orange-light: #FFF3CD;
+            --pira-red: #DC3545;
+            --pira-red-light: #F8D7DA;
+            --pira-purple: #6F42C1;
+            --pira-purple-light: #E8DAFB;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0, 46, 110, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 46, 110, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: var(--pira-gray-50);
+            color: var(--pira-gray-800);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* ===== HEADER ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--pira-blue-dark) 0%, var(--pira-blue) 50%, var(--pira-blue-light) 100%);
+            color: white;
+            padding: 50px 40px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--pira-gray-50);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .hero-logo {
+            flex-shrink: 0;
+        }
+        .hero-logo img {
+            height: 80px;
+            filter: brightness(0) invert(1);
+        }
+        .hero-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* ===== NAV ===== */
+        .toc {
+            max-width: 1100px;
+            margin: -20px auto 40px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 30px 36px;
+            position: relative;
+            z-index: 10;
+        }
+        .toc h2 {
+            font-size: 1rem;
+            color: var(--pira-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+        }
+        .toc a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--pira-gray-800);
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+        .toc a:hover {
+            background: var(--pira-sky);
+            color: var(--pira-blue);
+        }
+        .toc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--pira-blue);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: var(--pira-blue);
+            color: white;
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .section-header .sec-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            opacity: 0.6;
+        }
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .section-body {
+            padding: 32px;
+        }
+
+        h3 {
+            color: var(--pira-blue);
+            font-size: 1.1rem;
+            margin: 28px 0 12px;
+            font-weight: 600;
+        }
+        h3:first-child { margin-top: 0; }
+
+        h4 {
+            color: var(--pira-blue-dark);
+            font-size: 0.95rem;
+            margin: 20px 0 8px;
+            font-weight: 600;
+        }
+
+        p { margin-bottom: 12px; }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding: 14px 16px 14px 56px;
+            margin-bottom: 10px;
+            background: var(--pira-gray-50);
+            border-radius: 8px;
+            border-left: 3px solid var(--pira-blue);
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 14px;
+            top: 14px;
+            width: 28px;
+            height: 28px;
+            background: var(--pira-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .steps li strong {
+            color: var(--pira-blue-dark);
+        }
+
+        /* Info boxes */
+        .box {
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-left: 4px solid;
+        }
+        .box-info {
+            background: var(--pira-sky);
+            border-color: var(--pira-blue);
+        }
+        .box-success {
+            background: var(--pira-green-light);
+            border-color: var(--pira-green);
+        }
+        .box-warning {
+            background: var(--pira-orange-light);
+            border-color: var(--pira-orange);
+        }
+        .box-danger {
+            background: var(--pira-red-light);
+            border-color: var(--pira-red);
+        }
+        .box-purple {
+            background: var(--pira-purple-light);
+            border-color: var(--pira-purple);
+        }
+        .box-title {
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        .box p:last-child { margin-bottom: 0; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+        thead th {
+            background: var(--pira-blue);
+            color: white;
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        thead th:first-child { border-radius: 8px 0 0 0; }
+        thead th:last-child { border-radius: 0 8px 0 0; }
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--pira-gray-200);
+            vertical-align: top;
+        }
+        tbody tr:nth-child(even) { background: var(--pira-gray-50); }
+        tbody tr:hover { background: var(--pira-sky); }
+
+        /* Comparison cards */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .compare-card {
+            border: 2px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .compare-card.recommended {
+            border-color: var(--pira-green);
+        }
+        .compare-card-header {
+            padding: 14px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .compare-card.recommended .compare-card-header {
+            background: var(--pira-green);
+            color: white;
+        }
+        .compare-card:not(.recommended) .compare-card-header {
+            background: var(--pira-gray-200);
+            color: var(--pira-gray-800);
+        }
+        .compare-card-body {
+            padding: 20px;
+        }
+        .compare-card-body ul {
+            list-style: none;
+            padding: 0;
+        }
+        .compare-card-body li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .compare-card-body li::before {
+            position: absolute;
+            left: 0;
+            top: 6px;
+        }
+        .compare-card.recommended li::before {
+            content: '✅';
+        }
+        .compare-card:not(.recommended) li::before {
+            content: '⚠️';
+        }
+
+        /* Diagram */
+        .diagram {
+            background: var(--pira-gray-50);
+            border: 1px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .diagram-box {
+            background: white;
+            border: 2px solid var(--pira-blue);
+            border-radius: 10px;
+            padding: 14px 22px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--pira-blue-dark);
+            min-width: 140px;
+        }
+        .diagram-box.highlight {
+            background: var(--pira-blue);
+            color: white;
+        }
+        .diagram-arrow {
+            font-size: 1.4rem;
+            color: var(--pira-blue-light);
+            font-weight: 700;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-blue { background: var(--pira-sky); color: var(--pira-blue); }
+        .badge-green { background: var(--pira-green-light); color: var(--pira-green); }
+        .badge-orange { background: var(--pira-orange-light); color: #B45309; }
+        .badge-red { background: var(--pira-red-light); color: var(--pira-red); }
+
+        /* Code */
+        code {
+            background: var(--pira-gray-100);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'Consolas', monospace;
+            color: var(--pira-blue-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--pira-blue-dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+        }
+        .footer strong {
+            color: white;
+        }
+
+        /* Responsive */
+        /* Responsive table wrapper */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 16px 0;
+        }
+        .table-wrap table {
+            margin: 0;
+            min-width: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner { flex-direction: column; text-align: center; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .diagram-flow { flex-direction: column; }
+            .diagram-arrow { transform: rotate(90deg); }
+            .section-body { padding: 16px; }
+            .toc { padding: 16px; }
+            .container { padding: 16px 10px; }
+            table { font-size: 0.82rem; }
+            thead th { padding: 8px 10px; font-size: 0.75rem; }
+            tbody td { padding: 8px 10px; }
+        }
+
+        /* Print */
+        @media print {
+            .hero { padding: 20px; }
+            .hero::after { display: none; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+            .toc { box-shadow: none; border: 1px solid #ddd; }
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+        .checklist li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            font-size: 0.92rem;
+        }
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 4px;
+            font-size: 1rem;
+        }
+
+        /* Governance zone cards */
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .zone-card {
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .zone-green { background: #D1E7DD; border: 2px solid #198754; }
+        .zone-yellow { background: #FFF3CD; border: 2px solid #FFC107; }
+        .zone-red { background: #F8D7DA; border: 2px solid #DC3545; }
+        .zone-card h4 { margin: 0 0 8px; font-size: 1rem; }
+        .zone-card p { font-size: 0.85rem; margin: 0; }
+
+        @media (max-width: 768px) {
+            .zone-grid { grid-template-columns: 1fr; }
+        }
+
+
+        /* ===== BACK TO TOC ===== */
+        .back-to-toc {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 28px;
+            padding: 10px 20px;
+            background: var(--pira-sky);
+            color: var(--pira-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .back-to-toc:hover {
+            background: var(--pira-blue);
+            color: white;
+            border-color: var(--pira-blue);
+        }
+
+
+        /* ===== CALCULATOR ===== */
+        .calc {
+            background: var(--pira-gray-50);
+            border: 1px solid var(--pira-gray-200);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin: 20px 0;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+        .calc-field { display: flex; flex-direction: column; gap: 6px; }
+        .calc-field label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--pira-blue-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .calc-field input,
+        .calc-field select {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 0.92rem;
+            padding: 10px 12px;
+            border: 1px solid var(--pira-gray-200);
+            border-radius: 8px;
+            background: white;
+            color: var(--pira-gray-800);
+        }
+        .calc-field input:focus,
+        .calc-field select:focus {
+            outline: none;
+            border-color: var(--pira-blue);
+            box-shadow: 0 0 0 3px rgba(0, 70, 168, 0.12);
+        }
+        .calc-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .calc-result {
+            background: white;
+            border: 1px solid var(--pira-gray-200);
+            border-top: 3px solid var(--pira-blue);
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+        }
+        .calc-result-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--pira-gray-600);
+            font-weight: 600;
+        }
+        .calc-result-value {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--pira-blue-dark);
+            margin: 6px 0 2px;
+            line-height: 1.2;
+        }
+        .calc-result-value.green { color: var(--pira-green); }
+        .calc-result-value.red { color: var(--pira-red); }
+        .calc-result-sub { display: block; font-size: 0.75rem; color: var(--pira-gray-600); }
+        .calc-note {
+            margin-top: 18px;
+            font-size: 0.85rem;
+            color: var(--pira-gray-600);
+            font-style: italic;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .calc { padding: 16px; }
+            .calc-result-value { font-size: 1.3rem; }
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="hero-inner">
+        <div class="hero-logo">
+            <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16.5c0 .8.7 1.5 1.5 1.5H21"/><path d="M7 8l4 4.5 3-2.5L20 17"/><path d="M20 13v4h-4"/></svg>
+        </div>
+        <div class="hero-text">
+            <h1>Guia de Otimização de Custos de IA</h1>
+            <p>Como reduzir de forma consistente o consumo de créditos e tokens em agentes e automações — sem abrir mão de qualidade</p>
+            <span class="hero-badge">📘 Preparado por Wilson Hsie — Agosto 2026</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<nav class="toc" id="toc">
+    <h2>📑 Índice de Conteúdos</h2>
+    <div class="toc-grid">
+        <a href="#s1"><span class="toc-num">1</span> Por que a conta cresce sem avisar</a>
+        <a href="#s2"><span class="toc-num">2</span> Como os modelos cobram você</a>
+        <a href="#s3"><span class="toc-num">3</span> A equação de custo</a>
+        <a href="#s4"><span class="toc-num">4</span> As 6 alavancas de economia</a>
+        <a href="#s5"><span class="toc-num">5</span> Calculadora de economia</a>
+        <a href="#s6"><span class="toc-num">6</span> Onde o Copilot é flat e onde é medido</a>
+        <a href="#s7"><span class="toc-num">7</span> Copilot Cowork — bandas de crédito</a>
+        <a href="#s8"><span class="toc-num">8</span> Arquitetura: agente vs. workflow</a>
+        <a href="#s9"><span class="toc-num">9</span> Checklist de otimização</a>
+        <a href="#s10"><span class="toc-num">10</span> Erros comuns e como evitá-los</a>
+    </div>
+</nav>
+
+<div class="content">
+
+<!-- ===== S1 ===== -->
+<section class="section" id="s1">
+    <div class="section-header"><span class="sec-num">1</span><h2>Por que a conta cresce sem avisar</h2></div>
+    <div class="section-body">
+        <p>Custos de IA raramente explodem por um único motivo. Eles crescem pela combinação silenciosa de três fatores: <strong>modelos poderosos demais para a tarefa</strong>, <strong>contexto excessivo enviado a cada chamada</strong> e <strong>automações rodando com frequência alta</strong>.</p>
+
+        <div class="box box-info">
+            <div class="box-title">🏎️ A analogia da Ferrari</div>
+            <p>Você não usa uma Ferrari para ir ao supermercado. Da mesma forma, não é necessário o modelo mais avançado disponível para resumir uma caixa de entrada ou classificar um e-mail. Conforme a capacidade do modelo sobe, o preço sobe junto — e quase nunca de forma linear.</p>
+        </div>
+
+        <h3>O ponto de partida: medir antes de cortar</h3>
+        <p>Não é possível otimizar o que não se enxerga. Antes de qualquer mudança, é preciso responder a três perguntas:</p>
+        <ul class="checklist">
+            <li>Quais automações consomem mais créditos?</li>
+            <li>Qual a divisão entre <em>input</em>, <em>cache</em> e <em>output</em> nesse consumo?</li>
+            <li>Qual o custo projetado para 30 dias, mantido o ritmo atual?</li>
+        </ul>
+
+        <div class="box box-warning">
+            <div class="box-title">⚠️ Sinal de alerta</div>
+            <p>Se a maior parte do seu gasto vem de uma única automação agendada, o problema quase sempre é <strong>frequência</strong> ou <strong>contexto</strong> — não o modelo.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S2 ===== -->
+<section class="section" id="s2">
+    <div class="section-header"><span class="sec-num">2</span><h2>Como os modelos cobram você</h2></div>
+    <div class="section-body">
+        <h3>Modelos são <em>stateless</em></h3>
+        <p>O modelo em si não guarda memória. Quando o ChatGPT ou o Copilot "lembram" de você, quem lembra é a aplicação em volta — perfil, banco de dados e histórico. O modelo, a cada chamada, precisa receber <strong>tudo de novo</strong>.</p>
+        <p>É por isso que conversas longas ficam progressivamente mais caras: cada nova mensagem reenvia todo o histórico anterior.</p>
+
+        <div class="diagram">
+            <div class="diagram-flow">
+                <div class="diagram-box">Você pergunta</div>
+                <div class="diagram-arrow">→</div>
+                <div class="diagram-box">Todo o contexto é reenviado</div>
+                <div class="diagram-arrow">→</div>
+                <div class="diagram-box highlight">Modelo raciocina</div>
+                <div class="diagram-arrow">→</div>
+                <div class="diagram-box">Resposta (output)</div>
+            </div>
+            <p style="margin-top:16px;font-size:0.85rem;color:var(--pira-gray-600)">Cada etapa consome tokens — e nem todas custam o mesmo.</p>
+        </div>
+
+        <h3>Nem todo token custa igual</h3>
+        <p>Os multiplicadores abaixo são a referência praticada pelos modelos Anthropic e ilustram bem a lógica geral do mercado:</p>
+
+        <div class="table-wrap">
+        <table>
+            <thead><tr><th>Tipo de token</th><th>Multiplicador</th><th>O que significa</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Input</strong></td><td><span class="badge badge-blue">1,00×</span></td><td>Conteúdo novo que você envia ao modelo</td></tr>
+                <tr><td><strong>Cached read</strong></td><td><span class="badge badge-green">0,10×</span></td><td>Conteúdo já visto e reaproveitado — 90% de desconto</td></tr>
+                <tr><td><strong>Cached write</strong></td><td><span class="badge badge-orange">1,25×</span></td><td>Custo de gravar o conteúdo em cache</td></tr>
+                <tr><td><strong>Output</strong></td><td><span class="badge badge-red">5,00×</span></td><td>O que o modelo gera — de longe o mais caro</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="box box-danger">
+            <div class="box-title">🚨 A armadilha do cache barato</div>
+            <p>Cache custa apenas 0,10× — mas volume vence desconto. Em um caso real analisado, o <em>cached read</em> movimentava <strong>3,7 bilhões de tokens</strong> e, mesmo com 90% de desconto, respondia por <strong>56% da fatura total</strong>. Barato multiplicado por muito continua sendo caro.</p>
+        </div>
+
+        <h3>O gatilho de contexto longo</h3>
+        <p>Alguns modelos aplicam uma tabela de preço diferente quando a requisição ultrapassa <strong>272.000 tokens</strong>. Nesse ponto, o custo de input pode <strong>dobrar</strong> (por exemplo, de US$ 5 para US$ 10 por milhão) e o output sobe na mesma proporção.</p>
+
+        <div class="box box-success">
+            <div class="box-title">✅ Regra prática</div>
+            <p>Mantenha as requisições confortavelmente abaixo do limite de contexto longo. Ultrapassá-lo por poucos milhares de tokens pode custar o dobro pela requisição inteira.</p>
+        </div>
+
+        <h3>Créditos, em termos simples</h3>
+        <p>Tanto os <strong>Copilot Credits</strong> quanto os <strong>GitHub AI Credits</strong> equivalem a <strong>US$ 0,01 cada</strong> no modelo pay-as-you-go. São <em>pools</em> separados, mas com a mesma unidade — o que facilita as contas.</p>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S3 ===== -->
+<section class="section" id="s3">
+    <div class="section-header"><span class="sec-num">3</span><h2>A equação de custo</h2></div>
+    <div class="section-body">
+        <p>Toda a otimização se resume a uma fórmula de três variáveis:</p>
+
+        <div class="diagram">
+            <div class="diagram-flow">
+                <div class="diagram-box">Tokens por execução</div>
+                <div class="diagram-arrow">×</div>
+                <div class="diagram-box">Preço do modelo</div>
+                <div class="diagram-arrow">×</div>
+                <div class="diagram-box">Execuções por dia</div>
+                <div class="diagram-arrow">=</div>
+                <div class="diagram-box highlight">Custo diário</div>
+            </div>
+        </div>
+
+        <p>O ponto crítico é que os três fatores se <strong>multiplicam</strong>. Uma redução de 50% em cada variável não gera 50% de economia — gera <strong>87,5%</strong>. É por isso que pequenos ajustes combinados produzem quedas drásticas na fatura.</p>
+
+        <div class="box box-purple">
+            <div class="box-title">🧮 Efeito composto</div>
+            <p>Cortar contexto pela metade, trocar para um modelo 3× mais barato e reduzir a frequência de 1h para 4h resulta em um custo de aproximadamente <strong>4% do original</strong>. Não é otimização marginal — é uma mudança de patamar.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S4 ===== -->
+<section class="section" id="s4">
+    <div class="section-header"><span class="sec-num">4</span><h2>As 6 alavancas de economia</h2></div>
+    <div class="section-body">
+        <p>Em ordem aproximada de impacto observado na prática:</p>
+
+        <ol class="steps">
+            <li><strong>Reduza a frequência das automações.</strong> Costuma ser a alavanca de maior impacto. Um fluxo que roda de hora em hora e passa a rodar a cada 4 horas corta 75% do consumo. Pergunte-se: o negócio realmente precisa dessa latência?</li>
+            <li><strong>Escolha o modelo certo para a tarefa.</strong> Classificação, extração, resumo e triagem funcionam bem com modelos leves. Reserve os modelos de fronteira para raciocínio complexo, síntese e decisões. Trocar um modelo premium por um leve em tarefas rotineiras pode representar milhares de dólares por mês.</li>
+            <li><strong>Envie apenas o que a tarefa exige.</strong> Filtre antes de enviar. Não jogue a base inteira no prompt quando cinco registros resolvem. Lembre-se do caso em que o cache representou 56% da fatura.</li>
+            <li><strong>Coloque uma verificação de saída antecipada.</strong> A automação deve primeiro perguntar "há algo novo?". Se não houver, encerra sem consumir tokens de raciocínio. Automações agendadas frequentemente gastam a maior parte do orçamento processando o vazio.</li>
+            <li><strong>Ajuste o nível de esforço (<em>reasoning effort</em>).</strong> O mesmo modelo em esforço <code>max</code> pode consumir dezenas de vezes mais tokens do que em <code>medium</code>. Para tarefas determinísticas, esforço alto raramente melhora o resultado.</li>
+            <li><strong>Fique abaixo do limite de contexto longo.</strong> Ultrapassar 272 mil tokens muda a faixa de preço da requisição inteira.</li>
+        </ol>
+
+        <div class="compare-grid">
+            <div class="compare-card recommended">
+                <div class="compare-card-header">Modelo leve — use para</div>
+                <div class="compare-card-body">
+                    <ul>
+                        <li>Triagem e classificação de e-mails</li>
+                        <li>Extração de campos estruturados</li>
+                        <li>Resumos curtos e rotineiros</li>
+                        <li>Roteamento e etiquetagem</li>
+                        <li>Verificações de "há novidade?"</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="compare-card">
+                <div class="compare-card-header">Modelo de fronteira — reserve para</div>
+                <div class="compare-card-body">
+                    <ul>
+                        <li>Raciocínio de múltiplas etapas</li>
+                        <li>Análise estratégica e síntese</li>
+                        <li>Geração de código não trivial</li>
+                        <li>Orquestração de subagentes</li>
+                        <li>Decisões com alto custo de erro</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S5 ===== -->
+<section class="section" id="s5">
+    <div class="section-header"><span class="sec-num">5</span><h2>Calculadora de economia</h2></div>
+    <div class="section-body">
+        <p>Simule o impacto das três alavancas principais sobre um cenário de 30 dias. Os valores são estimativas para apoiar a decisão — não substituem a telemetria real de consumo.</p>
+
+        <div class="calc">
+            <div class="calc-grid">
+                <div class="calc-field">
+                    <label for="baseCost">Custo atual estimado (US$ / 30 dias)</label>
+                    <input type="number" id="baseCost" value="4000" min="0" step="50">
+                </div>
+                <div class="calc-field">
+                    <label for="freqNow">Frequência atual</label>
+                    <select id="freqNow">
+                        <option value="1">A cada 5 minutos</option>
+                        <option value="2">A cada 15 minutos</option>
+                        <option value="3">A cada 30 minutos</option>
+                        <option value="4" selected>A cada hora</option>
+                        <option value="5">A cada 4 horas</option>
+                        <option value="6">Uma vez ao dia</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label for="freqNew">Nova frequência</label>
+                    <select id="freqNew">
+                        <option value="1">A cada 5 minutos</option>
+                        <option value="2">A cada 15 minutos</option>
+                        <option value="3">A cada 30 minutos</option>
+                        <option value="4">A cada hora</option>
+                        <option value="5" selected>A cada 4 horas</option>
+                        <option value="6">Uma vez ao dia</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label for="modelNow">Classe de modelo atual</label>
+                    <select id="modelNow">
+                        <option value="1">Leve</option>
+                        <option value="2">Versátil</option>
+                        <option value="3" selected>Poderoso</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label for="modelNew">Nova classe de modelo</label>
+                    <select id="modelNew">
+                        <option value="1">Leve</option>
+                        <option value="2" selected>Versátil</option>
+                        <option value="3">Poderoso</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label for="ctxCut">Redução de contexto enviado</label>
+                    <select id="ctxCut">
+                        <option value="1">Sem mudança</option>
+                        <option value="0.75">−25%</option>
+                        <option value="0.5" selected>−50%</option>
+                        <option value="0.25">−75%</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label for="effortCut">Nível de esforço</label>
+                    <select id="effortCut">
+                        <option value="1" selected>Sem mudança</option>
+                        <option value="0.7">max → medium</option>
+                        <option value="0.5">max → low</option>
+                    </select>
+                </div>
+                <div class="calc-field">
+                    <label for="earlyExit">Saída antecipada (sem novidades)</label>
+                    <select id="earlyExit">
+                        <option value="1" selected>Não implementada</option>
+                        <option value="0.7">~30% das execuções encerram cedo</option>
+                        <option value="0.5">~50% das execuções encerram cedo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="calc-results">
+                <div class="calc-result">
+                    <span class="calc-result-label">Novo custo estimado</span>
+                    <span class="calc-result-value" id="outNew">—</span>
+                    <span class="calc-result-sub">por 30 dias</span>
+                </div>
+                <div class="calc-result">
+                    <span class="calc-result-label">Economia</span>
+                    <span class="calc-result-value green" id="outSave">—</span>
+                    <span class="calc-result-sub">por 30 dias</span>
+                </div>
+                <div class="calc-result">
+                    <span class="calc-result-label">Redução</span>
+                    <span class="calc-result-value green" id="outPct">—</span>
+                    <span class="calc-result-sub">sobre o custo atual</span>
+                </div>
+                <div class="calc-result">
+                    <span class="calc-result-label">Equivalente em créditos</span>
+                    <span class="calc-result-value" id="outCredits">—</span>
+                    <span class="calc-result-sub">1 crédito = US$ 0,01</span>
+                </div>
+            </div>
+            <p class="calc-note" id="calcNote"></p>
+        </div>
+
+        <div class="box box-warning">
+            <div class="box-title">⚠️ Sobre as premissas</div>
+            <p>A calculadora assume proporcionalidade entre frequência e custo, e usa fatores relativos de <strong>1× (leve)</strong>, <strong>3× (versátil)</strong> e <strong>9× (poderoso)</strong> entre as classes de modelo. Preços reais variam por fornecedor, modelo e contrato. Use o resultado para priorizar ações, não para orçamento formal.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S6 ===== -->
+<section class="section" id="s6">
+    <div class="section-header"><span class="sec-num">6</span><h2>Onde o Copilot é flat e onde é medido</h2></div>
+    <div class="section-body">
+        <p>Uma das decisões de custo mais relevantes acontece <strong>antes</strong> de qualquer ajuste técnico: escolher a superfície certa. Parte do portfólio é licenciada por usuário — o consumo adicional não gera cobrança. Outra parte é medida por consumo.</p>
+
+        <div class="table-wrap">
+        <table>
+            <thead><tr><th>Superfície</th><th>Modelo de cobrança</th><th>Implicação de custo</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Copilot Chat</strong></td><td><span class="badge badge-green">Sem licença adicional</span></td><td>Ponto de entrada sem custo incremental</td></tr>
+                <tr><td><strong>Microsoft 365 Copilot</strong></td><td><span class="badge badge-green">Flat por usuário</span></td><td>Uso intensivo não aumenta a fatura</td></tr>
+                <tr><td><strong>Copilot Studio</strong></td><td><span class="badge badge-orange">Por consumo</span></td><td>Fluxos determinísticos reduzem o gasto</td></tr>
+                <tr><td><strong>Copilot Cowork</strong></td><td><span class="badge badge-orange">Créditos</span></td><td>Cobrado por complexidade do prompt</td></tr>
+                <tr><td><strong>Agentes / APIs</strong></td><td><span class="badge badge-red">Tokens</span></td><td>Maior variabilidade e maior risco</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="box box-success">
+            <div class="box-title">✅ Decisão de arquitetura que vale dinheiro</div>
+            <p>Se a tarefa pode ser feita em uma superfície de licença fixa, ela não deveria consumir créditos. Gerar uma apresentação simples via ferramenta medida gera cobrança; a mesma tarefa em uma superfície flat, não.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S7 ===== -->
+<section class="section" id="s7">
+    <div class="section-header"><span class="sec-num">7</span><h2>Copilot Cowork — bandas de crédito</h2></div>
+    <div class="section-body">
+        <p>O Copilot Cowork cobra por <strong>complexidade do prompt</strong>, e não por número de mensagens. O consumo é determinado pelo modelo selecionado, pelo tempo de execução, pelas ferramentas acessadas e pelo volume de contexto.</p>
+
+        <div class="zone-grid">
+            <div class="zone-card zone-green">
+                <h4>🟢 Prompt leve</h4>
+                <p><strong>100–300 créditos</strong><br>US$ 1 – 3<br><br>Resposta curta, pouco contexto, poucas ferramentas</p>
+            </div>
+            <div class="zone-card zone-yellow">
+                <h4>🟡 Prompt médio</h4>
+                <p><strong>300–700 créditos</strong><br>US$ 3 – 7<br><br>Alguma pesquisa, múltiplos documentos</p>
+            </div>
+            <div class="zone-card zone-red">
+                <h4>🔴 Prompt pesado</h4>
+                <p><strong>700+ créditos</strong><br>US$ 7+<br><br>Pesquisa ampla, análise profunda, muitas fontes</p>
+            </div>
+        </div>
+
+        <p>Um prompt pesado pode custar cerca de <strong>10× um prompt leve</strong>. Formular bem a pergunta — delimitando escopo, fontes e formato de saída — é, na prática, uma medida de controle de custo.</p>
+
+        <h3>Modelos de compra</h3>
+        <div class="compare-grid">
+            <div class="compare-card">
+                <div class="compare-card-header">Pay-as-you-go</div>
+                <div class="compare-card-body">
+                    <ul>
+                        <li>US$ 0,01 por crédito</li>
+                        <li>Sem compromisso antecipado</li>
+                        <li>Adequado para piloto e prova de valor</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="compare-card recommended">
+                <div class="compare-card-header">Pool corporativo pré-adquirido</div>
+                <div class="compare-card-body">
+                    <ul>
+                        <li>Custo por crédito abaixo de US$ 0,01</li>
+                        <li>Previsibilidade orçamentária</li>
+                        <li>Indicado para adoção em escala</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info">
+            <div class="box-title">📄 Referência oficial</div>
+            <p>A documentação pública da Microsoft detalha os modelos disponíveis para o Copilot Cowork e a tabela de Copilot Credits por tipo de tarefa. Consulte-a antes de dimensionar um pool corporativo.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S8 ===== -->
+<section class="section" id="s8">
+    <div class="section-header"><span class="sec-num">8</span><h2>Arquitetura: agente vs. workflow</h2></div>
+    <div class="section-body">
+        <p>Quando você entrega uma tarefa a um agente autônomo, ele <strong>descobre o caminho</strong>: raciocina, testa hipóteses, revisa e recomeça. Isso é valioso diante de problemas abertos — e caro em processos repetitivos.</p>
+
+        <div class="compare-grid">
+            <div class="compare-card">
+                <div class="compare-card-header">Agente autônomo</div>
+                <div class="compare-card-body">
+                    <ul>
+                        <li>Descobre o caminho a cada execução</li>
+                        <li>Consumo de tokens imprevisível</li>
+                        <li>Adequado a problemas abertos</li>
+                        <li>Custo alto em tarefas repetitivas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="compare-card recommended">
+                <div class="compare-card-header">Workflow determinístico</div>
+                <div class="compare-card-body">
+                    <ul>
+                        <li>Passos definidos previamente</li>
+                        <li>Consumo previsível e auditável</li>
+                        <li>Ideal para processos sistemáticos</li>
+                        <li>Custo significativamente menor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-info">
+            <div class="box-title">💡 Regra de migração</div>
+            <p>Toda automação que executa <strong>os mesmos passos</strong> repetidamente é candidata a virar workflow declarativo em ferramentas como o Copilot Studio. Deixe o raciocínio livre para o que realmente exige julgamento.</p>
+        </div>
+
+        <h3>Padrão híbrido: orquestrador forte, subagentes leves</h3>
+        <p>Em arquiteturas multiagente, concentre a capacidade onde ela agrega: o <strong>orquestrador</strong> usa o modelo mais poderoso para planejar e decidir; os <strong>subagentes</strong> executam tarefas delimitadas com modelos leves ou versáteis.</p>
+
+        <div class="diagram">
+            <div class="diagram-flow">
+                <div class="diagram-box highlight">Orquestrador<br><span style="font-weight:400;font-size:0.75rem">modelo poderoso</span></div>
+                <div class="diagram-arrow">→</div>
+                <div class="diagram-box">Subagente A<br><span style="font-weight:400;font-size:0.75rem">modelo leve</span></div>
+                <div class="diagram-box">Subagente B<br><span style="font-weight:400;font-size:0.75rem">modelo leve</span></div>
+                <div class="diagram-box">Subagente C<br><span style="font-weight:400;font-size:0.75rem">modelo versátil</span></div>
+            </div>
+            <p style="margin-top:16px;font-size:0.85rem;color:var(--pira-gray-600)">Qualidade de decisão no topo; eficiência de custo na execução.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S9 ===== -->
+<section class="section" id="s9">
+    <div class="section-header"><span class="sec-num">9</span><h2>Checklist de otimização</h2></div>
+    <div class="section-body">
+        <h3>Diagnóstico</h3>
+        <ul class="checklist">
+            <li>Existe visibilidade de consumo por automação, modelo e período</li>
+            <li>A divisão entre input, cached read/write e output está mapeada</li>
+            <li>As três automações mais caras foram identificadas</li>
+            <li>Há projeção de custo para 30 dias</li>
+        </ul>
+
+        <h3>Ações rápidas (impacto em dias)</h3>
+        <ul class="checklist">
+            <li>Frequências revisadas e alinhadas à necessidade real do negócio</li>
+            <li>Modelos leves aplicados a tarefas de triagem, extração e resumo</li>
+            <li>Nível de esforço reduzido onde não há ganho de qualidade</li>
+            <li>Saída antecipada implementada em fluxos agendados</li>
+        </ul>
+
+        <h3>Ações estruturais (impacto em semanas)</h3>
+        <ul class="checklist">
+            <li>Contexto filtrado na origem, evitando envio de dados desnecessários</li>
+            <li>Requisições mantidas abaixo do limite de contexto longo</li>
+            <li>Processos repetitivos convertidos em workflows determinísticos</li>
+            <li>Arquitetura híbrida adotada em cenários multiagente</li>
+            <li>Tarefas migradas para superfícies de licença fixa quando aplicável</li>
+        </ul>
+
+        <h3>Governança contínua</h3>
+        <ul class="checklist">
+            <li>Revisão semanal de consumo estabelecida</li>
+            <li>Limites de gasto e alertas configurados</li>
+            <li>Escolha de modelo documentada e justificada por caso de uso</li>
+            <li>Pool corporativo avaliado frente ao pay-as-you-go</li>
+        </ul>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+<!-- ===== S10 ===== -->
+<section class="section" id="s10">
+    <div class="section-header"><span class="sec-num">10</span><h2>Erros comuns e como evitá-los</h2></div>
+    <div class="section-body">
+        <div class="table-wrap">
+        <table>
+            <thead><tr><th>Erro</th><th>Consequência</th><th>Correção</th></tr></thead>
+            <tbody>
+                <tr><td>Usar o modelo mais avançado como padrão</td><td>Custo várias vezes maior sem ganho perceptível</td><td>Definir o modelo por tipo de tarefa, não por preferência</td></tr>
+                <tr><td>Enviar toda a base de contexto a cada execução</td><td>Cache vira o maior item da fatura</td><td>Filtrar na origem e enviar apenas o necessário</td></tr>
+                <tr><td>Agendar automações em intervalos curtos "por segurança"</td><td>Multiplicação direta do custo</td><td>Alinhar a frequência ao SLA real do processo</td></tr>
+                <tr><td>Manter esforço máximo em tarefas simples</td><td>Consumo de tokens dezenas de vezes maior</td><td>Reduzir o esforço e validar a qualidade do resultado</td></tr>
+                <tr><td>Deixar o agente raciocinar em processos fixos</td><td>Variabilidade e desperdício</td><td>Converter em workflow com passos declarados</td></tr>
+                <tr><td>Ignorar o limite de contexto longo</td><td>Faixa de preço dobrada na requisição inteira</td><td>Monitorar o tamanho da requisição e segmentar</td></tr>
+                <tr><td>Otimizar sem telemetria</td><td>Esforço aplicado no lugar errado</td><td>Medir primeiro, agir depois, revisar sempre</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="box box-success">
+            <div class="box-title">🎯 Resumo executivo</div>
+            <p>A maior parte da economia vem de três decisões: <strong>rodar menos vezes</strong>, <strong>usar o modelo adequado</strong> e <strong>enviar menos contexto</strong>. Reduções de 50% na fatura mensal são alcançáveis em poucas semanas, sem perda relevante de qualidade — desde que exista telemetria para orientar as escolhas.</p>
+        </div>
+
+        <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
+    </div>
+</section>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    <p><strong>Guia de Otimização de Custos de IA</strong> — Boas práticas de consumo de créditos e tokens</p>
+    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Agosto 2026</p>
+    <p style="margin-top: 4px; font-size: 0.8rem;">Valores e multiplicadores são referências ilustrativas para apoiar decisões de arquitetura. Consulte a documentação oficial de cada fornecedor para preços vigentes.</p>
+</div>
+
+<script>
+(function () {
+  var MODEL_FACTOR = { 1: 1, 2: 3, 3: 9 };
+  var RUNS_PER_DAY = { 1: 288, 2: 96, 3: 48, 4: 24, 5: 6, 6: 1 };
+
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+
+  function fmt(v) {
+    return 'US$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function calc() {
+    var base = num('baseCost');
+    if (!isFinite(base) || base < 0) { base = 0; }
+
+    var freqRatio = RUNS_PER_DAY[document.getElementById('freqNew').value] / RUNS_PER_DAY[document.getElementById('freqNow').value];
+    var modelRatio = MODEL_FACTOR[document.getElementById('modelNew').value] / MODEL_FACTOR[document.getElementById('modelNow').value];
+    var ctxRatio = num('ctxCut');
+    var effortRatio = num('effortCut');
+    var exitRatio = num('earlyExit');
+
+    var newCost = base * freqRatio * modelRatio * ctxRatio * effortRatio * exitRatio;
+    var saving = base - newCost;
+    var pct = base > 0 ? (saving / base) * 100 : 0;
+
+    document.getElementById('outNew').textContent = fmt(newCost);
+    document.getElementById('outSave').textContent = fmt(saving);
+    document.getElementById('outPct').textContent = pct.toFixed(1).replace('.', ',') + '%';
+    document.getElementById('outCredits').textContent = Math.round(saving * 100).toLocaleString('pt-BR');
+
+    var saveEl = document.getElementById('outSave');
+    var pctEl = document.getElementById('outPct');
+    var cls = saving >= 0 ? 'calc-result-value green' : 'calc-result-value red';
+    saveEl.className = cls;
+    pctEl.className = cls;
+
+    var note = document.getElementById('calcNote');
+    if (saving < 0) {
+      note.textContent = 'Atenção: a configuração escolhida aumenta o custo em relação ao cenário atual.';
+    } else if (pct >= 70) {
+      note.textContent = 'Redução expressiva. Valide a qualidade do resultado antes de aplicar em produção.';
+    } else if (pct > 0) {
+      note.textContent = 'Combine mais alavancas para ampliar o efeito composto.';
+    } else {
+      note.textContent = 'Nenhuma alavanca alterada — ajuste os parâmetros acima.';
+    }
+  }
+
+  var ids = ['baseCost', 'freqNow', 'freqNew', 'modelNow', 'modelNew', 'ctxCut', 'effortCut', 'earlyExit'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  }
+  calc();
+})();
+</script>
+
+</body>
+</html>
