@@ -532,7 +532,7 @@
         <div class="hero-text">
             <h1>Guia do Microsoft Copilot Cowork</h1>
             <p>O agente corporativo que executa o trabalho de ponta a ponta no Microsoft 365 — autonomia, contexto e governança em escala</p>
-            <span class="hero-badge">📘 Preparado por Wilson Hsie — Junho 2026</span>
+            <span class="hero-badge">📘 Preparado por Wilson Hsie — Setembro 2026</span>
         </div>
     </div>
 </div>
@@ -543,11 +543,11 @@
     <div class="toc-grid">
         <a href="#s1"><span class="toc-num">1</span> O que é o Copilot Cowork</a>
         <a href="#s2"><span class="toc-num">2</span> Como funciona — execução autônoma</a>
-        <a href="#s3"><span class="toc-num">3</span> Work IQ e os modelos Claude (Anthropic)</a>
+        <a href="#s3"><span class="toc-num">3</span> Work IQ e o design multi-modelo</a>
         <a href="#s4"><span class="toc-num">4</span> Skills nativas e customizadas</a>
         <a href="#s5"><span class="toc-num">5</span> Controle, aprovações e governança</a>
         <a href="#s6"><span class="toc-num">6</span> Cowork vs. Copilot vs. Copilot Studio</a>
-        <a href="#s7"><span class="toc-num">7</span> Disponibilidade: Programa Frontier e licenciamento</a>
+        <a href="#s7"><span class="toc-num">7</span> Disponibilidade Geral (GA) e licenciamento</a>
         <a href="#s8"><span class="toc-num">8</span> Como habilitar — passo a passo</a>
         <a href="#s9"><span class="toc-num">9</span> Casos de uso por área</a>
         <a href="#s10"><span class="toc-num">10</span> FAQ</a>
@@ -653,25 +653,25 @@
     <div class="section" id="s3">
         <div class="section-header">
             <span class="sec-num">03</span>
-            <h2>Work IQ e os modelos Claude (Anthropic)</h2>
+            <h2>Work IQ e o design multi-modelo</h2>
         </div>
         <div class="section-body">
-            <p>Dois pilares dão ao Cowork sua capacidade diferenciada: o <strong>contexto organizacional</strong> via Work IQ e o <strong>raciocínio multi-etapas</strong> dos modelos da Anthropic.</p>
+            <p>Dois pilares dão ao Cowork sua capacidade diferenciada: o <strong>contexto organizacional</strong> via Work IQ e o <strong>design multi-modelo</strong>, que escala a capacidade conforme a tarefa exige.</p>
 
             <h3>Work IQ — o contexto da empresa</h3>
             <p>O Work IQ dá ao agente acesso governado ao grafo de trabalho da organização — <strong>emails, reuniões, arquivos, chats e pessoas</strong> — sempre dentro das permissões do usuário. É o que permite ao Cowork entender "o cliente X", "a última reunião" ou "o documento do projeto" sem você ter que apontar manualmente cada fonte.</p>
 
-            <h3>Modelos Claude da Anthropic</h3>
-            <p>O Cowork combina o contexto do Microsoft 365 com os modelos <strong>Claude</strong> da Anthropic para planejamento e raciocínio sofisticado em tarefas longas. Essa colaboração multi-modelo é usada também para <strong>avaliar e validar</strong> resultados, aumentando a confiança nas entregas.</p>
+            <h3>Multi-modelo: da tarefa leve à mais complexa</h3>
+            <p>Desde a GA (junho/2026), o Cowork não depende de um único modelo. Ele seleciona o modelo mais adequado a cada tarefa entre várias opções, incluindo <strong>Cowork 1</strong> (modelo próprio, ajustado para tarefas rotineiras a custo bem menor) e modelos de fronteira como <strong>GPT-6 Astra</strong> (OpenAI) e <strong>Claude Fable 5.1 / Opus 5</strong> (Anthropic) para raciocínio multi-etapas mais sofisticado. Essa combinação também é usada para <strong>avaliar e validar</strong> resultados entre si, aumentando a confiança nas entregas.</p>
 
             <div class="box box-purple">
                 <div class="box-title">🧠 Por que isso importa</div>
-                <p>Contexto sem raciocínio gera respostas rasas; raciocínio sem contexto gera respostas genéricas. O Cowork une os dois — por isso consegue executar fluxos reais de negócio, e não apenas gerar texto.</p>
+                <p>Contexto sem raciocínio gera respostas rasas; raciocínio sem contexto gera respostas genéricas. O Cowork une os dois — por isso consegue executar fluxos reais de negócio, e não apenas gerar texto. A escolha de modelo por tarefa também é o que sustenta o custo mais baixo por prompt em relação a concorrentes.</p>
             </div>
 
             <div class="box box-warning">
                 <div class="box-title">⚠️ Atenção (UE / Reino Unido)</div>
-                <p>O uso da Anthropic como subprocessador precisa ser <strong>habilitado explicitamente</strong> em tenants da UE/Reino Unido por questões de residência de dados. Valide essa configuração com o time de Compliance antes do rollout.</p>
+                <p>O uso de modelos Anthropic (Claude) como subprocessador precisa ser <strong>habilitado explicitamente</strong> em tenants da UE/Reino Unido por questões de residência de dados. Valide essa configuração com o time de Compliance antes do rollout.</p>
             </div>
         </div>
     </div>
@@ -849,12 +849,15 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
     <div class="section" id="s7">
         <div class="section-header">
             <span class="sec-num">07</span>
-            <h2>Disponibilidade: Programa Frontier e licenciamento</h2>
+            <h2>Disponibilidade Geral (GA) e licenciamento</h2>
         </div>
         <div class="section-body">
-            <p>Em <strong>março de 2026</strong>, o Copilot Cowork passou a estar disponível pelo programa de acesso antecipado <strong>Microsoft 365 Frontier</strong>, que permite às organizações testar e moldar novas experiências de IA antes do lançamento amplo.</p>
+            <div class="box box-success">
+                <div class="box-title">✅ GA desde 16 de junho de 2026</div>
+                <p>O Copilot Cowork alcançou <strong>Disponibilidade Geral mundial</strong> em <strong>16/06/2026</strong>, após ~3 meses de preview no programa Frontier. <strong>Não é mais necessário estar inscrito no Frontier</strong> para usar o Cowork — qualquer tenant com licença Microsoft 365 Copilot pode habilitá-lo.</p>
+            </div>
 
-            <h3>Requisitos de acesso</h3>
+            <h3>Requisitos de acesso (pós-GA)</h3>
             <div class="table-wrap"><table>
                 <thead>
                     <tr>
@@ -865,30 +868,56 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
                 <tbody>
                     <tr>
                         <td><strong>Licença</strong></td>
-                        <td>Microsoft 365 Copilot (licença Premium exigida pelo Frontier)</td>
+                        <td>Microsoft 365 Copilot (USL — User Subscription License), por usuário</td>
                     </tr>
                     <tr>
-                        <td><strong>Inscrição no Frontier</strong></td>
-                        <td>Organização precisa estar enrolada no Microsoft 365 Frontier</td>
+                        <td><strong>Habilitação no tenant</strong></td>
+                        <td>Cowork vem <strong>desabilitado por padrão</strong>; o admin precisa ativá-lo e definir uma política de gastos (spending policy) em Copilot Credits</td>
                     </tr>
                     <tr>
-                        <td><strong>Agentes habilitados</strong></td>
-                        <td>Recurso de agentes ativado no tenant</td>
+                        <td><strong>Cobrança por uso</strong></td>
+                        <td>Consumo medido em <strong>Copilot Credits</strong>, calculado a partir de 4 fatores: modelo usado, recuperação de contexto (Work IQ), chamadas de ferramentas e tempo de execução</td>
                     </tr>
                     <tr>
                         <td><strong>Anthropic como subprocessador</strong></td>
-                        <td>Habilitar (obrigatório e explícito na UE/Reino Unido)</td>
+                        <td>Habilitar (obrigatório e explícito na UE/Reino Unido) quando modelos Claude forem usados</td>
                     </tr>
                     <tr>
                         <td><strong>Acesso</strong></td>
-                        <td>Via Agent Store no app do Microsoft 365 Copilot — em inglês, desktop e mobile</td>
+                        <td>Via Agent Store no app do Microsoft 365 Copilot, desktop e mobile</td>
                     </tr>
                 </tbody>
             </table></div>
 
-            <div class="box box-warning">
-                <div class="box-title">⚠️ Status de disponibilidade</div>
-                <p>Até <strong>junho de 2026</strong>, a <strong>Disponibilidade Geral (GA) ainda não foi anunciada</strong>. O acesso é via Frontier (early access), e o cronograma de GA depende do feedback dos clientes e da evolução do produto. Confirme sempre o status atual antes de comprometer datas com o cliente.</p>
+            <h3>Como funciona a cobrança</h3>
+            <p>Diferente do modelo antigo (early access via Frontier, incluso na licença Premium), o Cowork agora é <strong>billing baseado em uso</strong>: cada tarefa consome uma quantidade de Copilot Credits proporcional à sua complexidade. A Microsoft categoriza as tarefas em três níveis:</p>
+            <div class="table-wrap"><table>
+                <thead>
+                    <tr>
+                        <th>Nível de tarefa</th>
+                        <th>Característica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Leve</strong></td>
+                        <td>Poucas fontes de conhecimento, raciocínio limitado, um ou nenhum resultado gerado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Média</strong></td>
+                        <td>Múltiplas fontes, raciocínio estruturado, dois ou mais resultados gerados</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pesada</strong></td>
+                        <td>Agregação ampla, raciocínio profundo, muitos resultados gerados</td>
+                    </tr>
+                </tbody>
+            </table></div>
+            <p>Use o perfil de uso esperado por persona (colaborador, gestor, atendimento ao cliente, técnico) combinado com a mistura de tarefas leves/médias/pesadas para estimar o consumo mensal de Copilot Credits antes do rollout.</p>
+
+            <div class="box box-info">
+                <div class="box-title">💡 Comparação de custo</div>
+                <p>Em testes da própria Microsoft, o custo por prompt do Copilot Cowork foi, em média, <strong>30–40% mais barato</strong> que o Claude Cowork (Anthropic) com conector M365 equivalente.</p>
             </div>
         </div>
     </div>
@@ -902,8 +931,8 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
         <div class="section-body">
             <h3>Para o administrador</h3>
             <ol class="steps">
-                <li><strong>Inscrever a organização no Frontier</strong><br>Garanta que o tenant esteja enrolado no programa Microsoft 365 Frontier. Ative em <a href="https://admin.microsoft.com" target="_blank">admin.microsoft.com</a> → <strong>Settings → Copilot → Frontier</strong>. Guia oficial: <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/get-started-frontier?view=o365-worldwide" target="_blank">Get started with the Frontier Program</a> e <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/frontier-it-admins" target="_blank">Frontier para IT Admins</a>.</li>
-                <li><strong>Habilitar o agente Copilot Cowork</strong><br>Nas configurações de admin, ative o Cowork. Na UE/Reino Unido, habilite explicitamente a Anthropic como subprocessador.</li>
+                <li><strong>Habilitar o Cowork no admin center</strong><br>Em <a href="https://admin.microsoft.com" target="_blank">admin.microsoft.com</a>, ative o Copilot Cowork (vem desligado por padrão) e defina uma <strong>política de gastos</strong> (spending policy) em Copilot Credits para controlar o consumo.</li>
+                <li><strong>Habilitar o agente Copilot Cowork</strong><br>Confirme licenças M365 Copilot dos usuários-piloto. Na UE/Reino Unido, habilite explicitamente a Anthropic como subprocessador (necessário para usar modelos Claude).</li>
                 <li><strong>Atribuir licenças M365 Copilot</strong><br>Assegure que os usuários-piloto tenham a licença adequada.</li>
                 <li><strong>Adicionar o Cowork pela Agent Store</strong><br>Disponibilize o agente via Agent Store no app do M365 Copilot.</li>
                 <li><strong>Definir políticas de governança</strong><br>Configure níveis de aprovação, escopo de skills e políticas de dados (Purview) antes do uso amplo.</li>
@@ -986,7 +1015,7 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
             <p>Não. São camadas complementares: o M365 Copilot acelera tarefas no contexto do app; o Cowork delega fluxos completos a um agente. Muitas organizações usarão os dois.</p>
 
             <h3>Preciso de licença adicional?</h3>
-            <p>O acesso atual exige licença Microsoft 365 Copilot e inscrição no programa Frontier. Como o produto está em early access, confirme requisitos e custos vigentes antes de propor ao cliente.</p>
+            <p>Sim: licença <strong>Microsoft 365 Copilot (USL)</strong> por usuário. O uso do Cowork em si é <strong>cobrado à parte, por consumo</strong>, em Copilot Credits — não é mais necessário Frontier nem licença Premium específica.</p>
 
             <h3>O agente age sem minha aprovação?</h3>
             <p>Ações sensíveis (enviar email, compartilhar arquivos, agendar com terceiros) sempre pausam para consentimento explícito. Você mantém controle total e pode interromper a qualquer momento.</p>
@@ -995,7 +1024,7 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
             <p>A execução roda dentro da nuvem do M365, respeitando identidade e fronteiras de dados do tenant. O uso dos modelos Anthropic exige habilitação explícita do subprocessador na UE/Reino Unido.</p>
 
             <h3>Já está em GA?</h3>
-            <p>Até junho de 2026, não. O acesso é via Frontier; a Disponibilidade Geral ainda não foi anunciada.</p>
+            <p>Sim. O Copilot Cowork está em <strong>Disponibilidade Geral mundial desde 16/06/2026</strong>, com cobrança por uso via Copilot Credits.</p>
 
             <div class="box box-info">
                 <div class="box-title">💡 Observação</div>
@@ -1020,8 +1049,8 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Microsoft 365 Blog — Copilot Cowork now available in Frontier</td>
-                        <td><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/30/copilot-cowork-now-available-in-frontier/" target="_blank">microsoft.com</a></td>
+                        <td>Microsoft 365 Blog — Copilot Cowork is now generally available</td>
+                        <td><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/16/copilot-cowork-is-now-generally-available/" target="_blank">microsoft.com</a></td>
                     </tr>
                     <tr>
                         <td>Powering Frontier Transformation with Copilot and Agents</td>
@@ -1045,7 +1074,7 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
 <!-- ===== FOOTER ===== -->
 <div class="footer">
     <p><strong>Microsoft Copilot Cowork</strong> — Guia de Adoção Corporativa</p>
-    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Junho 2026</p>
+    <p style="margin-top: 8px;">Documento preparado por <strong>Wilson Hsie</strong> — Setembro 2026</p>
     <p style="margin-top: 4px; font-size: 0.8rem;">Este material foi preparado para apoiar clientes na compreensão e adoção do Microsoft Copilot Cowork.</p>
 </div>
 
