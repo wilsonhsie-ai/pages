@@ -541,6 +541,7 @@
 <nav class="toc" id="toc">
     <h2>📑 Índice de Conteúdos</h2>
     <div class="toc-grid">
+        <a href="#ignite-2026"><span class="toc-num">✦</span> Novidades do Ignite 2026</a>
         <a href="#s1"><span class="toc-num">1</span> O que é o Copilot Cowork</a>
         <a href="#s2"><span class="toc-num">2</span> Como funciona — execução autônoma</a>
         <a href="#s3"><span class="toc-num">3</span> Work IQ e o design multi-modelo</a>
@@ -557,6 +558,17 @@
 
 <!-- ===== CONTENT ===== -->
 <div class="content">
+
+    <div class="section" id="ignite-2026">
+        <div class="section-header"><h2>Novidades do Ignite 2026</h2></div>
+        <div class="section-body">
+            <p><em>Atualizado em 24/11/2026.</em> <strong>Home</strong> reúne Chat e Cowork em um único ponto de partida. O <strong>Auto</strong> seleciona modelos e nível de esforço conforme a tarefa; para trabalhos mais complexos, pode sugerir a transição do Chat para o Cowork, mediante sua concordância.</p>
+            <p><strong>Workspaces</strong> é a evolução dos Notebooks para colaboração entre pessoas e agentes com contexto compartilhado, disponível no Frontier. É diferente do Cowork, usado para delegar tarefas de várias etapas. <strong>Autopilot</strong>, agente pessoal e proativo, começou a ser disponibilizado para clientes Frontier.</p>
+            <p>O <strong>Office no Copilot</strong> e o <strong>Copilot Managed Runtime</strong> foram anunciados como disponíveis de forma geral. No Ignite, o <strong>Copilot Code</strong> tinha disponibilidade geral prevista para as semanas seguintes. Disponibilidade e funcionalidades dependem da implantação no tenant e das políticas da organização.</p>
+            <p>O <strong>Agent 365 Business Analytics</strong> começou a ser disponibilizado no Frontier Public para conectar uso, gastos e valor estimado; o <strong>Cost Management</strong> apoia políticas, limites e alertas de consumo.</p>
+            <p>Fonte: <a href="https://www.microsoft.com/en-us/copilot/blog/2026/11/17/copilot-at-microsoft-ignite-expanding-whats-possible-with-intelligence-built-for-work/">Microsoft Copilot Blog — Ignite, 17/11/2026</a>.</p>
+        </div>
+    </div>
 
     <!-- SECTION 1 -->
     <div class="section" id="s1">
@@ -630,7 +642,7 @@
                 </div>
                 <div class="step">
                     <span class="step-num">3</span>
-                    <div><strong>Execução com checkpoints</strong><br>Cada etapa é executada; ações sensíveis (enviar email, compartilhar arquivo) pausam para sua aprovação explícita.</div>
+                    <div><strong>Execução com checkpoints</strong><br>Acompanhe a execução e revise as solicitações de aprovação apresentadas. Confirme os controles disponíveis para cada ação e configuração do tenant.</div>
                 </div>
                 <div class="step">
                     <span class="step-num">4</span>
@@ -775,7 +787,7 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
 
             <h3>Mecanismos de controle</h3>
             <ol class="steps">
-                <li><strong>Aprovação por nível de risco</strong><br>Ações de risco médio/alto (enviar email, compartilhar arquivo, agendar com terceiros) exigem consentimento explícito antes de executar.</li>
+                <li><strong>Aprovação de ações</strong><br>Revise os pontos de aprovação disponíveis e valide os controles aplicáveis antes de permitir ações como envio de mensagens ou compartilhamento.</li>
                 <li><strong>Painel de progresso</strong><br>Dashboard visual com checkpoints; pausar, ajustar ou interromper a execução a qualquer momento.</li>
                 <li><strong>Trilhas de auditoria</strong><br>Registro do que o agente fez, quando e com qual permissão — essencial para compliance.</li>
                 <li><strong>Fronteiras de dados do tenant</strong><br>Execução dentro da nuvem do M365, respeitando identidade (Entra), permissões e políticas de dados.</li>
@@ -783,7 +795,7 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
 
             <div class="box box-success">
                 <div class="box-title">✅ Enterprise-grade por design</div>
-                <p>Identidade via <strong>Microsoft Entra</strong>, proteção e conformidade via <strong>Microsoft Purview</strong>, e consentimento explícito em cada etapa sensível. A governança não é um add-on — é parte do produto.</p>
+                <p>Identidade via <strong>Microsoft Entra</strong> e recursos de proteção e conformidade via <strong>Microsoft Purview</strong> apoiam a governança. Os controles efetivos dependem da configuração e do licenciamento.</p>
             </div>
 
             <div class="box box-info">
@@ -1018,7 +1030,7 @@ Entregar um documento de uma página com o contexto do cliente e agendar a reuni
             <p>Sim: licença <strong>Microsoft 365 Copilot (USL)</strong> por usuário. O uso do Cowork em si é <strong>cobrado à parte, por consumo</strong>, em Copilot Credits — não é mais necessário Frontier nem licença Premium específica.</p>
 
             <h3>O agente age sem minha aprovação?</h3>
-            <p>Ações sensíveis (enviar email, compartilhar arquivos, agendar com terceiros) sempre pausam para consentimento explícito. Você mantém controle total e pode interromper a qualquer momento.</p>
+            <p>O Cowork pode solicitar aprovação para ações, mas os controles variam conforme a ação e a configuração. Valide o comportamento no tenant e revise as solicitações antes de aprová-las.</p>
 
             <h3>Meus dados saem do ambiente Microsoft?</h3>
             <p>A execução roda dentro da nuvem do M365, respeitando identidade e fronteiras de dados do tenant. O uso dos modelos Anthropic exige habilitação explícita do subprocessador na UE/Reino Unido.</p>

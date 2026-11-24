@@ -624,6 +624,7 @@
 <nav class="toc" id="toc">
     <h2>📑 Índice de Conteúdos</h2>
     <div class="toc-grid">
+        <a href="#ignite-2026"><span class="toc-num">✦</span> FinOps para IA: Ignite 2026</a>
         <a href="#s1"><span class="toc-num">1</span> Por que a conta cresce sem avisar</a>
         <a href="#s2"><span class="toc-num">2</span> Como os modelos cobram você</a>
         <a href="#s3"><span class="toc-num">3</span> A equação de custo</a>
@@ -638,6 +639,15 @@
 </nav>
 
 <div class="content">
+
+<section class="section" id="ignite-2026">
+    <div class="section-header"><h2>FinOps para IA: novidades do Ignite 2026</h2></div>
+    <div class="section-body">
+        <p><em>Atualizado em 24/11/2026.</em> O <strong>Agent 365 Cost Management</strong> reúne visibilidade de consumo e controles como políticas de gasto, limites e alertas para serviços compatíveis. O <strong>Agent 365 Business Analytics</strong>, em implantação no Frontier Public, combina uso, gastos e estimativas de valor do trabalho assistido por IA. Essas estimativas não substituem a validação de resultados pelo negócio.</p>
+        <p>O <strong>Auto</strong> seleciona modelos e esforço conforme a tarefa, buscando equilibrar qualidade, velocidade e custo. Disponibilidade de modelos, cobrança e acesso variam conforme políticas, produto e licença; confirme-os antes de projetar despesas.</p>
+        <p>Fontes: <a href="https://techcommunity.microsoft.com/blog/agent-365-blog/whats-new-in-microsoft-agent-365-ignite-2026/4571753">Agent 365 no Ignite</a> · <a href="https://www.microsoft.com/en-us/copilot/blog/2026/11/17/copilot-at-microsoft-ignite-expanding-whats-possible-with-intelligence-built-for-work/">Copilot no Ignite</a>.</p>
+    </div>
+</section>
 
 <!-- ===== S1 ===== -->
 <section class="section" id="s1">
@@ -673,13 +683,13 @@
     <div class="section-body">
         <h3>Modelos são <em>stateless</em></h3>
         <p>O modelo em si não guarda memória. Quando o ChatGPT ou o Copilot "lembram" de você, quem lembra é a aplicação em volta — perfil, banco de dados e histórico. O modelo, a cada chamada, precisa receber <strong>tudo de novo</strong>.</p>
-        <p>É por isso que conversas longas ficam progressivamente mais caras: cada nova mensagem reenvia todo o histórico anterior.</p>
+        <p>Em aplicações com cobrança por tokens, conversas longas podem custar mais quando mais histórico é enviado ao modelo. O contexto efetivamente enviado, o cache e a cobrança dependem da aplicação e do serviço.</p>
 
         <div class="diagram">
             <div class="diagram-flow">
                 <div class="diagram-box">Você pergunta</div>
                 <div class="diagram-arrow">→</div>
-                <div class="diagram-box">Todo o contexto é reenviado</div>
+                <div class="diagram-box">A aplicação envia contexto relevante</div>
                 <div class="diagram-arrow">→</div>
                 <div class="diagram-box highlight">Modelo raciocina</div>
                 <div class="diagram-arrow">→</div>
@@ -689,7 +699,7 @@
         </div>
 
         <h3>Nem todo token custa igual</h3>
-        <p>Os multiplicadores abaixo são a referência praticada pelos modelos Anthropic e ilustram bem a lógica geral do mercado:</p>
+        <p>Os multiplicadores abaixo são apenas uma ilustração de preços relativos, não uma tabela universal. Tarifas e condições de cache variam por modelo, fornecedor, duração do cache e contrato.</p>
 
         <div class="table-wrap">
         <table>
@@ -705,19 +715,19 @@
 
         <div class="box box-danger">
             <div class="box-title">🚨 A armadilha do cache barato</div>
-            <p>Cache custa apenas 0,10× — mas volume vence desconto. Em um caso real analisado, o <em>cached read</em> movimentava <strong>3,7 bilhões de tokens</strong> e, mesmo com 90% de desconto, respondia por <strong>56% da fatura total</strong>. Barato multiplicado por muito continua sendo caro.</p>
+            <p>Mesmo com desconto por token, um volume alto de leituras em cache pode representar parcela relevante da fatura. Consulte os preços e a telemetria do serviço utilizado.</p>
         </div>
 
         <h3>O gatilho de contexto longo</h3>
-        <p>Alguns modelos aplicam uma tabela de preço diferente quando a requisição ultrapassa <strong>272.000 tokens</strong>. Nesse ponto, o custo de input pode <strong>dobrar</strong> (por exemplo, de US$ 5 para US$ 10 por milhão) e o output sobe na mesma proporção.</p>
+        <p>Alguns modelos aplicam preços diferentes para contextos longos. Limiares, tarifas e a forma de aplicação variam conforme o modelo e o fornecedor; consulte a tabela vigente antes de estimar o custo.</p>
 
         <div class="box box-success">
             <div class="box-title">✅ Regra prática</div>
-            <p>Mantenha as requisições confortavelmente abaixo do limite de contexto longo. Ultrapassá-lo por poucos milhares de tokens pode custar o dobro pela requisição inteira.</p>
+            <p>Monitore o tamanho das requisições e verifique se o modelo utilizado tem uma faixa de preço específica para contextos longos.</p>
         </div>
 
         <h3>Créditos, em termos simples</h3>
-        <p>Tanto os <strong>Copilot Credits</strong> quanto os <strong>GitHub AI Credits</strong> equivalem a <strong>US$ 0,01 cada</strong> no modelo pay-as-you-go. São <em>pools</em> separados, mas com a mesma unidade — o que facilita as contas.</p>
+        <p><strong>Copilot Credits</strong> e créditos de outros serviços são unidades de cobrança distintas. Consulte as tabelas e condições comerciais de cada produto; não presuma equivalência ou compartilhamento de saldo.</p>
 
         <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
     </div>
@@ -761,10 +771,10 @@
         <ol class="steps">
             <li><strong>Reduza a frequência das automações.</strong> Costuma ser a alavanca de maior impacto. Um fluxo que roda de hora em hora e passa a rodar a cada 4 horas corta 75% do consumo. Pergunte-se: o negócio realmente precisa dessa latência?</li>
             <li><strong>Escolha o modelo certo para a tarefa.</strong> Classificação, extração, resumo e triagem funcionam bem com modelos leves. Reserve os modelos de fronteira para raciocínio complexo, síntese e decisões. Trocar um modelo premium por um leve em tarefas rotineiras pode representar milhares de dólares por mês.</li>
-            <li><strong>Envie apenas o que a tarefa exige.</strong> Filtre antes de enviar. Não jogue a base inteira no prompt quando cinco registros resolvem. Lembre-se do caso em que o cache representou 56% da fatura.</li>
+            <li><strong>Envie apenas o que a tarefa exige.</strong> Filtre antes de enviar. Não jogue a base inteira no prompt quando cinco registros resolvem. Monitore também o custo do cache.</li>
             <li><strong>Coloque uma verificação de saída antecipada.</strong> A automação deve primeiro perguntar "há algo novo?". Se não houver, encerra sem consumir tokens de raciocínio. Automações agendadas frequentemente gastam a maior parte do orçamento processando o vazio.</li>
             <li><strong>Ajuste o nível de esforço (<em>reasoning effort</em>).</strong> O mesmo modelo em esforço <code>max</code> pode consumir dezenas de vezes mais tokens do que em <code>medium</code>. Para tarefas determinísticas, esforço alto raramente melhora o resultado.</li>
-            <li><strong>Fique abaixo do limite de contexto longo.</strong> Ultrapassar 272 mil tokens muda a faixa de preço da requisição inteira.</li>
+            <li><strong>Monitore o contexto longo.</strong> Verifique os limiares e as condições de preço do modelo utilizado.</li>
         </ol>
 
         <div class="compare-grid">
@@ -920,10 +930,10 @@
             <thead><tr><th>Superfície</th><th>Modelo de cobrança</th><th>Implicação de custo</th></tr></thead>
             <tbody>
                 <tr><td><strong>Copilot Chat</strong></td><td><span class="badge badge-green">Sem licença adicional</span></td><td>Ponto de entrada sem custo incremental</td></tr>
-                <tr><td><strong>Microsoft 365 Copilot</strong></td><td><span class="badge badge-green">Flat por usuário</span></td><td>Uso intensivo não aumenta a fatura</td></tr>
+                <tr><td><strong>Microsoft 365 Copilot</strong></td><td><span class="badge badge-green">Assinatura por usuário</span></td><td>Recursos incluídos na licença; algumas experiências têm cobrança adicional por uso</td></tr>
                 <tr><td><strong>Copilot Studio</strong></td><td><span class="badge badge-orange">Por consumo</span></td><td>Fluxos determinísticos reduzem o gasto</td></tr>
-                <tr><td><strong>Copilot Cowork</strong></td><td><span class="badge badge-orange">Créditos</span></td><td>Cobrado por complexidade do prompt</td></tr>
-                <tr><td><strong>Agentes / APIs</strong></td><td><span class="badge badge-red">Tokens</span></td><td>Maior variabilidade e maior risco</td></tr>
+                <tr><td><strong>Copilot Cowork</strong></td><td><span class="badge badge-orange">Créditos</span></td><td>Consumo varia conforme modelos, contexto, ferramentas e execução</td></tr>
+                <tr><td><strong>Agentes / APIs</strong></td><td><span class="badge badge-red">Varia por serviço</span></td><td>Verifique medidores, preços e limites aplicáveis</td></tr>
             </tbody>
         </table>
         </div>
@@ -941,7 +951,7 @@
 <section class="section" id="s7">
     <div class="section-header"><span class="sec-num">7</span><h2>Copilot Cowork — bandas de crédito</h2></div>
     <div class="section-body">
-        <p>O Copilot Cowork cobra por <strong>complexidade do prompt</strong>, e não por número de mensagens. O consumo é determinado pelo modelo selecionado, pelo tempo de execução, pelas ferramentas acessadas e pelo volume de contexto.</p>
+        <p>O consumo do Copilot Cowork depende dos modelos utilizados, da recuperação de contexto, das chamadas de ferramentas e do tempo de execução. As faixas a seguir são <strong>exemplos ilustrativos, não preços garantidos</strong>; use a telemetria e os termos comerciais vigentes para dimensionar custos.</p>
 
         <div class="zone-grid">
             <div class="zone-card zone-green">
@@ -958,7 +968,7 @@
             </div>
         </div>
 
-        <p>Um prompt pesado pode custar cerca de <strong>10× um prompt leve</strong>. Formular bem a pergunta — delimitando escopo, fontes e formato de saída — é, na prática, uma medida de controle de custo.</p>
+        <p>Formular bem a solicitação, delimitando escopo, fontes e formato de saída, pode ajudar no controle de custo. Compare tarefas reais no painel de consumo.</p>
 
         <h3>Modelos de compra</h3>
         <div class="compare-grid">
@@ -1101,7 +1111,7 @@
                 <tr><td>Agendar automações em intervalos curtos "por segurança"</td><td>Multiplicação direta do custo</td><td>Alinhar a frequência ao SLA real do processo</td></tr>
                 <tr><td>Manter esforço máximo em tarefas simples</td><td>Consumo de tokens dezenas de vezes maior</td><td>Reduzir o esforço e validar a qualidade do resultado</td></tr>
                 <tr><td>Deixar o agente raciocinar em processos fixos</td><td>Variabilidade e desperdício</td><td>Converter em workflow com passos declarados</td></tr>
-                <tr><td>Ignorar o limite de contexto longo</td><td>Faixa de preço dobrada na requisição inteira</td><td>Monitorar o tamanho da requisição e segmentar</td></tr>
+                <tr><td>Ignorar as regras de contexto longo</td><td>Possível mudança de faixa de preço, conforme o serviço</td><td>Monitorar o tamanho e consultar as tarifas aplicáveis</td></tr>
                 <tr><td>Otimizar sem telemetria</td><td>Esforço aplicado no lugar errado</td><td>Medir primeiro, agir depois, revisar sempre</td></tr>
             </tbody>
         </table>
@@ -1109,7 +1119,7 @@
 
         <div class="box box-success">
             <div class="box-title">🎯 Resumo executivo</div>
-            <p>A maior parte da economia vem de três decisões: <strong>rodar menos vezes</strong>, <strong>usar o modelo adequado</strong> e <strong>enviar menos contexto</strong>. Reduções de 50% na fatura mensal são alcançáveis em poucas semanas, sem perda relevante de qualidade — desde que exista telemetria para orientar as escolhas.</p>
+            <p>Três alavancas para investigar são <strong>rodar menos vezes</strong>, <strong>usar o modelo adequado</strong> e <strong>enviar menos contexto</strong>. Meça custo e qualidade antes e depois; os resultados variam conforme a carga de trabalho.</p>
         </div>
 
         <a href="#toc" class="back-to-toc">⬆ Voltar ao Índice</a>
